@@ -1,0 +1,274 @@
+ body {
+ 	background: url(../img/loginbg.jpg) center 0 no-repeat;
+ 	width: 100%;
+ 	height: 100%;
+ 	background-size: cover;
+ 	position: absolute;
+ 	z-index: -1;
+ 	filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='img/loginbg.jpg', sizingMethod='scale');
+ }
+ 
+ .container {
+ 	padding: 0 0.3rem;
+ 	box-sizing: border-box;
+ }
+ 
+ .top {
+ 	text-align: right;
+ 	margin-top: 0.5rem;
+ 	margin-right: 0.15rem;
+ }
+ 
+ .top a {
+ 	color: #12599B;
+ 	font-size: 0.26rem;
+ }
+ 
+ .banner {
+ 	margin-top: 1.5rem;
+ }
+ 
+ .banner div:first-of-type {
+ 	display: flex;
+ 	justify-content: initial;
+ 	align-content: center;
+ 	align-items: center;
+ }
+ 
+ .banner .logo {
+ 	margin-left: 0.5rem;
+ 	display: inline-block;
+ 	width: 1.06rem;
+ 	height: 0.3rem;
+ 	margin-right: 0.15rem;
+ }
+ 
+ .banner h2 {
+ 	font-size: 0.34rem;
+ 	color: #333333;
+ }
+ 
+ .banner div:last-child {
+ 	margin-top: 0.25rem;
+ 	margin-left: 0.5rem;
+ 	color: #999999;
+ 	font-size: 0.22rem;
+ }
+ 
+ .formdata {
+ 	width: 100%;
+ 	height: auto;
+ 	margin-top: 1rem;
+ 	padding: 0 0.7rem;
+ 	box-sizing: border-box;
+ }
+ 
+ .line {
+ 	width: 100%;
+ 	height: 0.9rem;
+ 	line-height: 0.9rem;
+ 	/*padding: 0 10rem;*/
+ 	box-sizing: border-box;
+ 	display: flex;
+ 	justify-content: inherit;
+ 	align-items: center;
+ }
+ 
+ .line s {
+ 	margin: 0.1rem 0.35rem 0 0;
+ }
+ 
+ .line .tel-acount {
+ 	display: inline-block;
+ 	width: 0.27rem;
+ 	height: 0.35rem;
+ 	background: url(../img/account_img.png) no-repeat center 0;
+ 	/*background-size: cover;*/
+ 	background-size: 100% 100%;
+ }
+ 
+ .line .tel-img {
+ 	display: inline-block;
+ 	width: 0.27rem;
+ 	height: 0.35rem;
+ 	background: url(../img/shoujihaoma.png) no-repeat center 0;
+ 	background-size: cover;
+ }
+ 
+ .line .mima-img {
+ 	display: inline-block;
+ 	width: 0.27rem;
+ 	height: 0.35rem;
+ 	background: url(../img/mima.png) no-repeat center 0;
+ 	background-size: cover;
+ }
+ 
+ .button {
+ 	/*position: absolute;
+ 	right: 0;
+ 	top: 0.5rem;
+ 	border: none;
+ 	width: 1rem;
+ 	height: 1rem;
+ 	background: url(../img/xiayibu.png) no-repeat center 0;
+ 	background-size: cover;
+ 	padding: 0;*/
+ 	position: fixed;
+ 	right: 1rem;
+ 	bottom: 4rem;
+ 	border: none;
+ 	width: 1rem;
+ 	height: 1rem;
+ 	background: url(../img/xiayibu.png) no-repeat center 0;
+ 	background-size: cover;
+ 	padding: 0;
+ }
+ 
+ .line .psd-img {
+ 	display: inline-block;
+ 	width: 0.30rem;
+ 	height: 0.35rem;
+ 	background: url(../img/mima.png) no-repeat center 0;
+ 	background-size: cover;
+ }
+ 
+ .line p {
+ 	/*display: flex;
+			justify-content: inherit;
+			align-items: center;*/
+ 	display: inline-block;
+ 	width: 4.85rem;
+ 	height: 0.9rem;
+ 	line-height: 0.9rem;
+ 	border-bottom: 0.01rem solid #ABABAB;
+ 	box-sizing: border-box;
+ }
+ 
+ .line .inputval {
+ 	width: 4.85rem;
+ 	height: 0.6rem;
+ 	border: none;
+ 	box-sizing: border-box;
+ }
+ 
+ .line .inputval {
+ 	width: 4.85rem;
+ 	height: 0.6rem;
+ 	border: none;
+ 	box-sizing: border-box;
+ 	background: none;
+ }
+ 
+ .psdline p {
+ 	display: flex;
+ 	justify-content: space-between;
+ 	align-items: center;
+ }
+ 
+ .psdline .inputval {
+ 	display: inline-block;
+ 	width: 4.3rem;
+ 	height: 0.6rem;
+ 	border: none;
+ 	box-sizing: border-box;
+ }
+ 
+ .line .inner {
+ 	position: relative;
+ }
+ 
+ .line input {
+ 	color: #333333;
+ 	font-size: 0.26rem;
+ }
+ 
+ .requestCode {
+ 	color: #12599B;
+ 	font-size: 0.22rem;
+ 	position: absolute;
+ 	right: 0.15rem;
+ 	top: 0;
+ }
+ 
+ .line .inner {
+ 	position: relative;
+ }
+ 
+ .line input {
+ 	color: #333333;
+ 	font-size: 0.26rem;
+ }
+ 
+ .requestCode {
+ 	color: #12599B;
+ 	font-size: 0.22rem;
+ 	position: absolute;
+ 	right: 0.15rem;
+ 	top: 0;
+ }
+ 
+ .noclick {
+ 	pointer-events: none;
+ }
+ 
+ .lastline {
+ 	margin-top: 0.6rem;
+ 	position: relative;
+ }
+ 
+ .button {
+ 	position: absolute;
+ 	right: 0;
+ 	top: 0.5rem;
+ 	border: none;
+ 	width: 1rem;
+ 	height: 1rem;
+ 	background: url(../img/xiayibu.png) no-repeat center 0;
+ 	background-size: cover;
+ 	padding: 0;
+ }
+ 
+ #Txtidcode {
+ 	width: 2.6rem;
+ }
+ 
+ .hide {
+ 	display: none;
+ }
+ 
+ #accass {
+ 	margin-top: 0.3rem;
+ 	width: 0.3rem;
+ 	height: 0.3rem;
+ }
+ 
+ .btn {
+ 	position: fixed;
+ 	bottom: 1.2rem;
+ 	left: 0;
+ 	height: 0.9rem;
+ 	width: 100%;
+ 	text-align: center;
+ }
+ .forget{
+ 	margin-top: 0.3rem;
+ 	text-align: right;
+ 	color: #0074D9;
+ 	font-size: 0.26rem;
+ }
+ .btn button {
+ 	position: fixed;
+ 	right: 1rem;
+ 	bottom: 4rem;
+ 	border: none;
+ 	width: 1rem;
+ 	height: 1rem;
+ 	background: url(../img/xiayibu.png) no-repeat center 0;
+ 	background-size: cover;
+ 	padding: 0;
+ }
+ 
+ .btn .btnhover {
+ 	background: #12599B;
+ 	color: #FFFFFF;
+ }

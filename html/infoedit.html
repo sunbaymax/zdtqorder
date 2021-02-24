@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<meta content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no" name="viewport">
+		<meta content="yes" name="apple-mobile-web-app-capable">
+		<meta content="black" name="apple-mobile-web-app-status-bar-style">
+		<meta content="telephone=no" name="format-detection">
+		<meta content="email=no" name="format-detection">
+		<meta name="description" content="中集冷云冷链运输微信下单平台" />
+		<meta name="keywords" content="微信下单，冷链运输 " />
+		<meta name=" author " content="中集冷云 " />
+		<title>信息录入</title>
+		<link rel="stylesheet " href="../css/base.css ">
+		<link rel="stylesheet " href="../css/InfoInput.css">
+	</head>
+	<style>
+
+	</style>
+
+	<body>
+		<div class="container">
+			<div class="titile">
+				<img src="../img/dizhixinxi.png" />
+				<h3>地址信息</h3>
+			</div>
+			<div class="content">
+				<ul class="inner">
+					<li>
+						<s class="tu1"></s><input type="text" class="inputval" placeholder="客户账号" />
+					</li>
+					<li class="line2">
+						<s class="tu2"></s><input type="text" class="inputval" placeholder="姓名" />
+						<a href="AddressBook.html" class="chooseaddbook">地址簿</a>
+					</li>
+					<li>
+						<s class="tu3"></s><input type="text" class="inputval" placeholder="手机号" />
+					</li>
+					<li>
+						<s class="tu4"></s><input type="text" class="inputval" placeholder="公司名称" />
+					</li>
+					<li class="line5">
+						<s class="tu5"></s><input type="text" class="inputval" placeholder="城市/区域" /><img src="../img/xiala.png" />
+					</li>
+					<li>
+						<s class="tu6"></s><input type="text" class="inputval" placeholder="详细地址" />
+					</li>
+				</ul>
+
+			</div>
+			<div class="operation">
+				<p>
+					<!-- html -->
+					<span class="Cbox">
+						       <input type="checkbox"class="Checkbox" id="check1">
+						       <label for="check1"></label>
+						     
+						</span>
+					<span class="wen">设为默认寄件地址</span>
+					<span class="resert">清空当前信息</span>
+				</p>
+			</div>
+			<div class="btn">
+				<button class="btn-ok">保存</button>
+			</div>
+		</div>
+	</body>
+	<script src="../js/flexible.js "></script>
+	<script src="../js/jquery-1.11.0.js"></script>
+	<script>
+		$(function() {
+            //清除表单
+			$('.resert').on("click", function() {
+				$("input").each(function() {
+					$(this).val('');
+				});
+			})
+			
+		})
+	</script>
+
+</html>
