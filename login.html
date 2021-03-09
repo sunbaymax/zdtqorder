@@ -123,6 +123,7 @@
 									localStorage.setItem('Acount',obj.AccountNumber);
 									localStorage.setItem('Telphone',$(".accept").val())
 									toastr.success(res.message);
+//									return false;
 									setTimeout(function() {
 										window.location.replace('html/order.html'); 
 									}, 1000);

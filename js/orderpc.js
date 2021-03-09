@@ -1,90 +1,6 @@
 $(function() {
-//  localStorage.setItem('Acount', '20200148');
-//	localStorage.setItem('Telphone', 'zdtqyy');
-//	localStorage.setItem('zdtqopenid', '20200148zdtqyy');
-	localStorage.setItem('state', 'show')
-	var _account = localStorage.getItem('Acount');
-	var _tel = localStorage.getItem('Telphone');
-	localStorage.removeItem('Inmain')
-	var _openid = localStorage.getItem('zdtqopenid');
-	window.onload = function(){
-		location.replace('orderpc.html')
-     	return false;
-    if(!isMobile()){
-    	
-//     $('#xmmobile').remove()
-//	   	$.ajax({
-//			type: "post",
-//			url: "http://out.ccsc58.cc/DATA_PORT_WEIXIN_1.01/Clinical_ItemList.php",
-//			async: false,
-//			data: {
-//				state: 'itemlist',
-//				username:'zdtqyy'
-//			},
-//			dataType: 'JSON',
-//			success: function(res) {
-//				
-//				if(res.code==200){
-//					 $('.xiangmunum select').html("");
-//					 $('.xiangmunum select').prepend("<option  value='0'>请选择项目编号</option>"); //添加第一个option值
-//					$.each(res.data, function(index, val) {
-//						$('.xiangmunum select').append('<option value="'+val.item+'">'+val.item+'</option>')
-//					});
-//				}else{
-//					alert('数据请求错误，请截图联系客服');
-//					return false;
-//				}
-//	           
-//			},
-//			error: function(err) {
-//	
-//			}
-//		});
 
-    }else{
-    	
-    	 $('#xmwechact').remove()
-    	   $('.cargoinfo .xmwechat').hide()
-    	  	$.ajax({
-				type: "post",
-				url: "http://out.ccsc58.cc/DATA_PORT_WEIXIN_1.01/Clinical_ItemList.php",
-				async: false,
-				data: {
-					state: 'itemlist',
-					username:_account
-				},
-				dataType: 'JSON',
-				success: function(res) {
-					
-					if(res.code==200){
-						 $('.xiangmunum datalist').empty();
-						$.each(res.data, function(index, val) {
-							$('.xiangmunum datalist').append('<option value="'+val.item+'"></option>')
-						});
-					}else{
-						alert('数据请求错误，请截图联系客服');
-						return false;
-					}
-		           
-				},
-				error: function(err) {
-		
-				}
-			});
-    }
-}
-function isMobile() {
-  return window.screen.availWidth < 768;
-}
 
-function isWeiXin(){
-    var ua = window.navigator.userAgent.toLowerCase();
-    if(ua.match(/MicroMessenger/i) == 'micromessenger'){
-        return true;
-    }else{
-        return false;
-    }
-}
     if(!localStorage.getItem('Acount')){
     	location.href='../login.html'
     }
@@ -97,7 +13,11 @@ function isWeiXin(){
 		iframe.parentNode.removeChild(iframe);
 	}
 
-
+	localStorage.setItem('state', 'show')
+	var _account = localStorage.getItem('Acount');
+	var _tel = localStorage.getItem('Telphone');
+	localStorage.removeItem('Inmain')
+	var _openid = localStorage.getItem('zdtqopenid');
     
 	if(sessionStorage.getItem('order')) {
 		var hisorder = JSON.parse(sessionStorage.getItem('order'));
@@ -149,7 +69,7 @@ function isWeiXin(){
 			},
 			dataType: "json",
 			success: function(res) {
-				console.log(res.code);
+//				console.log(res.code);
 				localStorage.removeItem('SendaddData');
 
 				if(res.code == '300') {
@@ -206,16 +126,14 @@ function isWeiXin(){
 	if(nickname != '' || nickname != null) {
 		let _account=localStorage.getItem('Telphone');
 		$('.menu_footer .turename').text(_account)
-		$('.menu_footer .turetel').text('正大')
+		$('.menu_footer .turetel').text('正大天晴')
 	}
 	var b = (JSON.stringify(objboxsize) == "{}");
 	var corderboxs = [];
 	var cobjbox = {};
 	if($('#Goodstypes').text() == '请选择货物类型' && $('#Tempqu').text() == '请选择温区' && $('#ChooseTimes').text() == '预约取件时间') {
 		$('.btndiv button').attr('disabled', "disabled");
-		console.log(123)
 	} else {
-			console.log(1234)
 		if(corderboxs.length > 1 || !b) {
 			$('.btndiv button').removeAttr('disabled');
 		} else if(corderboxs.length > 1 || b) {
@@ -254,7 +172,6 @@ function isWeiXin(){
 			success: function(res) {
 				if(res.code == '300') {
 
-					console.log(res)
 					location.reload();
 					//					}
 				} else if(res.code == "200") {
@@ -280,38 +197,6 @@ function isWeiXin(){
 		})
 
 	})
-
-//	$("header label").on('click', function() {
-//		$('.acountlist .send .acounts').html('');
-//		$('.acountlist').toggle();
-//		var Acountlists = '';
-//		$.ajax({
-//			type: "post",
-//			url: "http://out.ccsc58.cc/DATA_PORT_WECHAT_1.03/Login.php",
-//			async: true,
-//			data: {
-//				OpenId: _openid,
-//				State: "show"
-//			},
-//			dataType: "json",
-//			success: function(res) {
-//				if(res.code == '400') {
-//					location.href = '../MobileBind.html?openid=' + _openid;
-//					localStorage.clear();
-//				}
-//				$.each(res.data.AccountNumber, function(index, value) {
-//					Acountlists = '<li>';
-//					Acountlists += value;
-//					Acountlists += '</li>';
-//					$('.acountlist .send .acounts').append(Acountlists);
-//				});
-//
-//			},
-//			error: function(err) {
-//				console.log(err)
-//			}
-//		});
-//	})
 
 	function GetDateStr(AddDayCount) {
 		var dd = new Date();
@@ -459,12 +344,12 @@ function isWeiXin(){
 		}, 0);
 	})
     let obj= JSON.parse(localStorage.getItem('myNumobj'))
-    let mynum=obj.myNum
+    let mynum=obj.AccountNumber
 	//点击温度区间
 	var wdqj = [];
 	$.ajax({
 		type: "post",
-		url: "http://out.ccsc58.cc/DATA_PORT_WECHAT_1.03/Wdqj.php",
+		url: "http://out.ccsc58.cc/DATA_PORT_WECHAT_1.03/Clinical_Wdqj.php",
 		async: false,
 		data: {
 			state: 'wdqj',
@@ -472,9 +357,12 @@ function isWeiXin(){
 		},
 		dataType: 'JSON',
 		success: function(res) {
-
+			$('.choosewenqu .pcwenqu').html("");
+			$('.choosewenqu .pcwenqu').prepend("<option  value='请选择温区'>请选择温区</option>"); //添加第一个option值
 			$.each(res.data, function(index, val) {
-
+				$('.choosewenqu .pcwenqu').append('<option value="'+val.WDQJ+'">'+val.WDQJ+'</option>')
+			});
+			$.each(res.data, function(index, val) {
 				wdqj.push(val.WDQJ);
 			});
 
@@ -497,7 +385,7 @@ function isWeiXin(){
 		$(".BoxType").hide();
 		$(".TimeType").hide();
 		$(".BoxSize").hide();
-		if($('#Goodstypes').text() == '请选择货物类型' && $('#Temparea').text() == '请选择温区' && $('#BoxType').text() == '请选择箱型' && $('#ChooseTimes').text() == '预约取件时间') {
+		if($('#Goodstypes').text() == '请选择货物类型' && $('.choosewenqu .pcwenqu').val() == '请选择温区' && $('#BoxType').text() == '请选择箱型' && $('#ChooseTimes').text() == '预约取件时间') {
 			$('.btndiv button').attr('disabled', true);
 		} else {
 			$('.btndiv button').removeAttr("disabled");
@@ -616,7 +504,7 @@ function isWeiXin(){
 	});
 	//监听备注录入
 	$(".note .time-right textarea").bind("input propertychange", function(event) {
-		if($('#Goodstypes').text() == '请选择货物类型' && $('#Temparea').text() == '请选择温区' && $('#BoxType').text() == '请选择箱型' && $('#ChooseTimes').text() == '预约取件时间') {
+		if($('#Goodstypes').text() == '请选择货物类型' &&$('.choosewenqu .pcwenqu').val() == '请选择温区' && $('#BoxType').text() == '请选择箱型' && $('#ChooseTimes').text() == '预约取件时间') {
 			$('.btndiv button').attr('disabled', true);
 		} else {
 			$('.btndiv button').removeAttr("disabled");
@@ -834,14 +722,14 @@ function isWeiXin(){
 	//根据温区查找箱型
 	function tempboxtype(wdqj) {
         let obj= JSON.parse(localStorage.getItem('myNumobj'))
-        let mynum=obj.myNum
+        let mynum=obj.AccountNumber
 //		$('body,html').animate({
 //			scrollTop: 0
 //		}, 0);
-		var _wdqj = wdqj;
+		var _wdqj = $('.pcwenqu').val();
 		$.ajax({
 			type: "post",
-			url: "http://out.ccsc58.cc/DATA_PORT_WECHAT_1.03/Wdqj.php",
+			url: "http://out.ccsc58.cc/DATA_PORT_WECHAT_1.03/Clinical_Wdqj.php",
 			data: {
 				state: "box",
 				WDQJ: _wdqj,
@@ -1007,7 +895,7 @@ function isWeiXin(){
 			$(corderboxs).each(function(index, value) {
 				let str = '';
 				if(index == (corderboxs.length - 1)) {
-					str = `<li class="childbox orderbox">
+					str = `<li class="childbox orderbox li">
 							<div class='d1'>
 								<img src="../img/box.png" class="img_temp view"  />
 							</div>
@@ -1024,7 +912,7 @@ function isWeiXin(){
 						</li>`;
 
 				} else {
-					str = `<li class="childbox orderbox">
+					str = `<li class="childbox orderbox li">
 							<div>
 								<img src="../img/box.png" class="img_temp" />
 							</div>
@@ -1197,7 +1085,7 @@ function isWeiXin(){
 			$(corderboxs).each(function(index, value) {
 				let str = '';
 				if(index == (corderboxs.length - 1)) {
-					str = `<li class="childbox orderbox">
+					str = `<li class="childbox orderbox li">
 							<div class='d1'>
 								<img src="../img/box.png" class="img_temp view"  />
 							</div>
@@ -1214,7 +1102,7 @@ function isWeiXin(){
 						</li>`;
 
 				} else {
-					str = `<li class="childbox orderbox">
+					str = `<li class="childbox orderbox li">
 							<div>
 								<img src="../img/box.png" class="img_temp" />
 							</div>
@@ -1236,32 +1124,45 @@ function isWeiXin(){
 		}
 
 	});
-	var hiswd = '';
-	$('#Tempqu').on("click", function() {
-		hiswd = $(this).text()
-	})
+//	var hiswd = '';
+//	$('.pcwenqu').on("click", function() {
+//		hiswd = $(this).val()
+//	})
 	//选择温区
-	var mobileSelect1 = new MobileSelect({
-		trigger: '#Tempqu',
-		title: '',
-		wheels: [{
-			data: wdqj
-		}],
-		position: [0], //初始化定位 打开时默认选中的哪个 如果不填默认为0
-		transitionEnd: function(indexArr, data) {
-			//console.log(data);
-		},
-		callback: function(indexArr, data) {
-
-			if(hiswd != data || hiswd == "请选择温区") {
+	$('.pcwenqu').change(function() {
+	    let hiswd=$(this).val()
+	    
+	    if(hiswd != "请选择温区") {
 				corderboxs.splice(0, corderboxs.length);
 				$('.orderbox').remove();
 				$('.CTemporSize .tempbox').removeClass('activeexist');
 
 			}
 			$('#Tempqu').addClass('chooseTemp');
-		}
-	});
+	})
+	
+	
+//	var mobileSelect1 = new MobileSelect({
+//		trigger: '#Tempqu',
+//		title: '',
+//		wheels: [{
+//			data: wdqj
+//		}],
+//		position: [0], 
+//		transitionEnd: function(indexArr, data) {
+//			//console.log(data);
+//		},
+//		callback: function(indexArr, data) {
+//
+//			if(hiswd != data || hiswd == "请选择温区") {
+//				corderboxs.splice(0, corderboxs.length);
+//				$('.orderbox').remove();
+//				$('.CTemporSize .tempbox').removeClass('activeexist');
+//
+//			}
+//			$('#Tempqu').addClass('chooseTemp');
+//		}
+//	});
 	//点击下单
 	$('.btndiv button').on('click', function() {
 		if(JSON.parse(localStorage.getItem('SendaddData'))) {
@@ -1294,7 +1195,7 @@ function isWeiXin(){
 		var xmbh = $("#xmbh").val();
 		var GoodType = $("#Goodstypes").text();
 		var GoodName = $("#goodname").val();
-		var TempArea = $("#Tempqu").text();
+		var TempArea = $(".pcwenqu").val();
 		var iswdj = $("#usewdj").attr("isuse") == 1 ? "使用" : "不使用";
 		var isInsure = $("#clicktoubao").attr("istoubao") == 1 ? "投保" : "不投保";
 		var Insuremoney = $('.money').val();
@@ -1341,7 +1242,7 @@ function isWeiXin(){
 			} else if(b && corderboxs.length >= 1) {
 				console.log("箱型数量");
 				_data = {
-					AccountNumber: _account,
+					AccountNumber: _tel,
 					AccountTelephone: _tel,
 					Token: "KHWX",
 					Manager: _Manager,
@@ -1371,7 +1272,7 @@ function isWeiXin(){
 				console.log("箱型尺寸");
 
 				_data = {
-					AccountNumber: _account,
+					AccountNumber: _tel,
 					AccountTelephone: _tel,
 					Token: "KHWX",
 					Manager: _Manager,
@@ -1401,7 +1302,7 @@ function isWeiXin(){
 
 				console.log("尺寸及箱型数量");
 				_data = {
-					AccountNumber: _account,
+					AccountNumber: _tel,
 					AccountTelephone: _tel,
 					Token: "KHWX",
 					Manager: _Manager,
@@ -1431,6 +1332,7 @@ function isWeiXin(){
 			}
 
 			console.log(_data)
+//			return false;
 			$.ajax({
 				type: "post",
 				url: "http://out.ccsc58.cc/DATA_PORT_WECHAT_1.03/Clinical_Order.php",
@@ -1440,13 +1342,13 @@ function isWeiXin(){
 					console.log(res)
 					if(res.code == '200') {
 						var nowtime = getNowFormatDate();
-						var openids = ['oTarnv5aWyxLcCENYrs5UOR3FqvQ','oTarnv-4gXJ3TRvg415ECeck61lQ'];
+						var openids = ['oTarnv5aWyxLcCENYrs5UOR3FqvQ','oTarnv-4gXJ3TRvg415ECeck61lQ','oTarnv0C23-4KCMdFeOiHu5Zu4AU','oTarnv66MV67GI9uZ637VSGu8G_A'];
 						for(i = 0; i < openids.length; i++) {
 							$.ajax({
 								type: "post",
 								url: 'http://www.ccsc58.cc/weixinnew/Push_message.php',
 								data: {
-									first: "您好，您有新的订单需要处理",
+									first: "您好，正大天晴有新的订单需要处理",
 									keyword1: res.ID,
 									keyword2: '微信下单',
 									keyword3: nowtime,

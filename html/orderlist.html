@@ -155,6 +155,9 @@
 			width: 1.2rem;
 			text-align: center;
 			margin: 0.2rem 0 0.15rem;
+			white-space: nowrap;/*内容超宽后禁止换行显示*/
+            overflow: hidden;/*超出部分隐藏*/
+            text-overflow:ellipsis;/*文字超出部分以省略号显示*/
 		}
 		
 		li .order-footer {
@@ -920,7 +923,7 @@
 							async: true,
 							data: {
 								Telephone: _tel,
-								AccountNumber: stracont,
+								AccountNumber: _account,
 								State: "all"
 							},
 							dataType: "json",
@@ -1032,7 +1035,7 @@
 							async: true,
 							data: {
 								Telephone: _tel,
-								AccountNumber: stracont,
+								AccountNumber: _account,
 								State: "all"
 							},
 							dataType: "json",
