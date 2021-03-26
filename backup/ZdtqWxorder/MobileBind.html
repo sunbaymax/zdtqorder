@@ -1,0 +1,721 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<meta content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no" name="viewport">
+		<meta content="yes" name="apple-mobile-web-app-capable">
+		<meta content="black" name="apple-mobile-web-app-status-bar-style">
+		<meta content="telephone=no" name="format-detection">
+		<meta content="email=no" name="format-detection">
+		<meta name="description" content="中集冷云冷链运输微信下单平台" />
+		<meta name="keywords" content="微信下单，冷链运输 " />
+		<meta name=" author " content="中集冷云 " />
+		<title>手机号绑定</title>
+		<link rel="stylesheet " href="css/base.css ">
+		<link rel="stylesheet " href="css/jquery.idcode.css">
+	</head>
+	<style>
+		body {
+			background: url(img/loginbg.jpg) center 0 no-repeat;
+			width: 100%;
+			height: 100%;
+			background-size: cover;
+			position: absolute;
+			z-index: -1;
+			filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='img/loginbg.jpg', sizingMethod='scale');
+		}
+		
+		.view {
+			width: 100%;
+			height: auto;
+			position: relative;
+		}
+		
+		.banner {
+			width: 100%;
+			height: auto;
+			padding: 2rem 0 0.4rem;
+			box-sizing: border-box;
+			text-align: center;
+			position: relative;
+		}
+		
+		.logo {
+			margin: 0 auto;
+			display: block;
+			height: 0.46rem;
+			width: 3.13rem;
+		}
+		
+		.formdata {
+			width: 100%;
+			height: auto;
+			padding: 0 1rem;
+			box-sizing: border-box;
+		}
+		
+		.line {
+			width: 100%;
+			height: 0.9rem;
+			line-height: 0.9rem;
+			/*padding: 0 10rem;*/
+			box-sizing: border-box;
+			display: flex;
+			justify-content: center;
+			align-items: center;
+		}
+		
+		.line s {
+			margin: 0.1rem 0.35rem 0 0;
+		}
+		
+		.line .account-img {
+			display: inline-block;
+			width: 0.27rem;
+			height: 0.35rem;
+			background: url(img/account_img.png) no-repeat center 0;
+			background-size: 100% 100%;
+		}
+		
+		.line .tel-img {
+			display: inline-block;
+			width: 0.27rem;
+			height: 0.35rem;
+			background: url(img/shoujihaoma.png) no-repeat center 0;
+			background-size: 100% 100%;
+		}
+		
+		.line .yanzheng-img {
+			display: inline-block;
+			width: 0.3rem;
+			height: 0.35rem;
+			background: url(img/yanzhengma.png) no-repeat center 0;
+			background-size: cover;
+		}
+		
+		.line .psd-img {
+			display: inline-block;
+			width: 0.30rem;
+			height: 0.35rem;
+			background: url(img/mima.png) no-repeat center 0;
+			background-size: cover;
+		}
+		
+		.line p {
+			/*display: flex;
+			justify-content: inherit;
+			align-items: center;*/
+			display: inline-block;
+			width: 4.85rem;
+			height: 0.9rem;
+			line-height: 0.9rem;
+			border-bottom: 0.01rem solid #999999;
+			box-sizing: border-box;
+		}
+		.banner .fanhuiimg{
+			position: absolute;
+			top: 0.3rem;
+			left: 0.3rem;
+			/*display: inline-block;*/
+			width: 0.3rem;
+		    height: 0.22rem;
+		    
+		}
+		.line .inputval {
+			width: 4.85rem;
+			height: 0.6rem;
+			border: none;
+			box-sizing: border-box;
+		}
+		
+		.psdline p {
+			display: flex;
+			justify-content: space-between;
+			align-items: center;
+		}
+		
+		.psdline .inputval {
+			display: inline-block;
+			width: 4.3rem;
+			height: 0.6rem;
+			border: none;
+			box-sizing: border-box;
+		}
+		
+		.psdline p .see {
+			display: inline-block;
+			width: 0.26rem;
+			height: 0.21rem;
+			background-image: url('img/see.png');
+			background-size: contain;
+		}
+		
+		.psdline p .nosee {
+			display: inline-block;
+			width: 0.26rem;
+			height: 0.13rem;
+			background-image: url('img/nosee.png');
+			background-size: contain;
+		}
+		
+		.line .inner {
+			position: relative;
+		}
+		
+		.line input {
+			color: #333333;
+			font-size: 0.26rem;
+		}
+		
+		.requestCode {
+			color: #12599B;
+			font-size: 0.22rem;
+			position: absolute;
+			right: 0.15rem;
+			top: 0;
+		}
+		
+		.noclick {
+			pointer-events: none;
+		}
+		
+		.lastline {
+			margin-top: 3rem;
+			/*position: relative;*/
+			text-align: center;
+		}
+		.msg{
+			color: #333333;
+			font-size:0.24rem ;
+			text-align: center;
+			margin-bottom: 0.6rem;
+			font-weight:bolder
+		}
+		.button {
+			position: fixed;
+			right: 1rem;
+			bottom: 3rem;
+			border: none;
+			width: 1rem;
+			height: 1rem;
+			background: url(img/bangding.png) no-repeat center 0;
+			background-size: cover;
+			padding: 0;
+		}
+		
+		#Txtidcode {
+			width: 2.6rem;
+		}
+		
+		.hide {
+			display: none;
+		}
+		
+		#accass {
+			margin-top: 0.3rem;
+			width: 0.3rem;
+			height: 0.3rem;
+		}
+		
+		.top-bind {
+			position: fixed;
+			top: 0.3rem;
+			right: 0.3rem;
+		}
+		
+		.top-bind a {
+			font-size: 0.28rem;
+			color: #12599B;
+		}
+		
+		.hide {
+			display: none;
+		}
+	</style>
+
+	<body>
+		<div class="view">
+			<!--<div class="top-bind">
+				<a href="javascript:void(0)" class="bind ">原客户账号登录 ></a>
+			</div>-->
+			<!-- 正文 -->
+			<div class="banner">
+				<img src="img/fanhui.png" class="fanhuiimg hide" id="fanhuiimg"/>
+				<img src="img/logo.png" class="logo" />
+			</div>
+			<div class="msg">新账号绑定</div>
+			<div class="formdata">
+				<div class="line">
+					<s class="account-img accountimg"></s>
+					<p>
+						<input type="number" class="inputval" placeholder="请录入客户账号" id="account" maxlength="8" />
+					</p>
+				</div>
+				<div class="line">
+					<s class="tel-img"></s>
+					<p>
+						<input type="number" class="inputval" placeholder="请录入手机号码" id="telphone" />
+					</p>
+
+				</div>
+				<div class="line">
+					<s class="yanzheng-img"></s>
+					<p class="inner">
+						<input type="text" class="inputval" placeholder="请输入验证码" id="Txtidcode" class="txtVerification" />
+						<span id="idcode"></span>
+						<img src="img/success.png" class="hide" id="accass" />
+					</p>
+
+				</div>
+
+				<div class="lastline">
+					<button class="button"></button>
+				</div>
+				
+			</div>
+		</div>
+	</body>
+	<script src="js/flexible.js "></script>
+	<script src="js/base.js "></script>
+	<script src="js/jquery-1.11.0.js"></script>
+	<script src="js/jquery.idcode.js"></script>
+	<script>
+		$.idcode.setCode();
+		$(function() {
+			//失去焦点时显示
+
+//			$("input").on("blur", function() {
+//				$(".button").show();
+//			});
+//			$("input").on("focus", function() {
+//				$(".button").hide();
+//			});
+            //固定按钮上移
+//			var win_h = $(window).height();//关键代码
+//			window.addEventListener('resize', function () {
+//			    if($(window).height() < win_h){
+//			        $('.lastline .button').hide();
+//			    }else{
+//			        $('.lastline .button').show();
+//			    }
+//			});
+
+			//失去焦点时显示
+			const h = document.body.scrollHeight // 用onresize事件监控窗口或框架被调整大小，先把一开始的高度记录下来
+			window.onresize = function() { // 如果当前窗口小于一开始记录的窗口高度，那就让当前窗口等于一开始窗口的高度
+				if(document.body.scrollHeight < h) {
+					document.body.style.height = h
+				}
+			}
+			window.alert = function(name) {
+				var iframe = document.createElement("IFRAME");
+				iframe.style.display = "none";
+				iframe.setAttribute("src", 'data:text/plain,');
+				document.documentElement.appendChild(iframe);
+				window.frames[0].window.alert(name);
+				iframe.parentNode.removeChild(iframe);
+			}
+
+			function UrlSearch() {
+				var name, value;
+				var str = location.href; //取得整个地址栏
+				var num = str.indexOf("?")
+				str = str.substr(num + 1); //取得所有参数 stringvar.substr(start [, length ]
+
+				var arr = str.split("&"); //各个参数放到数组里
+				for(var i = 0; i < arr.length; i++) {
+					num = arr[i].indexOf("=");
+					if(num > 0) {
+						name = arr[i].substring(0, num);
+						value = arr[i].substr(num + 1);
+						this[name] = value;
+					}
+				}
+			}
+			var Request = new UrlSearch(); //实例化
+			var _openId = Request.openid;
+			if(_openId==''){
+				_openId==localStorage.getItem('zdtqopenid');
+			}else{
+				_openId=Request.openid==undefined?localStorage.getItem('zdtqopenid'):Request.openid;
+			}
+			window.localStorage.setItem("openid", _openId);
+			$(".bind").on("click", function() {
+				window.location.href = 'OldLogin.html?openid=' + _openId;
+				localStorage.setItem('state', 'show');
+				sessionStorage.removeItem('Acount');
+			})
+//			$(".button").css("background-image", "url(img/bangding.png)");
+			$(".button").addClass('banding').removeClass("loginIn");
+			cunzai();
+			var _touxing = ''; //头像img
+			var _nickname = ''; //微信昵称
+			var iserror = true;
+
+			function cunzai() {
+				$.ajax({
+					type: "get",
+					url: "http://www.ccsc58.cc/weixinnew/Wxorder/api/Wxusersinfo.php",
+					async: true,
+					data: {
+						openid: _openId
+					},
+					dataType: "JSON",
+					success: function(res) {
+						if(res.code == '20000') {
+							_touxing = res.list.headimgurl;
+							_nickname = res.list.nickname;
+							var wxobject = {
+								touxing: _touxing,
+								nickname: _nickname
+							}
+							localStorage.setItem("wxobject", JSON.stringify(wxobject));
+						} else {
+							console.log("没有获取的微信信息");
+						}
+
+					},
+					error: function(err) {
+						console.log(err)
+					}
+
+				});
+			}
+			$.ajax({
+				type: "post",
+				url: "http://out.ccsc58.cc/DATA_PORT_WECHAT_1.03/Check.php",
+				async: true,
+				data: {
+					OpenId: _openId
+				},
+				dataType: "JSON",
+				success: function(res) {
+					console.log(res);
+
+					if(res.code == '200') {
+						$(".banner #fanhuiimg").removeClass('hide');
+						$.ajax({
+							type: "post",
+							url: "http://out.ccsc58.cc/DATA_PORT_WECHAT_1.03/Login.php",
+							async: true,
+							data: {
+								OpenId: _openId,
+								State: "show"
+							},
+							dataType: "JSON",
+							success: function(res) {
+								console.log(res);
+								if(res.code == '200') {
+									$("#telphone").val(res.data.Telephone);
+								}
+							},
+							error: function(err) {
+								console.log(err)
+							}
+						})
+						$('.top-bind').removeClass('hide');
+						if(localStorage.getItem('Acount') && localStorage.getItem('Telphone') && localStorage.getItem('state') == 'show' && getCookie("Mystate") == 'online') {
+							window.location.replace('html/order.html'); 
+							localStorage.removeItem('SendaddData');
+							localStorage.removeItem('getaddData');
+						} else if(localStorage.getItem('state') == 'xinzeng') {
+							console.log("xinzeng")
+							$(".account").val('');
+							if($('#telphone').val().length > 0) {
+								$('#telphone').attr("disabled", true);
+							}
+
+						} else {
+							location.href = "OldLogin.html?openid=" + _openId;
+						}
+					} else if(res.code == 300) {
+						window.location.href = 'setpwd.html';
+					} else {
+						localStorage.clear();
+						localStorage.removeItem('Telphone');
+						localStorage.removeItem('ChaddreType');
+						localStorage.removeItem('getaddData');
+						localStorage.removeItem('state');
+						sessionStorage.removeItem('Acount');
+						sessionStorage.removeItem('order');
+						$('.top-bind').addClass('hide');
+						localStorage.removeItem('Acount');
+						$(".msg").text('首次登录请绑定手机号');
+						
+						$(".button").addClass('banding').removeClass("loginIn");
+					}
+
+				},
+				error: function(err) {
+					console.log(err)
+				}
+			})
+
+			if(sessionStorage.getItem('Acount') && sessionStorage.getItem('yemian') == 'order') {
+				$("#account").val("");
+				sessionStorage.removeItem('yemian')
+			} else if(sessionStorage.getItem('Acount') && sessionStorage.getItem('yemian') == 'sendadd') {
+				var sAcount = JSON.parse(sessionStorage.getItem('Acount'));
+//				$("#account").val(sAcount);
+				sessionStorage.removeItem('yemian')
+			} else {
+				var sAcount = JSON.parse(sessionStorage.getItem('Acount'));
+				$("#account").val('');
+			}
+			if(localStorage.getItem('Telphone')) {
+				var telphone = JSON.parse(localStorage.getItem('Telphone'));
+				console.log(telphone)
+				$("#telphone").val(telphone);
+			}
+			var yanzheng = '';
+			var screenHeight;
+			if(window.innerHeight) {
+				screenHeight = window.innerHeight;
+			} else if((document.body) && (document.body.clientHeight)) {
+				screenHeight = document.body.clientHeight;
+			}
+			$("html,body").height(screenHeight);
+			document.body.addEventListener('touchmove', function(e) { 
+				e.preventDefault(); //阻止默认的处理方式(阻止下拉滑动的效果)
+			}, {
+				passive: false
+			}); //passive 参数不能省略，用来兼容ios和android
+
+			$('input').blur(function() {
+				$('body,html').animate({
+					scrollTop: 0
+				}, 0);
+			})
+			var Acountiserror=0;
+			$('#account').bind('input propertychange', function(){
+				if($(this).val().replace(/\s/g, "").length > 8) {
+					alert('非TMS公司账号，不清楚请联系中集冷云客服');
+					$(this).val('');
+					return false;
+				}
+			})
+			var AccountNumber = [];
+			$('#Txtidcode').bind('input propertychange', function() {
+				if(iserror) {
+					if($(this).val().replace(/\s/g, "").length == 5) {
+						var IsBy = $.idcode.validateCode();
+						if(IsBy) {
+							$("#ehong-code-tip-ck").text('');
+							$("#accass").show();
+							yanzheng = true;
+							var curracount = $("#account").val();
+
+							ischeckBanding();
+							console.log(AccountNumber);
+							if(in_array(curracount, AccountNumber)) {
+								localStorage.setItem("state", 'show');
+								sessionStorage.removeItem('Acount');
+//								$(".button").css("background-image", "url(img/xiayibu.png)");
+								$(".button").addClass('loginIn').removeClass("banding");
+								$('.lastline .button').show();
+							} else {
+//								$(".button").css("background-image", "url(img/bangding.png)");
+								$(".button").addClass('banding').removeClass("loginIn");
+								$('.lastline .button').show();
+							}
+
+						} 
+						else {
+							iserror = false;
+							setTimeout(function() {
+								iserror = true
+							}, 3000);
+							alert('验证码输入错误!');
+							$("#accass").hide();
+							yanzheng = false;
+						}
+					} else {
+						$("#accass").hide();
+						yanzheng = false;
+					}
+				}
+
+			})
+  
+			function ischeckBanding() {
+				$.ajax({
+					type: "post",
+					url: "http://out.ccsc58.cc/DATA_PORT_WECHAT_1.03/Login.php",
+					async: false,
+					data: {
+						OpenId: _openId,
+						State: "show"
+					},
+					dataType: "json",
+					success: function(res) {
+						if(res.code == 200) {
+							AccountNumber = res.data.AccountNumber;
+						} else {
+							AccountNumber = []
+						}
+					},
+					error: function(err) {
+						console.log(err)
+					}
+				});
+
+			}
+
+			function in_array(stringToSearch, arrayToSearch) {
+				for(s = 0; s < arrayToSearch.length; s++) {
+					thisEntry = arrayToSearch[s].toString();
+					if(thisEntry == stringToSearch) {
+						return true;
+					}
+				}
+				return false;
+			}
+
+			function isPoneAvailable($poneInput) {
+				var myreg = /^[1][3,4,5,7,8][0-9]{9}$/;
+				if(!myreg.test($poneInput.val())) {
+					return false;
+				} else {
+					return true;
+				}
+			}
+
+			function setCookie(name, value) {
+				var exp = new Date();
+				exp.setTime(exp.getTime() + 7 * 60 * 60 * 1000);
+				document.cookie = name + "=" + escape(value) + ";expires=" + exp.toGMTString();
+			}
+			//读取cookies
+			function getCookie(name) {
+				var arr, reg = new RegExp("(^| )" + name + "=([^;]*)(;|$)");
+				if(arr = document.cookie.match(reg)) return unescape(arr[2]);
+				else return null;
+			}
+			//删除cookies
+			function delCookie(name) {
+				var exp = new Date();
+				exp.setTime(exp.getTime() - 1);
+				var cval = getCookie(name);
+				if(cval != null) document.cookie = name + "=" + cval + ";expires=" + exp.toGMTString();
+			}
+			//返回
+			$('.fanhuiimg').on("click",function(){
+				location.href = "OldLogin.html?openid=" + _openId;
+			})
+             
+			//登录
+			$(".lastline .button").on("click", function() {
+				var _acount = $("#account").val();
+				var _telphone = $("#telphone").val();
+				var _yanzhengma = $("#Txtidcode").val();
+				if(iserror) {
+					if(_acount == '') {
+						iserror = false;
+						setTimeout(function() {
+							iserror = true
+						}, 3000);
+						alert("账号不能为空");
+					} else if(_telphone == '') {
+						iserror = false;
+						setTimeout(function() {
+							iserror = true
+						}, 3000);
+						alert("手机号不能为空");
+					} else if(!isPoneAvailable($("#telphone"))) {
+						iserror = false;
+						setTimeout(function() {
+							iserror = true
+						}, 3000);
+						alert("手机格式错误");
+					} else if(_yanzhengma == '') {
+						iserror = false;
+						setTimeout(function() {
+							iserror = true
+						}, 3000);
+						alert("验证码不能为空");
+					} else if(!yanzheng) {
+						iserror = false;
+						setTimeout(function() {
+							iserror = true
+						}, 3000);
+						alert("验证码错误");
+					} else {
+						console.log($(this).attr('class'));
+
+						if($(this).attr('class').indexOf("banding") != -1) {
+							$.ajax({
+								type: "post",
+								url: "http://out.ccsc58.cc/DATA_PORT_WECHAT_1.03/Bind.php",
+								async: true,
+								data: {
+									Telephone: _telphone,
+									Picture: _touxing,
+									OpenId: _openId,
+									AccountNumber: _acount,
+									Name: _nickname
+								},
+								dataType: "JSON",
+								success: function(res) {
+									console.log(res);
+									if(res.code == 200) {
+										alert('绑定成功');
+										if(localStorage.getItem('state') == 'xinzeng' && localStorage.getItem('Acount') != '') {
+											window.location.href = 'html/login.html'
+										} else {
+											window.location.href = 'setpwd.html';
+										}
+										localStorage.setItem('Acount', _acount);
+										localStorage.setItem('Telphone', _telphone);
+										window.localStorage.setItem("openid", _openId);
+										localStorage.removeItem('SendaddData');
+
+									} else {
+										alert(res.msg);
+										$('#idcode').click();
+										return false;
+									}
+								},
+								error: function(err) {
+									console.log(err)
+								}
+							});
+						} else {
+							$.ajax({
+								type: "post",
+								url: "http://out.ccsc58.cc/DATA_PORT_WECHAT_1.03/Login.php",
+								async: true,
+								data: {
+									State: "login",
+									Telephone: _telphone,
+									AccountNumber: _acount,
+									OpenId: _openId
+								},
+								dataType: "JSON",
+								success: function(res) {
+									if(res.code == 200) {
+										localStorage.setItem('Acount', _acount);
+										localStorage.setItem('Telphone', _telphone);
+										window.location.replace('html/order.html'); 
+										setCookie("Mystate", "online");
+										//alert(getCookie("name"));
+									} else {
+										alert(res.msg)
+									}
+								},
+								error: function(err) {
+
+								}
+							});
+						}
+
+					}
+
+				}
+
+			})
+
+		})
+	</script>
+
+</html>

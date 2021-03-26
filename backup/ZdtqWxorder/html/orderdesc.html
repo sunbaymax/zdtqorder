@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<meta content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no" name="viewport">
+		<meta content="yes" name="apple-mobile-web-app-capable">
+		<meta content="black" name="apple-mobile-web-app-status-bar-style">
+		<meta content="telephone=no" name="format-detection">
+		<meta content="email=no" name="format-detection">
+		<meta name="description" content="中集冷云冷链运输微信下单平台" />
+		<meta name="keywords" content="微信下单，冷链运输 " />
+		<meta name=" author " content="中集冷云 " />
+		<title>订单详情</title>
+		<link rel="stylesheet " href="../css/base.css ">
+		<link rel="stylesheet " href="../css/orderdesc.css">
+	</head>
+	<style>
+
+	</style>
+
+	<body>
+		<div class="container">
+			<div class="top">
+				<img src="../img/fanhui.png" class="return" />
+			</div>
+			<div class="content">
+				<div class="titile"><span>客户账号:</span><span class="acount"></span></div>
+				<div class="address">
+					<span class="facity"></span>
+					<img src="../img/jiantou.png" class="zhi" />
+					<span class="shoucity"></span>
+					<span class="faxcity"></span>
+					<span class="mengling"></span>
+					<span class="shouxcity"></span>
+				</div>
+				<div class="linkren">
+					<div>
+						<img src="../img/jijianren.png" />
+					</div>
+					<div>
+						<p class="linkinfo">
+							<span class="sendname send_name"></span><span class="tel send_tel"></span>
+						</p>
+						<p>公司名称：<span class="company send_commpay"></span></p>
+						<p style="height: auto;line-height: 0.5rem;">详细地址：<span class="company send_address"></span></p>
+					</div>
+				</div>
+				<div class="linkren" style="margin-top: 0.2rem;">
+					<div>
+						<img src="../img/shoujianren.png" />
+					</div>
+					<div>
+						<p class="linkinfo">
+							<span class="sendname get_name"></span><span class="tel get_tel"></span>
+						</p>
+						<p>公司名称：<span class="company get_commpany"></span></p>
+						<p>详细地址：<span class="company get_address"></span></p>
+					</div>
+				</div>
+			</div>
+
+			<div class="goodinfo">
+				<div class="title">货物信息</div>
+				<div class="gooddesc">
+					<div class="goodline">
+						<p>
+							货物类型：<span class="goodname good_type">试剂</span>
+						</p>
+						<p>
+							产品名称：<span class="goodname good_name">试剂</span>
+						</p>
+					</div>
+					<div class="goodline">
+						<p>
+							项目编号：<span class="xmbh"></span>
+						</p>
+						<p>
+							温度区间：<span class="wdqj"></span>
+						</p>
+
+					</div>
+					<div class="goodline">
+						<p>
+							货物尺寸：<span class="goodsize"></span>
+						</p>
+						<p>
+							件数：<span class="goodname good_jianshu"></span>
+						</p>
+					</div>
+					<div class="goodline">
+						<p>
+							温度计使用：<span class="goodname good_iswendj"></span>
+						</p>
+						<p>
+							保险：<span class="toubao"></span>
+						</p>
+					</div>
+					
+
+				</div>
+				<div class="baocai">
+					<!--<div>
+					    <span>箱型统计：</span>	
+						<p class="box"><span class="box1">28L</span><span class="boxsize">(28*25*56)</span></p>
+						<p class="boxsnum">数量：<span class="boxsizenum">2</span></p>
+					</div>
+					<div>
+						<span style="visibility: hidden;">箱型统计：</span>	
+						<p class="box"><span class="box1">56L</span><span class="boxsize">(56*56*52)</span></p>
+						<p class="boxsnum">数量：<span class="boxsizenum"></span></p>
+					</div>-->
+
+				</div>
+				<div class="time">
+					<div>
+						<label>预约取件时间：</label> <span class="taketime"></span>
+					</div>
+					<div>
+						<label>下单时间：</label> <span class="intime"></span>
+					</div>
+					<div class="signtime">
+						<label>签收时间：</label> <span class="sign_time"></span>
+					</div>
+				</div>
+			</div>
+			<div class="btn">
+				<button></button>
+			</div>
+
+		</div>
+		<script src="../js/flexible.js "></script>
+		<script src="../js/jquery-1.11.0.js"></script>
+		<script src="../js/toastr.min.js"></script>
+		<script src="../js/jquery.idcode.js"></script>
+		<script>
+			$(function() {
+				var _account = localStorage.getItem('Acount');
+				var _tel = localStorage.getItem('Telphone');
+				var _openid = localStorage.getItem('zdtqopenid');
+
+				function UrlSearch() {
+					var name, value;
+					var str = location.href; //取得整个地址栏
+					var num = str.indexOf("?")
+					str = str.substr(num + 1); //取得所有参数 stringvar.substr(start [, length ]
+
+					var arr = str.split("&"); //各个参数放到数组里
+					for(var i = 0; i < arr.length; i++) {
+						num = arr[i].indexOf("=");
+						if(num > 0) {
+							name = arr[i].substring(0, num);
+							value = arr[i].substr(num + 1);
+							this[name] = value;
+						}
+					}
+				}
+				var Request = new UrlSearch(); //实例化
+				var _Id = Request.id;
+				var _isget = decodeURIComponent(Request.isget);
+				var _state='';
+				if(_isget=='已签收'){
+					_state=1;
+					
+				}else{
+					_state=0;
+				} 
+				console.log(_state)
+				var _iszhuan = Request.iszhuan;
+				if(_iszhuan == 0) {
+					$.ajax({
+						type: "post",
+						url: 'http://out.ccsc58.cc/DATA_PORT_WECHAT_1.03/notorder_History.php',
+						data: {
+							ID: _Id
+						},
+						dataType: 'json',
+						success: function(res) {
+							if(res.code == '200') {
+								console.log(res);
+								$('.titile .acount').text(res.data.AccountNumber);
+								$('.address .facity').text(res.data.Depart);
+								$('.address .shoucity').text(res.data.EndDepart);
+								$('.address .faxcity').text(res.data.City);
+								$('.address .shouxcity').text(res.data.EndCity);
+								$('.goodinfo .xmbh').text(res.data.XMNO);
+								$('.address .mengling').text(decodeURI(Request.isget));
+								$('.linkren .send_name').text(res.data.SendsName);
+								$('.linkren .send_tel').text(res.data.Telephone);
+								$('.linkren .send_commpay').text(res.data.SCompany);
+								$('.linkren .send_address').text(res.data.Depart + ' ' + res.data.City + ' ' + res.data.SAddress);
+								$('.linkren .get_name').text(res.data.GetName);
+								$('.linkren .get_tel').text(res.data.GetTelephone);
+								$('.linkren .get_commpany').text(res.data.GetCompany);
+								$('.linkren .get_address').text(res.data.EndDepart + ' ' + res.data.EndCity + ' ' + res.data.GetAddress);
+								$('.goodinfo .good_type').text(res.data.BusinessType);
+								$('.goodinfo .good_name').text(res.data.CargoName);
+								$('.goodinfo .good_iswendj').text(res.data.Name4 == '使用' ? '是' : "否");
+								
+								$('.goodinfo .toubao').text(res.data.insurance + '，' + res.data.insurancePrice);
+								$('.goodinfo .wdqj').text(res.data.WDQJ);
+								console.log(res.data.InCity);
+								if(res.data.InCity==null){
+									$('.goodinfo .goodsize').text("");
+								   $('.goodinfo .good_jianshu').text("");
+								}else{
+									var _boxsize = res.data.InCity.split(" ");
+								   $('.goodinfo .goodsize').text(_boxsize[0]);
+								   $('.goodinfo .good_jianshu').text(_boxsize[2]);
+								}
+								
+								if(res.data.Box != undefined) {
+									var boxstr = '';
+									$.each(res.data.Box, function(index, value) {
+										let bxs = '';
+
+										if(index == 0) {
+											if(value.PackageSize == '' || value.PackageSize == null) {
+												boxstr = `<div>
+												    <span>箱型统计：</span>	
+													<p class="box"><span class="box1">${value.PackageName}</span></p>
+													<p class="boxsnum">数量：<span class="boxsizenum">${value.Jian}</span></p>
+											      </div>`
+											} else {
+												boxstr = `<div>
+											    <span>箱型统计：</span>	
+												<p class="box"><span class="box1">${value.PackageName}</span><span class="boxsize">(${value.PackageSize})</span></p>
+												<p class="boxsnum">数量：<span class="boxsizenum">${value.Jian}</span></p>
+											</div>`
+											}
+
+										} else {
+											if(value.PackageSize == '' || value.PackageSize == null) {
+												boxstr = `<div>
+												    <span style="visibility: hidden;">箱型统计：</span>	
+													<p class="box"><span class="box1">${value.PackageName}</span></p>
+													<p class="boxsnum">数量：<span class="boxsizenum">${value.Jian}</span></p>
+											      </div>`
+											} else {
+												boxstr = `<div>
+											    <span style="visibility: hidden;">箱型统计：</span>	
+												<p class="box"><span class="box1">${value.PackageName}</span><span class="boxsize">(${value.PackageSize})</span></p>
+												<p class="boxsnum">数量：<span class="boxsizenum">${value.Jian}</span></p>
+											</div>`
+											}
+										}
+
+										$('.goodinfo .baocai').append(boxstr);
+									});
+								} else {
+									$('.goodinfo .baocai').hide();
+								}
+
+								$('.intime').text(res.data.InTime);
+								$('.goodinfo .taketime').text(res.data.OrderTime);
+								if(res.data.GetTime == '') {
+									$('.signtime').hide();
+								} else {
+									$('.signtime').show();
+									$('.sign_time').text(res.data.GetTime)
+								}
+								if(decodeURI(Request.isget) == '指令下达' && decodeURI(Request.isstate) == '联系客服') {
+									$('.btn button').text('联系客服');
+								} else if(decodeURI(Request.isget) == '指令下达' && decodeURI(Request.isstate) == '取消订单') {
+									$('.btn button').text('取消订单');
+								} else if(decodeURI(Request.isget) == '已安排' && decodeURI(Request.isstate) == '联系客服') {
+									$('.btn button').text('联系客服');
+								}else {
+									$('.btn button').text('再来一单');
+								}
+							}
+						},
+						error: function(err) {
+
+						}
+					})
+				} else {
+					$.ajax({
+						type: "post",
+						url: 'http://out.ccsc58.cc/DATA_PORT_WECHAT_1.03/History.php',
+						data: {
+							ID: _Id,
+							IsGet: _state
+						},
+						dataType: 'json',
+						success: function(res) {
+							if(res.code == '200') {
+								$('.titile .acount').text(res.data.AccountNumber);
+								$('.address .facity').text(res.data.Depart);
+								$('.address .shoucity').text(res.data.GetDepart);
+								$('.address .faxcity').text(res.data.City);
+								$('.address .shouxcity').text(res.data.GetCity);
+								$('.address .mengling').text(decodeURI(Request.isget));
+								$('.linkren .send_name').text(res.data.Manager);
+								$('.linkren .send_tel').text(res.data.Telephone);
+								$('.linkren .send_commpay').text(res.data.Company);
+								$('.linkren .send_address').text(res.data.Depart + ' ' + res.data.City + ' ' + res.data.Address);
+								$('.linkren .get_name').text(res.data.GetName);
+								$('.linkren .get_tel').text(res.data.GetTelephone);
+								$('.linkren .get_commpany').text(res.data.GetCompany);
+								$('.linkren .get_address').text(res.data.GetDepart + ' ' + res.data.GetCity + ' ' + res.data.GetAddress);
+								$('.goodinfo .good_type').text(res.data.BusinessType == null ? '' : res.data.BusinessType);
+								$('.goodinfo .good_name').text(res.data.CargoName == null ? '' : res.data.CargoName);
+								$('.goodinfo .good_iswendj').text(res.data.Name4 == '使用' ? '是' : "否");
+
+								if(res.data.Mobile == null) {
+									$('.goodinfo .good_jianshu').text("");
+									$('.goodinfo .goodsize').text("");
+								} else {
+									var xiangsize = res.data.Mobile.split(" ");
+									$('.goodinfo .good_jianshu').text(xiangsize[2]);
+									$('.goodinfo .goodsize').text(xiangsize[0]);
+								}
+
+								$('.goodinfo .wdqj').text(res.data.WDQJ);
+								$('.goodinfo .toubao').text(res.data.SafeItem == null ? '' : res.data.SafeItem + '，' + res.data.SafePay == null ? '' : res.data.SafePay);
+
+								if(res.data.Box != undefined) {
+									var boxstr = '';
+									$.each(res.data.Box, function(index, value) {
+										let bxs = '';
+
+										if(index == 0) {
+											if(value.PackageSize == '' || value.PackageSize == null) {
+												boxstr = `<div>
+												    <span>箱型统计：</span>	
+													<p class="box"><span class="box1">${value.PackageName}</span></p>
+													<p class="boxsnum">数量：<span class="boxsizenum">${value.Jian}</span></p>
+											      </div>`
+											} else {
+												boxstr = `<div>
+											    <span>箱型统计：</span>	
+												<p class="box"><span class="box1">${value.PackageName}</span><span class="boxsize">(${value.PackageSize})</span></p>
+												<p class="boxsnum">数量：<span class="boxsizenum">${value.Jian}</span></p>
+											</div>`
+											}
+
+										} else {
+											if(value.PackageSize == '' || value.PackageSize == null) {
+												boxstr = `<div>
+												    <span style="visibility: hidden;">箱型统计：</span>	
+													<p class="box"><span class="box1">${value.PackageName}</span></p>
+													<p class="boxsnum">数量：<span class="boxsizenum">${value.Jian}</span></p>
+											      </div>`
+											} else {
+												boxstr = `<div>
+											    <span style="visibility: hidden;">箱型统计：</span>	
+												<p class="box"><span class="box1">${value.PackageName}</span><span class="boxsize">(${value.PackageSize})</span></p>
+												<p class="boxsnum">数量：<span class="boxsizenum">${value.Jian}</span></p>
+											</div>`
+											}
+										}
+
+										$('.goodinfo .baocai').append(boxstr);
+									});
+								} else {
+									$('.goodinfo .baocai').hide();
+								}
+								$('.intime').text(res.data.Indate);
+								$('.goodinfo .taketime').text(res.data.OrderTime);
+								if(res.data.GetTime == '') {
+									$('.signtime').hide();
+								} else {
+									$('.signtime').show();
+									$('.sign_time').text(res.data.GetTime)
+								}
+								if(decodeURI(Request.isget) == '指令下达' && decodeURI(Request.isstate) == '联系客服') {
+									$('.btn button').text('联系客服');
+								} else if(decodeURI(Request.isget) == '指令下达' && decodeURI(Request.isstate) == '取消订单') {
+									$('.btn button').text('取消订单');
+								}  else if(decodeURI(Request.isget) == '已安排' && decodeURI(Request.isstate) == '联系客服') {
+									$('.btn button').text('联系客服');
+								}else {
+									$('.btn button').text('再来一单');
+								}
+							}
+						},
+						error: function(err) {
+
+						}
+					})
+				}
+
+				$(".top .return").on("click", function() {
+					history.go(-1);
+				});
+				$('.btn button').on("click", function() {
+					var btnok = $(this).text();
+					if(btnok == '联系客服') {
+						var r = confirm("确定要拨打电话吗？")
+						if(r == true) {
+							window.location.href = "tel:400-6507168";
+						} else {
+							console.log("You pressed Cancel!")
+						}
+					} else if(btnok == '取消订单') {
+						var _url = '';
+						if(_iszhuan == 0) {
+							_url = 'http://out.ccsc58.cc/DATA_PORT_WECHAT_1.03/notorder_Cancel.php'
+						} else {
+							_url = 'http://out.ccsc58.cc/DATA_PORT_WECHAT_1.03/Cancel.php'
+						}
+						var r = confirm("确定要取消订单吗？")
+						if(r == true) {
+							$.ajax({
+								type: "post",
+								url: _url,
+								async: true,
+								data: {
+									ID: _Id,
+									EntryName: _tel
+								},
+								dataType: "json",
+								success: function(res) {
+									if(res.code == 200) {
+										alert("取消成功");
+										window.location.href = 'orderlist.html'
+									} else {
+										alert(res.msg)
+									}
+								},
+								error: function(err) {
+
+								},
+							});
+						} else {
+							console.log("You pressed Cancel!");
+						}
+					} else {
+						window.location.href = 'order.html'
+					}
+
+				})
+			})
+		</script>
+	</body>
+
+</html>

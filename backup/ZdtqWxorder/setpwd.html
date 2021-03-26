@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<meta content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no" name="viewport">
+		<meta content="yes" name="apple-mobile-web-app-capable">
+		<meta content="black" name="apple-mobile-web-app-status-bar-style">
+		<meta content="telephone=no" name="format-detection">
+		<meta content="email=no" name="format-detection">
+		<meta name="description" content="中集冷云冷链运输微信下单平台" />
+		<meta name="keywords" content="微信下单，冷链运输 " />
+		<meta name=" author " content="中集冷云 " />
+		<title>设置密码</title>
+		<link rel="stylesheet " href="css/base.css ">
+	</head>
+	<style>
+		body {
+			background: url(img/loginbg.jpg) center 0 no-repeat;
+			width: 100%;
+			height: 100%;
+			background-size: cover;
+			position: absolute;
+			z-index: -1;
+			filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='img/loginbg.jpg', sizingMethod='scale');
+		}
+		
+		.banner {
+			width: 100%;
+			height: auto;
+			margin: 2rem 0 0.8rem;
+			text-align: center;
+		}
+		
+		.logo {
+			margin: 0 auto;
+			display: block;
+			height: 0.46rem;
+			width: 3.13rem;
+		}
+		
+		.formdata {
+			width: 100%;
+			margin-top: 1.5rem;
+			height: auto;
+			padding: 0 1rem;
+			box-sizing: border-box;
+		}
+		
+		.line {
+			width: 100%;
+			height: 0.9rem;
+			line-height: 0.9rem;
+			/*padding: 0 10rem;*/
+			box-sizing: border-box;
+			display: flex;
+			justify-content: center;
+			align-items: center;
+		}
+		
+		.line s {
+			margin: 0.1rem 0.35rem 0 0;
+		}
+		
+		.line .tel-img {
+			display: inline-block;
+			width: 0.27rem;
+			height: 0.35rem;
+			background: url(img/shoujihaoma.png) no-repeat center 0;
+			background-size: 100% 100%;
+		}
+		
+		.line .yanzheng-img {
+			display: inline-block;
+			width: 0.27rem;
+			height: 0.35rem;
+			background: url(img/yanzhengma.png) no-repeat center 0;
+			background-size: cover;
+		}
+		
+		.line .psd-img {
+			display: inline-block;
+			width: 0.30rem;
+			height: 0.35rem;
+			background: url(img/mima.png) no-repeat center 0;
+			background-size: cover;
+		}
+		
+		.line p {
+			/*display: flex;
+			justify-content: inherit;
+			align-items: center;*/
+			display: inline-block;
+			width: 4.85rem;
+			height: 0.9rem;
+			line-height: 0.9rem;
+			border-bottom: 0.01rem solid #999999;
+			box-sizing: border-box;
+		}
+		
+		.line .inputval {
+			width: 4.85rem;
+			height: 0.6rem;
+			border: none;
+			box-sizing: border-box;
+		}
+		
+		.psdline p {
+			display: flex;
+			justify-content: space-between;
+			align-items: center;
+		}
+		
+		.psdline .inputval {
+			display: inline-block;
+			width: 4.3rem;
+			height: 0.6rem;
+			border: none;
+			box-sizing: border-box;
+		}
+		
+		.psdline p .see {
+			display: inline-block;
+			width: 0.26rem;
+			height: 0.21rem;
+			background-image: url('img/see.png');
+			background-size: contain;
+		}
+		
+		.psdline p .nosee {
+			display: inline-block;
+			width: 0.26rem;
+			height: 0.13rem;
+			background-image: url('img/nosee.png');
+			background-size: contain;
+		}
+		
+		.line .inner {
+			position: relative;
+		}
+		
+		.line input {
+			color: #333333;
+			font-size: 0.26rem;
+		}
+		
+		.requestCode {
+			color: #12599B;
+			font-size: 0.22rem;
+			position: absolute;
+			right: 0.15rem;
+			top: 0;
+		}
+		
+		.noclick {
+			pointer-events: none;
+		}
+		
+		.lastline {
+			margin-top: 0.6rem;
+			position: relative;
+		}
+		
+		.button {
+			position: fixed;
+			right: 1rem;
+			bottom: 3rem;
+			border: none;
+			width: 1rem;
+			height: 1rem;
+			background: url(img/xiayibu.png) no-repeat center 0;
+			background-size: cover;
+			padding: 0;
+		}
+		
+		#Txtidcode {
+			width: 2.6rem;
+		}
+		
+		.hide {
+			display: none;
+		}
+		
+		#accass {
+			margin-top: 0.3rem;
+			width: 0.3rem;
+			height: 0.3rem;
+		}
+		
+		.sign {
+			margin-top: 0.3rem;
+			color: #FF0000;
+			font-size: 0.28rem;
+			text-align: right;
+		}
+		.hide{
+			display:none;
+		}
+	</style>
+
+	<body>
+		<!-- 正文 -->
+		<div class="banner">
+			<img src="img/logo.png" class="logo" />
+		</div>
+		<div class="formdata">
+			<div class="line hide" >
+				<s class="tel-img"></s>
+				<p>
+					<input type="number" class="inputval" placeholder="请录入手机号码" id="telphone" />
+				</p>
+
+			</div>
+			<div class="line psdline">
+				<s class="psd-img"></s>
+				<p>
+					<input type="password" class="inputval" placeholder="设置6-12位登录密码" id="frist" />
+					<s class="nosee"></s>
+				</p>
+
+			</div>
+			<div class="line psdline">
+				<s class="psd-img"></s>
+				<p>
+					<input type="password" class="inputval" placeholder="请再次输入登录密码" id="second" />
+					<s class="nosee"></s>
+				</p>
+
+			</div>
+			<div class="sign">*请牢记登录密码</div>
+			<div class="lastline">
+				<button class="button"></button>
+			</div>
+		</div>
+	</body>
+	<script src="js/flexible.js "></script>
+	<script src="js/jquery-1.11.0.js"></script>
+	<script>
+		$(function() {
+
+			window.alert = function(name) {
+				var iframe = document.createElement("IFRAME");
+				iframe.style.display = "none";
+				iframe.setAttribute("src", 'data:text/plain,');
+				document.documentElement.appendChild(iframe);
+				window.frames[0].window.alert(name);
+				iframe.parentNode.removeChild(iframe);
+			}
+			//读取cookies
+			function setCookie(name, value) {
+				var exp = new Date();
+				exp.setTime(exp.getTime() + 7 * 60 * 60 * 1000);
+				document.cookie = name + "=" + escape(value) + ";expires=" + exp.toGMTString();
+			}
+			//读取cookies
+			function getCookie(name) {
+				var arr, reg = new RegExp("(^| )" + name + "=([^;]*)(;|$)");
+				if(arr = document.cookie.match(reg)) return unescape(arr[2]);
+				else return null;
+			}
+			//删除cookies
+			function delCookie(name) {
+				var exp = new Date();
+				exp.setTime(exp.getTime() - 1);
+				var cval = getCookie(name);
+				if(cval != null) document.cookie = name + "=" + cval + ";expires=" + exp.toGMTString();
+			}
+			var screenHeight;
+			if(window.innerHeight) {
+				screenHeight = window.innerHeight;
+			} else if((document.body) && (document.body.clientHeight)) {
+				screenHeight = document.body.clientHeight;
+			}
+			$("html,body").height(screenHeight);
+			document.body.addEventListener('touchmove', function(e) { 
+				e.preventDefault(); //阻止默认的处理方式(阻止下拉滑动的效果)
+			}, {
+				passive: false
+			}); //passive 参数不能省略，用来兼容ios和android
+
+			$('input').blur(function() {
+				$('body,html').animate({
+					scrollTop: 0
+				}, 0);
+				$('.lastline .button').show();
+			})
+			
+			var win_h = $(window).height();//关键代码
+			window.addEventListener('resize', function () {
+			    if($(window).height() < win_h){
+			        $('.lastline .button').hide();
+			    }else{
+			        $('.lastline .button').show();
+			    }
+			});
+			$(".psdline s:last-child").click(function() {
+				if($(this).attr('class') == 'nosee') {
+					$(this).attr('class', 'see');
+				} else {
+					$(this).attr("class", 'nosee');
+				}
+				if($(this).siblings("input").attr("type") == "text") {
+					$(this).siblings("input")[0].type = "password";
+				} else {
+					$(this).siblings("input")[0].type = "text";
+				}
+			});
+
+			var iserror = true;
+
+			$(".button").on("click", function() {
+				var _openid = localStorage.getItem('zdtqopenid');
+				var _tel = localStorage.getItem('Telphone');
+				var _fristpsd = $("#frist").val();
+				var _secondpsd = $("#second").val();
+				if(iserror) {
+					if(_fristpsd == '') {
+						iserror = false;
+						setTimeout(function() {
+							iserror = true
+						}, 3000);
+						alert("设置密码不能为空");
+					} else if(_secondpsd == '') {
+						iserror = false;
+						setTimeout(function() {
+							iserror = true
+						}, 3000);
+						alert("再一次确定密码");
+					} else if(_fristpsd != _secondpsd) {
+						iserror = false;
+						setTimeout(function() {
+							iserror = true
+						}, 3000);
+						alert("两次密码不一致");
+					} else {
+						$.ajax({
+							type: "post",
+							url: "http://out.ccsc58.cc/DATA_PORT_WECHAT_1.03/UpdatePass.php",
+							async: true,
+							data: {
+								OpenId: _openid,
+								PassWord: _secondpsd
+							},
+							dataType: "JSON",
+							success: function(res) {
+								console.log(res);
+								if(res.code == 200) {
+									alert('密码设置成功');
+									setCookie("Mystate", "online");
+									window.location.replace('html/order.html'); 
+								} else {
+									alert(res.msg);
+								}
+
+							},
+							error: function(err) {
+								console.log(err)
+							}
+						});
+
+					}
+
+				}
+
+			})
+
+		})
+	</script>
+
+</html>

@@ -12,29 +12,89 @@ $(function() {
 		window.frames[0].window.alert(name);
 		iframe.parentNode.removeChild(iframe);
 	}
-
+    let obj= JSON.parse(localStorage.getItem('myNumobj'))
+    let mynum=obj.AccountNumber
+    //增值服务确定
+	var valueaddArr=[]
+	var corderboxs = [];
+	var arrsize = [];
 	localStorage.setItem('state', 'show')
 	var _account = localStorage.getItem('Acount');
 	var _tel = localStorage.getItem('Telphone');
 	localStorage.removeItem('Inmain')
 	var _openid = localStorage.getItem('zdtqopenid');
-    
+        $.ajax({
+    	type:"post",
+    	url:"http://out.ccsc58.cc/DATA_PORT_WECHAT_1.03/Clinical_add_service.php",
+    	async:true,
+    	data:{
+    		username:_account,
+    		state:'itemlist'
+    	},
+    	dataType:'json',
+    	success:function(res){
+    		console.log(res)
+    		$('.valueaddType .valueaddTypebox').html('')
+    		if(res.code==200){
+	    		$.each(res.data, function(index,val) {
+	    			let str=''
+	    			str=`<span class="ni">${val.ItemName}</span>`;
+	    			$('.valueaddType .valueaddTypebox').append(str)
+	    		});
+    		}else{
+    			alert(res.message)
+    		}
+    		
+    	},
+    	error:function(err){
+    		console.log(err)
+    	}
+    });
+    	var wdqj = [];
+	$.ajax({
+		type: "post",
+		url: "http://out.ccsc58.cc/DATA_PORT_WECHAT_1.03/Clinical_Wdqj.php",
+		async: false,
+		data: {
+			state: 'wdqj',
+			AccountNumber:mynum
+		},
+		dataType: 'JSON',
+		success: function(res) {
+			$('.choosewenqu .pcwenqu').html("");
+			$('.choosewenqu .pcwenqu').prepend("<option  value='请选择温区'>请选择温区</option>"); //添加第一个option值
+			$.each(res.data, function(index, val) {
+				wdqj.push(val.WDQJ);
+				$('.choosewenqu .pcwenqu').append('<option value="'+val.WDQJ+'">'+val.WDQJ+'</option>')
+			});
+//			$.each(res.data, function(index, val) {
+//				
+//			});
+
+		},
+		error: function(err) {
+
+		}
+	});
 	if(sessionStorage.getItem('order')) {
 		var hisorder = JSON.parse(sessionStorage.getItem('order'));
+		console.log(hisorder)
 		$("#Goodstypes").text(hisorder.BusinessType);
 		$("#goodname").val(hisorder.CargoName);
-
+		$("#xmbh").val(hisorder.XMNO);
+		let arrstr=hisorder.AddService.join(',')
+		console.log(arrstr)
+		$("#Valueadd").text(arrstr);
+		$(".pcwenqu").val(hisorder.WDQJ)
+//		$(".pcwenqu option[text='2℃~8℃']").attr("selected", "selected"); 
 		if(hisorder.Name4 == "使用") {
-
 			$("#usewdj").attr("src", "../img/wenduji.png");
 			$("#usewdj").attr("isuse", "1");
-
 		} else {
 			$("#usewdj").attr("src", "../img/bushiyong.png");
 			$("#usewdj").attr("isuse", "0");
-
 		}
-
+        valueaddArr=hisorder.AddService
 		if(hisorder.SafeItem == "投保") {
 			$("#clicktoubao").attr("src", "../img/baojiafanliguanli.png");
 			$("#clicktoubao").attr("istoubao", "1");
@@ -42,7 +102,6 @@ $(function() {
 			$("#clicktoubao").parent().next().find('input').css("color", "#1c84c6");
 			$("#clicktoubao").parent().next().find('input').attr("readonly", false);
 			$("#clicktoubao").parent().next().find('input').val(hisorder.SafePay);
-
 		} else {
 			$("#clicktoubao").attr("src", "../img/butoubao.png");
 			$("#clicktoubao").attr("istoubao", "0");
@@ -50,13 +109,54 @@ $(function() {
 			$("#clicktoubao").parent().next().find('input').css("color", "#999999");
 			$("#clicktoubao").parent().next().find('input').attr("readonly", true);
 			$("#clicktoubao").parent().next().find('input').val(hisorder.SafePay);
-
 		}
-
+		corderboxs=hisorder.Box
+		console.log(corderboxs)
+		if(corderboxs!=undefined){
+			$(corderboxs).each(function(index, value) {
+				let str = '';
+				if(index == (corderboxs.length - 1)) {
+					str = `<li class="childbox orderbox li">
+							<div class='d1'>
+								<img src="../img/box.png" class="img_temp view"  />
+							</div>
+							<div class="choosewenqu">
+								<label class="clickbox boxinput Cchildbox" size='${value.PackageSize}'>${value.PackageName}</label>
+								<span class='boxinputsize'>${value.PackageSize}</span>
+								<img src="../img/xiala.png" class="xiala" />
+								<p class="gw_num">
+									<img src="../img/reduce.png" class="jian" />
+									<input type="text" value='${value.Num}' disabled="disabled"  class="num" readonly="readonly" />
+									<img src="../img/addbox.png" class="add" />
+								</p>
+							</div>
+						</li>`;
+				} else {
+					str = `<li class="childbox orderbox li">
+							<div>
+								<img src="../img/box.png" class="img_temp" />
+							</div>
+							<div class="choosewenqu">
+								<label class="clickbox boxinput Cchildbox" size='${value.PackageSize}'>${value.PackageName}</label>
+								<span class='boxinputsize'>${value.PackageSize}</span>
+								<img src="../img/delbox.png" class="delbox" />
+								<p class="gw_num">
+									<img src="../img/reduce.png" class="jian" />
+									<input type="text" value='${value.Num}' disabled="disabled"  class="num" readonly="readonly" />
+									<img src="../img/addbox.png" class="add" />
+								</p>
+							</div>
+						</li>`;
+				}
+				$('.CTemporSize').after(str);
+			});
+			}
 		$("#ChooseTimes").text(hisorder.OrderTime);
 		$(".note .time-right textarea").val(hisorder.Note);
+		$('.btndiv button').removeAttr("disabled");
+		$(".btndiv button").css('background', '#12599B');
 	}
-
+   
 	//check();
 	function check() {
 		$.ajax({
@@ -129,11 +229,14 @@ $(function() {
 		$('.menu_footer .turetel').text('正大天晴')
 	}
 	var b = (JSON.stringify(objboxsize) == "{}");
-	var corderboxs = [];
+	
 	var cobjbox = {};
 	if($('#Goodstypes').text() == '请选择货物类型' && $('#Tempqu').text() == '请选择温区' && $('#ChooseTimes').text() == '预约取件时间') {
 		$('.btndiv button').attr('disabled', "disabled");
 	} else {
+		if(corderboxs!=undefined){
+			
+		
 		if(corderboxs.length > 1 || !b) {
 			$('.btndiv button').removeAttr('disabled');
 		} else if(corderboxs.length > 1 || b) {
@@ -142,6 +245,7 @@ $(function() {
 			$('.btndiv button').removeAttr('disabled');
 		} else {
 			$('.btndiv button').attr('disabled', "disabled");
+		}
 		}
 		//$('.btndiv button').attr('disabled', false);
 	}
@@ -343,48 +447,37 @@ $(function() {
 			scrollTop: 0
 		}, 0);
 	})
-    let obj= JSON.parse(localStorage.getItem('myNumobj'))
-    let mynum=obj.AccountNumber
-	//点击温度区间
-	var wdqj = [];
-	$.ajax({
-		type: "post",
-		url: "http://out.ccsc58.cc/DATA_PORT_WECHAT_1.03/Clinical_Wdqj.php",
-		async: false,
-		data: {
-			state: 'wdqj',
-			AccountNumber:mynum
-		},
-		dataType: 'JSON',
-		success: function(res) {
-			$('.choosewenqu .pcwenqu').html("");
-			$('.choosewenqu .pcwenqu').prepend("<option  value='请选择温区'>请选择温区</option>"); //添加第一个option值
-			$.each(res.data, function(index, val) {
-				$('.choosewenqu .pcwenqu').append('<option value="'+val.WDQJ+'">'+val.WDQJ+'</option>')
-			});
-			$.each(res.data, function(index, val) {
-				wdqj.push(val.WDQJ);
-			});
 
-		},
-		error: function(err) {
 
-		}
-	});
 
 	//点击货物类型
 	$(".cgoodtype").on('click', function() {
-		//查看当前选中的箱子
-//		$('body,html').animate({
-//			scrollTop: 0
-//		}, 0);
 		$('.acountlist').hide();
 		$(".setbg").show();
 		$(".goodsType").show();
 		$(".Temparea").hide();
 		$(".BoxType").hide();
 		$(".TimeType").hide();
+		$(".valueaddType").hide();
 		$(".BoxSize").hide();
+		if($('#Goodstypes').text() == '请选择货物类型' && $('.choosewenqu .pcwenqu').val() == '请选择温区' && $('#BoxType').text() == '请选择箱型' && $('#ChooseTimes').text() == '预约取件时间') {
+			$('.btndiv button').attr('disabled', true);
+		} else {
+			$('.btndiv button').removeAttr("disabled");
+			$(".btndiv button").css('background', '#12599B');
+		}
+
+	})
+	//点击增值服务
+	$(".cvalueadd").on('click', function() {
+		$('.acountlist').hide();
+		$(".setbg").show();
+		$(".goodsType").hide();
+		$(".Temparea").hide();
+		$(".BoxType").hide();
+		$(".TimeType").hide();
+		$(".BoxSize").hide();
+		$(".valueaddType").show();
 		if($('#Goodstypes').text() == '请选择货物类型' && $('.choosewenqu .pcwenqu').val() == '请选择温区' && $('#BoxType').text() == '请选择箱型' && $('#ChooseTimes').text() == '预约取件时间') {
 			$('.btndiv button').attr('disabled', true);
 		} else {
@@ -404,6 +497,7 @@ $(function() {
 	$(".bar.bar-1 img").on("click", function() {
 		$("#popup").hide()
 	})
+	//货物类型选择
 	$(".Temparea-Ways .Tempareac .ni").on('click', function() {
 		$(this).parents('.Temparea-Ways').find('.ni').removeClass('spanActive');
 		$(this).addClass('spanActive');
@@ -420,6 +514,15 @@ $(function() {
 			$('.BoxTypef2 .ni').removeClass('disable');
 			$('.BoxTypef1 .ni').removeClass('spanActive');
 		}
+
+	});
+	//增值服务选择
+	$("body").on('click','.valueaddType .valueaddTypebox .ni', function() {
+//		$(this).parents('.valueaddTypebox').find('.ni').removeClass('spanActive');
+			$(this).toggleClass('spanActive');
+		
+		
+		
 
 	});
 	var arrCbox = [];
@@ -549,6 +652,22 @@ $(function() {
 			$(".setbg").hide();
 		}
 	});
+	
+	$(".valueadd-btn").on('click', function() {
+		valueaddArr=[]
+		$('#Valueadd').text('请选择增值服务')
+		$.each($('.valueaddType .valueaddTypebox .spanActive'), function() {
+			valueaddArr.push($(this).text())
+			let cur=$('#Valueadd').text()=='请选择增值服务'?'':$('#Valueadd').text()
+			$("#Valueadd").text(cur+$(this).text()+",")
+		});
+//		var choosevalueaddTxt = .text();
+		
+//		$("#Valueadd").text(choosevalueaddTxt);
+		$("#Valueadd").addClass('Cgoods');
+		$(".setbg").hide();
+//		
+	});
 
 	$(".time-btn").on('click', function() {
 		var chooseDay = $('.TimeType-day .spanActive .qi').text();
@@ -615,16 +734,16 @@ $(function() {
 		return currentdate;
 	}
 
-	$('.high,.money').blur(function() {
-		$('body,html').animate({
-			scrollTop: 0
-		}, 0);
-	})
-	$('textarea').blur(function() {
-		$('body,html').animate({
-			scrollTop: 0
-		}, 0);
-	})
+//	$('.high,.money').blur(function() {
+//		$('body,html').animate({
+//			scrollTop: 0
+//		}, 0);
+//	})
+//	$('textarea').blur(function() {
+//		$('body,html').animate({
+//			scrollTop: 0
+//		}, 0);
+//	})
 
 	$("body").on("click", ".fatherboxsize .gw_num .add", function() {
 		var n = $(this).prev().val();
@@ -683,6 +802,7 @@ $(function() {
 			$(".Temparea").hide();
 			$(".BoxType").hide();
 			$(".TimeType").hide();
+			$(".valueaddType").hide();
 
 		} else {
 
@@ -696,6 +816,7 @@ $(function() {
 				$(".Temparea").hide();
 				$(".TimeType").hide();
 				$(".BoxSize").hide();
+				$(".valueaddType").hide();
 				if(corderboxs.length >= 1) {
 					$(".BoxType").show();
 					var temd = $("#Tempqu").text();
@@ -975,6 +1096,7 @@ $(function() {
 			$(".setbg").hide();
 			$(".goodsType").hide();
 			$(".Temparea").hide();
+			$(".valueaddType").hide();
 			$(".BoxType").hide();
 			$(".TimeType").hide();
 			$(".BoxSize").hide();
@@ -1002,6 +1124,7 @@ $(function() {
 				$(".setbg").hide();
 				$(".goodsType").hide();
 				$(".Temparea").hide();
+				$(".valueaddType").hide();
 				$(".BoxType").hide();
 				$(".TimeType").hide();
 				$(".BoxSize").show();
@@ -1049,6 +1172,7 @@ $(function() {
 		$(".setbg").hide();
 		$(".goodsType").hide();
 		$(".Temparea").hide();
+		$(".valueaddType").hide();
 		$(".BoxType").hide();
 		$(".TimeType").hide();
 		$(".BoxSize").hide();
@@ -1056,7 +1180,7 @@ $(function() {
 		console.log(objboxsize);
 
 	})
-	var corderboxs = [];
+//	var corderboxs = [];
 	var cobjbox = {};
 	$(".BoxType-btn").on('click', function() {
 		corderboxs.splice(0, corderboxs.length);
@@ -1204,7 +1328,7 @@ $(function() {
 		var box_size = $("#BoxType").text();
 		var box_sizes = box_size.replace("cm", "");;
 		var boxsizenum = $(".fatherboxsize .gw_num input").val();
-		var arrsize = [];
+		
 		boxsizesone = {
 			"Size": box_sizes,
 			"Num": boxsizenum
@@ -1266,7 +1390,8 @@ $(function() {
 					SafeItem: isInsure,
 					SafePay: Insuremoney,
 					Box: corderboxs,
-					XMNO:xmbh
+					XMNO:xmbh,
+					AddService:valueaddArr
 				}
 			} else if(!b && corderboxs.length == 0) {
 				console.log("箱型尺寸");
@@ -1296,7 +1421,8 @@ $(function() {
 					SafeItem: isInsure,
 					SafePay: Insuremoney,
 					BoxSize: arrsize,
-					XMNO:xmbh
+					XMNO:xmbh,
+					AddService:valueaddArr
 				}
 			} else {
 
@@ -1327,12 +1453,12 @@ $(function() {
 					SafePay: Insuremoney,
 					BoxSize: arrsize,
 					Box: corderboxs,
-					XMNO:xmbh
+					XMNO:xmbh,
+					AddService:valueaddArr
 				}
 			}
-
 			console.log(_data)
-//			return false;
+			
 			$.ajax({
 				type: "post",
 				url: "http://out.ccsc58.cc/DATA_PORT_WECHAT_1.03/Clinical_Order.php",
@@ -1340,6 +1466,7 @@ $(function() {
 				dataType: "json",
 				success: function(res) {
 					console.log(res)
+					return false;
 					if(res.code == '200') {
 						var nowtime = getNowFormatDate();
 						var openids = ['oTarnv5aWyxLcCENYrs5UOR3FqvQ','oTarnv-4gXJ3TRvg415ECeck61lQ','oTarnv0C23-4KCMdFeOiHu5Zu4AU','oTarnv66MV67GI9uZ637VSGu8G_A'];

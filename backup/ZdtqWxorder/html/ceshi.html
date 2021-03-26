@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no" name="viewport">
+		<meta content="yes" name="apple-mobile-web-app-capable">
+		<meta content="black" name="apple-mobile-web-app-status-bar-style">
+		<meta content="telephone=no" name="format-detection">
+		<meta content="email=no" name="format-detection">
+    <title>点击按钮切换内容</title>
+    <style type="text/css">
+        .tab-menu ul{
+            padding: 0;
+            margin: 0;
+        }
+        .tab-menu ul li{
+            display: inline-block;
+            width: 200px;
+            height: 40px;
+            line-height: 40px;
+            text-align: center;
+            cursor: pointer;
+        }
+        .tab-menu ul li.active{
+            background: #749dcf;
+        }
+        .tab-con div{
+            width: 600px;
+            height: 300px;
+            background: #F2F2F2;
+            border: 1px solid #749dcf;;
+            display: none;
+            padding: 15px;
+ 
+        }
+        .tab-con div:first-child{
+            display: block;
+        }
+    </style>
+</head>
+<body>
+<div class="tab-menu">
+    <ul>
+        <li class="active">按钮一</li>
+        <li>按钮二</li>
+        <li>按钮三</li>
+    </ul>
+</div>
+<div class="tab-con">
+    <div>内容一内容一内容一</div>
+    <div>内容二</div>
+    <div>内容三内容三内容三内容三内容三内容三内容三</div>
+</div>
+<script type="text/javascript" src="../js/jquery-1.11.0.js"></script>
+<script type="text/javascript">
+    $(function () {
+        $('.tab-menu li').click(function () {
+            $(this).addClass('active').siblings().removeClass('active');
+//          $('.tab-top li').eq($(this).index()).addClass('active').siblings().removeClass('active');  tab按钮第二种写法
+            var index=$(this).index();
+            $(".tab-con div").eq(index).show().siblings().hide();
+        })
+    })
+</script>
+<!--整体第二种写法-->
+<!--<script type="text/javascript">
+    $(function () {
+        $('.tab-menu li').click(function () {
+            $(this).addClass('active').siblings().removeClass('active');
+            $(".tab-con div").eq($(this).index()).show().siblings().hide();
+        })
+    })
+</script>-->
+</body>
+</html>

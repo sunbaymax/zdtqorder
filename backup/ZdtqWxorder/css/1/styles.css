@@ -1,0 +1,128 @@
+#page {
+	padding-top: 60px;
+}
+
+.ui-autocomplete-loading {
+	background: white url("../images/ui-anim_basic_16x16.gif") right center no-repeat;
+}
+
+.remove_div {
+	margin-top: 2em;
+	display: table;
+}
+
+.table.th-center th {
+	text-align: center;
+}
+
+input[type="text"].ui-autocomplete-input {
+	border-bottom-style: solid;
+	border-bottom-width: 4px
+}
+
+body {
+	background: url(../../img/login_bg.jpg);
+	0 0 no-repeat scroll transparent;
+	background-size: 100% 100%;
+	background-size: cover;
+	overflow: hidden;
+}
+
+.head-txt {
+	line-height: 2.25rem;
+	/*font-size: 0.7rem;*/
+}
+.content {
+	margin-top: 150px;
+	padding: 0 35px;
+}
+
+.content .content-tilte {
+	font-size: 20px;
+	text-align: center;
+	color: #FFFFFF;
+}
+.input-form:first-child{
+	margin-top: 30px;
+}
+.input-form{
+	width: 100%;
+	height: 40px;
+	border: 1px solid #FFFFFF;
+	padding: 0 35px;
+	box-sizing: border-box;
+	display: flex;
+	margin-bottom: 15px;
+	position: relative;
+}
+.input-form span{
+	display: inline-block;
+	height: 40px;
+	width: 20%;
+}
+.input-form span img{
+	display: inline-block;
+	height: 20px;
+	width: 20px;
+	position: absolute;
+	top: 10px;
+	left: 15px;
+}
+.input-form input{
+	display: inline-block;
+	height: 20px;
+	width: 80%;
+	position: absolute;
+	top: 8px;
+	left: 40px;
+	color: #FFFFFF;
+    background: none;
+    border: none;	
+}
+.sub{
+	margin-top: 30px;
+	width: auto;
+	height: auto;
+}
+
+.newuer{
+	height: 40px;
+	line-height: 40px;
+	text-align: center;
+	margin-top: 30px;
+	position: relative;
+}
+.newuer a{
+	text-decoration: none;
+	color: #ffffff;
+	font-size: 14px;
+	
+}
+.login_wx {
+	display: inline-block;
+	position: absolute;
+	width:24px;
+	height: 24px;
+	right: 0px;
+	top: 8px;
+	background: url(../img/login_wechat.png);
+	background-repeat: no-repeat;
+	background-size: 100% 100%;
+	-moz-background-size: 100% 100%;
+	cursor: pointer
+}
+
+
+.sub button {
+	width: 100%;
+	height: 40px;
+	line-height: 40px;
+	color: #135A9C;
+	font-size: 16px;
+	text-align: center;
+	background-color: #fff;
+	border-radius: 0.1rem;
+	border: none;
+	outline: none;
+	cursor: pointer;
+}

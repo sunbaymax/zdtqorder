@@ -1,0 +1,274 @@
+body {
+	background: #E8E8E8;
+}
+
+* {
+	box-sizing: border-box;
+}
+
+.container {
+	width: 100%;
+	height: auto;
+	padding: 0 0.3rem;
+	box-sizing: border-box;
+}
+
+.titile {
+	width: 100%;
+	height: 0.8rem;
+	line-height: 0.8rem;
+	position: relative;
+	/*display: flex;
+	justify-content: center;
+	align-content: center;*/
+}
+
+.titile img {
+	display: inline-block;
+	width: 0.32rem;
+	height: 0.36rem;
+	position: absolute;
+	left: 0;
+	top: 0.22rem;
+}
+
+.titile h3 {
+	font-size: 0.32rem;
+	color: #333333;
+	position: absolute;
+	left: 0.47rem;
+}
+
+.content {
+	width: 100%;
+	height: auto;
+	background: #FFFFFF;
+	border-radius: 0.1rem;
+}
+
+.inner {
+	width: 100%;
+	height: auto;
+	padding: 0 0.2rem;
+	box-sizing: border-box;
+}
+
+.inner li {
+	width: 100%;
+	height: 0.96rem;
+	line-height: 0.96rem;
+	border-bottom: 0.01rem solid #D1D1D1;
+	display: flex;
+	justify-content: initial;
+	align-items: center;
+}
+
+.inner li:last-child {
+	border-bottom: none;
+}
+
+.inner .line2,
+.line5 {
+	position: relative;
+}
+
+.inner .line2 .chooseaddbook {
+	display: inline-block;
+	width: 1rem;
+	height: 0.6rem;
+	line-height: 0.6rem;
+	text-align: right;
+	border-left: 1px solid #CCCCCC;
+	color: #12599B;
+	font-size: 0.24rem;
+	position: absolute;
+	right: 0;
+	top: 0.3rem;
+}
+
+.inner .line5 img {
+	display: inline-block;
+	width: 0.2rem;
+	height: 0.12rem;
+	position: absolute;
+	right: 0;
+	top: 0.49rem;
+}
+
+.inner li s {
+	display: inline-block;
+	width: 0.4rem;
+	height: 0.4rem;
+	/*border: 1px solid #000000;*/
+	margin-right: 0.2rem;
+	/*margin-top: 0.2rem;*/
+}
+
+.inner li .tu1 {
+	background: url(../img/kehuzhanghao.png) no-repeat;
+	background-size: contain;
+}
+
+.inner li .tu2 {
+	background: url(../img/xingming.png) no-repeat;
+	background-size: contain;
+}
+
+.inner li .tu3 {
+	background: url(../img/shoujihao.png) no-repeat;
+	background-size: contain;
+}
+
+.inner li .tu4 {
+	background: url(../img/gongsi.png) no-repeat;
+	background-size: contain;
+}
+
+.inner li .tu5 {
+	background: url(../img/chengshi.png) no-repeat;
+	background-size: contain;
+}
+
+.inner li .tu6 {
+	background: url(../img/xiangxidizhi.png) no-repeat;
+	background-size: contain;
+}
+
+.inner li input {
+	display: inline-block;
+	/*padding-top: 0.2rem;*/
+	box-sizing: border-box;
+	width: 4.6rem;
+	height: 0.94rem;
+	border: none;
+	color: #333333;
+	font-size: 0.28rem;
+}
+
+.operation {
+	width: 100%;
+	height: 0.46rem;
+	line-height: 0.46rem;
+	padding: 0 0.2rem;
+	box-sizing: border-box;
+	margin-top: 0.2rem;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+}
+
+.operation p:first-child {
+	width: 50%;
+	display: flex;
+	justify-content: initial;
+	align-items: center;
+}
+
+.operation p:first-child img {
+	margin-right: 0.1rem;
+}
+
+.operation p:last-child {
+	text-align: right;
+}
+
+.Cbox {
+	position: relative;
+}
+
+.Checkbox {
+	position: absolute;
+	visibility: hidden;
+}
+
+.Checkbox+label {
+	position: absolute;
+	top: 0.06rem;
+	left: 0.2rem;
+	width: 0.25rem;
+	height: 0.25rem;
+	border: 1px solid #A6A6A6;
+	border-radius: 50%;
+	background-color: #FFFFFF;
+}
+
+.Checkbox:checked+label:after {
+	content: "";
+	position: absolute;
+	left: 0.03rem;
+	top: 0.03rem;
+	width: 0.09rem;
+	height: 0.04rem;
+	border: 2px solid #C83428;
+	/*background: #C83428;*/
+	border-top-color: transparent;
+	border-right-color: transparent;
+	transform: rotate(-45deg);
+	-ms-transform: rotate(-60deg);
+	-moz-transform: rotate(-60deg);
+	-webkit-transform: rotate(-60deg);
+}
+
+.operation .wen {
+	color: #999999;
+	font-size: 0.24rem;
+}
+
+.resert {
+	color: #999999;
+	font-size: 0.22rem;
+}
+
+.btn {
+	/*margin-top: 2.8rem;*/
+	width: 100%;
+	height: 0.96rem;
+	text-align: center;
+	position: fixed;
+	bottom: 3rem;
+	left: 0;
+}
+
+.btn .btn-ok {
+	width: 3rem;
+	height: 0.9rem;
+	border-radius: 0.5rem;
+	background: #a0a0a0;
+	color: #FFFFFF;
+	font-size: 0.28rem;
+	border: none;
+}
+
+.btn .btnisok {
+	background: #12599B;
+}
+
+.operation #moren {
+	display: inline-block;
+	width: 0.4rem;
+	height: 0.4rem;
+}
+
+/*.operation .is_moren {
+	display: inline-block;
+	width: 0.3rem;
+	height: 0.3rem;
+}*/
+
+.titile .addsendimg {
+	display: inline-block;
+	width: 0.5rem;
+	height: 0.5rem;
+	position: absolute;
+	top: 0.15rem;
+}
+
+.titile .addsendimgh3 {
+	display: inline-block;
+	width: 3rem;
+	height: 0.5rem;
+	line-height: 0.5rem;
+	position: absolute;
+	top: 0.15rem;
+	left: 0.6rem;
+}

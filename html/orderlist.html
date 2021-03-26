@@ -15,22 +15,56 @@
 		<link rel="stylesheet " href="../css/base.css ">
 		<link rel="stylesheet " href="../css/toastr.min.css">
 		<link rel="stylesheet " href="../css/index.css">
+		<link rel="stylesheet " href="../css/shijian.css">
+		<script src="../js/iostime.js" type="text/javascript" charset="utf-8"></script>
 	</head>
 	<style>
+		.top .topleft {
+     width: 48%; 
+    height: 0.5rem;
+    border: 1px solid #BFBFBF;
+    border-radius: 0.1rem;
+    position: relative;
+    margin-right: 0.05rem;
+}
 		.top {
 			width: 100%;
-			padding: 0 0.3rem;
+			padding: 0 0.15rem;
 			box-sizing: border-box;
-			height: 0.96rem;
+			height: auto;
 			display: flex;
 			align-items: center;
-			justify-content: center;
+			justify-content: space-between;
 			background: #FFFFFF;
 			position: fixed;
 			top: 0;
 			z-index: 999;
 		}
-		
+		.top div{
+			margin: 5px 0;
+		}
+		.info div {
+		    line-height: 24px;
+		    display: flex;
+		    justify-content: space-between;
+		    align-items: center;
+		}
+		.top .topleft .resert {
+		    width: 0.32rem;
+		    height: 0.32rem;
+		    position: absolute;
+		    right: 0.15rem;
+		    top: 0.2rem;
+		}
+		.info div .remarktext{
+		    display: inline-block;
+		    width: 20%;
+		}
+		.info div span:last-child{
+			  display: inline-block;
+		    width: 80%;
+		    text-align: right;
+		}
 		.state {
 			margin-top: 0.06rem;
 			width: 100%;
@@ -69,7 +103,7 @@
 			margin: 0.1rem 0;
 			padding: 0 0.2rem;
 			box-sizing: border-box;
-			height: 2.5rem;
+			height: auto;
 			width: 100%;
 			background: #FFFFFF;
 			font-size: 0.22rem;
@@ -114,6 +148,9 @@
 			width: 1.2rem;
 			text-align: center;
 			margin: 0.2rem 0 0.15rem;
+			white-space: nowrap;
+		    overflow: hidden;
+		    text-overflow: ellipsis;
 		}
 		
 		li .order-center .order-center-center {
@@ -127,7 +164,17 @@
 			width: 2rem;
 			height: auto;
 		}
-		
+		.top .topleft input {
+		    padding-left: 0.15rem;
+		    box-sizing: border-box;
+		    height: 0.5rem;
+		    /* line-height: 0.7rem; */
+		    border: none;
+		    background: none;
+		    color: #333333;
+		    font-size: 0.24rem;
+		    outline: none;
+		}
 		.order-center .order-center-center span {
 			display: block;
 			width: 2rem;
@@ -300,7 +347,7 @@
 			line-height: 0.6rem;
 			background: #FFFFFF;
 			display: flex;
-			margin-top: 0.96rem;
+			margin-top: 2.4rem;
 		}
 		
 		.bar div {
@@ -329,33 +376,140 @@
 		.hide {
 			display: none;
 		}
+		 .cargoinfo{
+		 	display: flex;
+		 	width: 100%;
+		 	flex-flow: wrap;
+		 	justify-content: space-around;
+		 }
+		 .cargoinfo .selectContainer {
+        
+           width: 3.46rem;
+    height: 0.5rem;
+    border: 1px solid #BFBFBF;
+    border-radius: 0.1rem;
+    margin-right: 0.05rem;
+    }
+   .cargoinfo .selectInput {
+        width: 100%;
+        height: 0.5rem;
+        border-style: none;
+        border: none;
+        font-size: 0.24rem;
+        border-radius: 0.1rem;
+        padding-left: 0.12rem;
+        box-sizing: border-box;
+    }
+   .cargoinfo .picture_click {
+        background: url(../img/select-default.png) no-repeat; 
+        opacity: 1; 
+        width: 15px; 
+        height: 8px;
+        position: absolute;
+        top: 10px;
+        right: 125px;
+    }
+    .cargoinfo .picture_click:hover {
+        background-image: url(../img/select-hover.png);
+    }
+    .cargoinfo .selectList {
+        width: 206px;
+        height: 212px;
+        overflow-y: scroll;
+        text-align: left;
+        /*margin: 0 172px;*/
+        border: 1px solid #999;
+        display: none;
+        position: relative;
+        background: #FFFFFF;
+        color: #000000;
+        z-index: 99;
+    }
+    .cargoinfo .selectList div {
+        cursor: pointer;
+    }
+    .cargoinfo .nullcon{
+        display: none;
+        text-align: center;
+        padding: 10px;
+        word-break: break-all;
+    } 
+    .choosewenqu select {
+    border: none;
+    outline: none;
+    width: 100%;
+    height: 0.5rem;
+    line-height: 0.5rem;
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    font-size: 0.26rem;
+    color: #666;
+    border-radius: 0.1rem;
+    padding-left: 0.15rem;
+}   
+.search_ok{
+	width: 48%;
+    height: 0.7rem;
+    border-radius: 0.5rem;
+    color: #FFFFFF;
+    font-size: 0.28rem;
+    border: none;
+    background: rgb(18, 89, 155);
+}
 	</style>
 
 	<body>
 		<div class="top">
-			<div class="topmune">
+			<!--<div class="topmune">
 				<img src="../img/orderlist.png" />
-			</div>
-			<div class="topleft">
-				<input type="text" class="inputval" placeholder="按运单号查询" id="searchval" />
-				<img src="../img/delete_search.png" class="resert" />
-				<button class="search_ok">搜索</button>
-			</div>
+			</div>-->
+			<div class="cargoinfo">
+				<div id="cityContainer" class="selectContainer">
+			        <input type="text" placeholder="按项目编号查询" list="cityList" class="selectInput" name="xmbh" id="xmbh"  onfocus="fuzzySearch.call(this, 'cityList')"/>
+			        <div class="picture_click dropDowns" style=""></div>
+			        <div id="cityList" class="selectList">
+			        </div>
+			    </div>
+			    <div class="topleft">
+				    <input type="text" class="inputval" placeholder="按运单号查询" id="searchval" />
+				    <!--<img src="../img/delete_search.png" class="resert" />-->
+			 	<!--<button class="search_ok">搜索</button>-->
+			    </div>
+			    <!--<div class="topleft">
+				    <input type="text" class="inputval" placeholder="按运单号查询" id="searchval" />
+			    </div>-->
+			   
+			    <div class="topleft">
+                  <input id="history_start_time" type="text" placeholder="选择开始时间" readonly="readonly" />
+						
+				</div>
+			    <div class="topleft">
+                   <input id="history_end_time" type="text" placeholder="选择结束时间" readonly="readonly" />
+				</div>
+				 <div class="choosewenqu topleft">
+                    <select class="pcwenqu">
+					
+					</select>
+				</div>
+					<button class="search_ok">搜索</button>
+				
+		    </div>
+			
 
-			<div class="topright">
+			<!--<div class="topright">
 				<button class="exit">取消</button>
-			</div>
+			</div>-->
 		</div>
-		<div class="acountlist hide">
+		<!--<div class="acountlist hide">
 			<div class="send">
 				<div class="acounts">
 					<li>20200148 <input type="checkbox" name="Acountchoose" value="20200148"/> </li>
-
 				</div>
 				<div class="fbtn"><button class="chooseacount"></button> </div>
 				<div class="arrow"></div>
 			</div>
-		</div>
+		</div>-->
 		<div class="bar">
 			<div>
 				<span class="hover">未转单</span>
@@ -457,7 +611,274 @@
 		<script src="../js/jquery-1.11.0.js"></script>
 		<script src="../js/toastr.min.js"></script>
 		<script>
+			let _accounts = localStorage.getItem('Acount');
+				var wdqj = [];
+				$.ajax({
+					type: "post",
+					url: "http://out.ccsc58.cc/DATA_PORT_WECHAT_1.03/Clinical_Wdqj.php",
+					async: false,
+					data: {
+						state: 'wdqj',
+						AccountNumber:_accounts
+					},
+					dataType: 'JSON',
+					success: function(res) {
+						$('.choosewenqu .pcwenqu').html("");
+						$('.choosewenqu .pcwenqu').prepend("<option  value='按温区查询'>按温区查询</option>"); //添加第一个option值
+						$.each(res.data, function(index, val) {
+							$('.choosewenqu .pcwenqu').append('<option value="'+val.WDQJ+'">'+val.WDQJ+'</option>')
+						});
+						$.each(res.data, function(index, val) {
+							wdqj.push(val.WDQJ);
+						});
+			
+					},
+					error: function(err) {
+			
+					}
+				});
+			    var myarr=[]
+			   	$.ajax({
+					type: "post",
+					url: "http://out.ccsc58.cc/DATA_PORT_WEIXIN_1.01/Clinical_ItemList.php",
+					async: true,
+					data: {
+						state: 'itemlist',
+						username:_accounts
+					},
+					dataType: 'JSON',
+					success: function(res) {
+						
+						if(res.code==200){
+							$.each(res.data, function(index, val) {
+							myarr.push({'eleId':index+1,eleName:val.item})
+							});
+						}else{
+							alert('数据请求错误，请截图联系客服');
+							return false;
+						}
+			           
+					},
+					error: function(err) {
+			
+					}
+				});
+				console.log(myarr)
+						   function fuzzySearch(listId) {
+        var that = this;
+        //初始化下拉框
+        initSearchInput(that, listId);
+
+         var listArr = myarr 
+        var aa=$('#' + listId);
+        
+        //遍历数组，创建元素默认显示
+        $('#' + listId).html('');
+        $.each(listArr, function(index, item){
+            var divStr = '<div id='+item.eleId+'>'+item.eleName+'</div>';
+            $('#' + listId).append(divStr);
+        })
+        $('#' + listId).append('<div id="nullcon" class="nullcon">没有找到内容</div>');
+        
+        //current用来记录当前元素的索引值
+        var current = 0;
+        //匹配文本框中输入的字符串
+        var showList = searchText(that, listArr, listId);
+
+        bindFun();
+        
+        //为文本框绑定键盘引起事件
+        $(this).keyup(function(e){
+            //如果输入空格自动删除
+            this.value=this.value.replace(' ','');
+            //列表框显示
+            $('#' + listId).show();
+            if(e.keyCode == 38) {
+                //up
+                current --;
+                if(current <= 0) {
+                    current = 0;
+                }
+            }else if(e.keyCode == 40) {
+                //down
+                current ++;
+                if(current >= showList.length) {
+                    current = showList.length -1;
+                }
+
+            }else if(e.keyCode == 13) {
+                //enter
+                //如果按下回车，将此列表项的内容填充到文本框中
+                $(that).val(showList[current].eleName);
+                //下拉框隐藏
+                $('#' + listId).hide();
+            }else {
+                //other
+                showList = searchText(that, listArr, listId);
+                current = 0;
+            }
+            
+            
+            //设置当前项的背景色及位置
+            if(showList && showList.length!=0){
+                $.each(showList, function(index, item){
+                    if(index == current) {
+                        $('#' + item.eleId).css('background', '#eee');
+                        $('#' + listId).scrollTop($('#' + item.eleId).get(0).offsetTop);
+                    }else {
+                        $('#' + item.eleId).css('background', '');
+                    }
+                })
+            }
+            //设置下拉框的高度
+            //212为列表框的最大高度
+            if(showList && showList.length!=0){
+                if(212 > $('#' + listId).find('div').eq(0).height() * showList.length) {
+                    $('#' + listId).height($('#' + listId).find('div').eq(0).height() * showList.length);
+                }else {
+                    $('#' + listId).height(212);
+                }
+            }
+        })
+    }
+    
+    //绑定事件
+    function bindFun(){
+        //给下拉箭头绑定点击事件  点击下拉箭头显示/隐藏对应的列表
+        //输入框的类名为selectInput
+        //下拉箭头的类名为picture_click、dropDowns
+        //下拉列表的类名为selectList
+        for(var i = 0; i < $('.picture_click').length; i++) {
+            $('.picture_click').eq(i).click(function(){
+                $(this).parent().find('.selectList').toggle();
+            })
+        }
+
+        //为列表中的每一项绑定鼠标经过事件
+        $('.selectList div').mouseenter(function(){
+            $(this).css("background", "#eee").siblings().css("background", "");
+        });
+        //为列表中的每一项绑定单击事件
+        $('.selectList div').bind('click', function(){
+            //文本框为选中项的值
+            $(this).parent().parent().find('.selectInput').val($(this).html());
+            //下拉框隐藏
+            $(this).parent().hide();
+        }); 
+    }
+           
+
+    function initSearchInput(that, listId) {
+        
+        //点击下拉框外部的时候使下拉框隐藏
+        var dropDowns = document.getElementsByClassName('dropDowns');
+        var selectList = document.getElementsByClassName('selectList');
+        
+        document.body.onclick = function(e){
+            e = e || window.event;
+            var target = e.target || e.srcElement;
+//          console.info('target', target);
+//          console.info('that', that);
+//          console.info('===', target == that)
+            if(target == that){
+                $('#' + listId).show();
+            }else{
+                for(var i = 0; i < dropDowns.length; i++) {
+                    if(target != dropDowns[i] && target != selectList[i]){
+                        selectList[i].style.display = 'none';
+                    }
+                }
+            }
+            
+        }
+    }
+
+    
+    function searchText(that, listArr, listId){
+        //文本框中输入的字符串
+        var searchVal = $(that).val();
+        var showList = [];
+        if(showList.length== 0 && !$(that).val()){
+            //showList为列表中和所输入的字符串匹配的项
+            showList = listArr;
+        }
+        
+        if(searchVal){
+            //将和所输入的字符串匹配的项存入showList
+            //将匹配项显示，不匹配项隐藏
+            $.each(listArr, function(index, item){
+                if(item.eleName.indexOf(searchVal) != -1) {
+                    $('#' + item.eleId).css('display', 'block');
+                    showList.push(item);
+                }else {
+                    $('#' + item.eleId).css('display', 'none');
+                }
+            })
+        }else{
+            showList = listArr;
+            $.each(listArr, function(index, item){
+                $('#' + item.eleId).css('display', 'block');
+            })
+            $(that).siblings('.selectList').find('#nullcon').hide();
+        }
+
+        if(showList.length== 0 && $(that).val()){
+            $('#' + listId).height(50);
+            $(that).siblings('.selectList').find('#nullcon').html('没有找到"'+$(that).val()+'"的内容').show();
+        }
+        
+//      console.log('showList', showList);
+        
+        return showList;
+    }
+		</script>
+		<script>
 			$(function() {
+				var _endTime = new Date();
+	var _startTime = new Date(_endTime.getTime() - 24 * 60 * 60 * 1000);
+//	$("#history_start_time").val(history_time(_startTime));
+//	$("#history_end_time").val(history_time(_endTime));
+	var calendar = new datePicker();
+	calendar.init({
+		'trigger': '#history_start_time',
+		/*按钮选择器，用于触发弹出插件*/
+		'type': 'datetime',
+		/*模式：date日期；datetime日期时间；time时间；ym年月；*/
+		'minDate': '1900-1-1',
+		/*最小日期*/
+		'maxDate': '2100-12-31',
+		/*最大日期*/
+		'onSubmit': function() { /*确认时触发事件*/
+			var theSelectData = calendar.value;
+		},
+		'onClose': function() { /*取消时触发事件*/ }
+	});
+
+	var calendar = new datePicker();
+	calendar.init({
+		'trigger': '#history_end_time',
+		/*按钮选择器，用于触发弹出插件*/
+		'type': 'datetime',
+		/*模式：date日期；datetime日期时间；time时间；ym年月；*/
+		'minDate': '1900-1-1',
+		/*最小日期*/
+		'maxDate': '2100-12-31',
+		/*最大日期*/
+		'onSubmit': function() { /*确认时触发事件*/
+			var theSelectData = calendar.value;
+		},
+		'onClose': function() { /*取消时触发事件*/ }
+	});
+
+	function history_time(_a) {
+		var _start_year = _a.getFullYear();
+		var _start_month = _a.getMonth() + 1 < 10 ? "0" + (_a.getMonth() + 1) : _a.getMonth() + 1;
+		var _start_date = _a.getDate() < 10 ? "0" + (_a.getDate()) : _a.getDate();
+		var _start_hour = _a.getHours() < 10 ? "0" + (_a.getHours()) : _a.getHours();
+		var _start_minutes = _a.getMinutes() < 10 ? "0" + (_a.getMinutes()) : _a.getMinutes();
+		var _start_seconds = _a.getSeconds() < 10 ? "0" + (_a.getSeconds()) : _a.getSeconds();
+		return _start_year + "-" + _start_month + "-" + _start_date + " " + _start_hour + ":" + _start_minutes + ":" + _start_seconds;
+	}
 				window.alert = function(name) {
 					var iframe = document.createElement("IFRAME");
 					iframe.style.display = "none";
@@ -471,9 +892,11 @@
 				var _openid = localStorage.getItem('zdtqopenid');
 				var Acountlists = '';
 				var iszhuan = 0;
+
+	
                		$.ajax({
 						type: "post",
-						url: "http://out.ccsc58.cc/DATA_PORT_WECHAT_1.03/notorder_WayBill.php",
+						url: "http://out.ccsc58.cc/DATA_PORT_WECHAT_1.03/Clinical_notorder_WayBill.php",
 						async: true,
 						data: {
 							Telephone: _tel,
@@ -524,6 +947,24 @@
 												<span class="getcity city">${item.EndCity}</span>
 												<span class="getname">${item.GetName}</span>
 											</div>
+										</div>
+										<div class="info">
+										    <div>
+										        <span>温度区间:</span>
+										        <span>${item.WDQJ}</span>
+										    </div>
+										    <div>
+										        <span>项目编号:</span>
+										        <span>${item.XMNO}</span>
+										    </div>
+										    <div>
+										        <span>中心地址:</span>
+										        <span>${item.GetCompany}</span>
+										    </div>
+										    <div>
+										        <span class="remarktext">备注:</span>
+										        <span>${item.Note}</span>
+										    </div>
 										</div>
 										<div class="order-footer">
 											<span>客户账号:<label>${item.AccountNumber}</label></span>
@@ -563,7 +1004,7 @@
 						iszhuan = 0;
 						$.ajax({
 						type: "post",
-						url: "http://out.ccsc58.cc/DATA_PORT_WECHAT_1.03/notorder_WayBill.php",
+						url: "http://out.ccsc58.cc/DATA_PORT_WECHAT_1.03/Clinical_notorder_WayBill.php",
 						async: true,
 						data: {
 							Telephone: _tel,
@@ -615,6 +1056,24 @@
 												<span class="getname">${item.GetName}</span>
 											</div>
 										</div>
+										<div class="info">
+										    <div>
+										        <span>温度区间:</span>
+										        <span>${item.WDQJ}</span>
+										    </div>
+										    <div>
+										        <span>项目编号:</span>
+										        <span>${item.XMNO}</span>
+										    </div>
+										    <div>
+										        <span>中心地址:</span>
+										        <span>${item.GetCompany}</span>
+										    </div>
+										    <div>
+										        <span class="remarktext">备注:</span>
+										        <span>${item.Note}</span>
+										    </div>
+										</div>
 										<div class="order-footer">
 											<span>客户账号:<label>${item.AccountNumber}</label></span>
 											<span class='quxiao'>取消订单</span>
@@ -634,7 +1093,7 @@
 						$(".div1").hide();
 						$.ajax({
 							type: "post",
-							url: "http://out.ccsc58.cc/DATA_PORT_WECHAT_1.03/WayBill.php",
+							url: "http://out.ccsc58.cc/DATA_PORT_WECHAT_1.03/Clinical_WayBill.php",
 							async: true,
 							data: {
 								Telephone: _tel,
@@ -683,7 +1142,7 @@
 											dingdanstate = '取消订单';
 
 										} else {
-											dingdanstate = '联系客服';
+											dingdanstate = '取消订单';
 
 										}
 										ostate = '指令下达'
@@ -709,6 +1168,24 @@
 												<span class="getcity city">${item.GetCity}</span>
 												<span class="getname">${item.GetName}</span>
 											</div>
+										</div>
+								        <div class="info">
+										    <div>
+										        <span>温度区间:</span>
+										        <span>${item.WDQJ}</span>
+										    </div>
+										    <div>
+										        <span>项目编号:</span>
+										        <span>${item.XMNO}</span>
+										    </div>
+										    <div>
+										        <span>中心地址:</span>
+										        <span>${item.GetCompany}</span>
+										    </div>
+										    <div>
+										        <span class="remarktext">备注:</span>
+										        <span>${item.Note}</span>
+										    </div>
 										</div>
 										<div class="order-footer">
 											<span>客户账号:<label>${item.AccountNumber}</label></span>
@@ -751,7 +1228,7 @@
 						console.log(stracont)
 					$.ajax({
 						type: "post",
-						url: "http://out.ccsc58.cc/DATA_PORT_WECHAT_1.03/notorder_WayBill.php",
+						url: "http://out.ccsc58.cc/DATA_PORT_WECHAT_1.03/Clinical_notorder_WayBill.php",
 						async: true,
 						data: {
 							Telephone: _tel,
@@ -803,6 +1280,24 @@
 												<span class="getname">${item.GetName}</span>
 											</div>
 										</div>
+								        <div class="info">
+										    <div>
+										        <span>温度区间:</span>
+										        <span>${item.WDQJ}</span>
+										    </div>
+										    <div>
+										        <span>项目编号:</span>
+										        <span>${item.XMNO}</span>
+										    </div>
+										    <div>
+										        <span>中心地址:</span>
+										        <span>${item.GetCompany}</span>
+										    </div>
+										    <div>
+										        <span class="remarktext">备注:</span>
+										        <span>${item.Note}</span>
+										    </div>
+										</div>
 										<div class="order-footer">
 											<span>客户账号:<label>${item.AccountNumber}</label></span>
 											<span class='quxiao'>取消订单</span>
@@ -826,6 +1321,14 @@
 					window.location.href = 'orderdesc.html?id=' + idi + '&isget=' + isget + '&isstate=' + isstate + '&iszhuan=' + iszhuan
 				})
 
+				$("body").on("click", '.content ul .info', function() {
+					var idi = $(this).parents('li').attr("idi");
+					var isget = $(this).parents('li').find(".order-center-center span").text();
+					var isstate = $(this).parents('li').parents('li').find(".order-footer span:last-child").text();
+					var iszhuan = $('.bar .hover').text() == '未转单' ? 0 : 1;
+					window.location.href = 'orderdesc.html?id=' + idi + '&isget=' + isget + '&isstate=' + isstate + '&iszhuan=' + iszhuan
+				})
+
 				$(".navcontent").on('click', function() {
 					sessionStorage.removeItem('order');
 					location.href = 'order.html';
@@ -835,15 +1338,23 @@
 					var iszhuan = $('.bar .hover').text() == '未转单' ? 0 : 1;
 					var _urlcancel = ''
 					if(iszhuan == 0) {
-						_urlcancel = 'http://out.ccsc58.cc/DATA_PORT_WECHAT_1.03/notorder_Cancel.php'
+//						_urlcancel = 'http://out.ccsc58.cc/DATA_PORT_WECHAT_1.03/notorder_Cancel.php'
+						_urlcancel = 'http://out.ccsc58.cc/DATA_PORT_WECHAT_1.03/Clinical_notorder_Cancel.php'
 					} else {
-						_urlcancel = 'http://out.ccsc58.cc/DATA_PORT_WECHAT_1.03/Cancel.php'
+//						_urlcancel = 'http://out.ccsc58.cc/DATA_PORT_WECHAT_1.03/Cancel.php'
+//						_urlcancel = 'http://out.ccsc58.cc/DATA_PORT_WECHAT_1.03/Clinicalr_Cancel.php'
+						_urlcancel = 'http://out.ccsc58.cc/DATA_PORT_WECHAT_1.03/Clinical_Cancel.php'
 					}
 					var currttxt = $(this).text();
 					var tid = $(this).parents('li').attr('idi');
+					
 					if(currttxt == '取消订单') {
 						var r = confirm("确定要取消订单吗？")
 						if(r == true) {
+//							console.log(tid)
+//					console.log(_tel)
+//					console.log(_urlcancel)
+//					return false;
 							$.ajax({
 								type: "post",
 								url: _urlcancel,
@@ -900,9 +1411,9 @@
 					var iszhuan = $('.bar .hover').text() == '未转单' ? 0 : 1;
 					var _urlcancel = ''
 					if(iszhuan == 0) {
-						_urlcancel = 'http://out.ccsc58.cc/DATA_PORT_WECHAT_1.03/notorder_WayBill.php'
+						_urlcancel = 'http://out.ccsc58.cc/DATA_PORT_WECHAT_1.03/Clinical_notorder_WayBill.php'
 					} else {
-						_urlcancel = 'http://out.ccsc58.cc/DATA_PORT_WECHAT_1.03/WayBill.php'
+						_urlcancel = 'http://out.ccsc58.cc/DATA_PORT_WECHAT_1.03/Clinical_WayBill.php'
 					}
 					$(this).addClass('active').siblings().removeClass('active');
 					var Currstate = $(this).text().replace(/\s+/g, "");
@@ -974,7 +1485,7 @@
 											cz = '取消订单';
 
 										} else {
-											cz = '联系客服'
+											cz = '取消订单'
 										}
 										if(item.State == 2) {
 											cstate = '已安排'
@@ -1012,6 +1523,24 @@
 												<span class="getcity city">${item.GetCity}</span>
 												<span class="getname">${item.GetName}</span>
 											</div>
+										</div>
+										<div class="info">
+										    <div>
+										        <span>温度区间:</span>
+										        <span>${item.WDQJ}</span>
+										    </div>
+										    <div>
+										        <span>项目编号:</span>
+										        <span>${item.XMNO}</span>
+										    </div>
+										    <div>
+										        <span>中心地址:</span>
+										        <span>${item.GetCompany}</span>
+										    </div>
+										    <div>
+										        <span class="remarktext">备注:</span>
+										        <span>${item.Note}</span>
+										    </div>
 										</div>
 										<div class="order-footer">
 											<span>客户账号:<label>${item.AccountNumber}</label></span>
@@ -1085,7 +1614,7 @@
 											cz = '取消订单';
 
 										} else {
-											cz = '联系客服'
+											cz = '取消订单'
 										}
 										if(item.State == 2) {
 											cstate = '已安排'
@@ -1123,6 +1652,24 @@
 												<span class="getcity city">${item.GetCity}</span>
 												<span class="getname">${item.GetName}</span>
 											</div>
+										</div>
+										<div class="info">
+										    <div>
+										        <span>温度区间:</span>
+										        <span>${item.WDQJ}</span>
+										    </div>
+										    <div>
+										        <span>项目编号:</span>
+										        <span>${item.XMNO}</span>
+										    </div>
+										    <div>
+										        <span>中心地址:</span>
+										        <span>${item.GetCompany}</span>
+										    </div>
+										    <div>
+										        <span class="remarktext">备注:</span>
+										        <span>${item.Note}</span>
+										    </div>
 										</div>
 										<div class="order-footer">
 											<span>客户账号:<label>${item.AccountNumber}</label></span>
@@ -1177,7 +1724,7 @@
 							$('.state ul li .ywcnum').text("0")
 							$.ajax({
 								type: "post",
-								url: "http://out.ccsc58.cc/DATA_PORT_WECHAT_1.03/WayBill.php",
+								url: "http://out.ccsc58.cc/DATA_PORT_WECHAT_1.03/Clinical_WayBill.php",
 								async: true,
 								data: {
 									Telephone: _tel,
@@ -1231,6 +1778,24 @@
 												<span class="getname">${item.GetName}</span>
 											</div>
 										</div>
+										<div class="info">
+										    <div>
+										        <span>温度区间:</span>
+										        <span>${item.WDQJ}</span>
+										    </div>
+										    <div>
+										        <span>项目编号:</span>
+										        <span>${item.XMNO}</span>
+										    </div>
+										    <div>
+										        <span>中心地址:</span>
+										        <span>${item.GetCompany}</span>
+										    </div>
+										    <div>
+										        <span class="remarktext">备注:</span>
+										        <span>${item.Note}</span>
+										    </div>
+										</div>
 										<div class="order-footer">
 											<span>客户账号:<label>${item.AccountNumber}</label></span>
 											<span class='quxiao'>取消订单</span>
@@ -1253,28 +1818,174 @@
 				})
 				//运单号查询
 				$(".search_ok").click(function() {
-					var currtval = $("#searchval").val();
-					if(currtval == '') {
-						alert("请输入查询的单号")
-					} else {
+					let curxmbh = $("#xmbh").val();
+					let currtval = $("#searchval").val();
+					let curstarttime = $("#history_start_time").val();
+					let curenttime = $("#history_end_time").val();
+					let curwenqu = $(".pcwenqu").val();
+					console.log(curwenqu!='按温区查询')
+					console.log(curwenqu)
+					var _data={
+						Telephone: _tel,
+						AccountNumber: _account
+					}
+					if(curxmbh!=''){
+						_data.XMNO=curxmbh
+					}
+					if(currtval!=''){
+						console.log(5)
+						_data.BillNumber=currtval
+					}
+					if(curwenqu!='按温区查询'){
+						_data.WDQJ=curwenqu
+					}
+					if(curstarttime!=''&&curenttime==''){
+						 alert('请选择结束时间')
+						 return false;
+					}else if(curstarttime==''&&curenttime!=''){
+						 alert('请选择开始时间')
+						 return false;
+					}else if(curstarttime!=''&&curenttime!=''){
+						_data.BeginTime=curstarttime
+						_data.EndTime=curenttime
+					}
+						let iszhuan = $('.bar .hover').text() == '未转单' ? 0 : 1;
+						if(iszhuan == 0&&currtval=='') {
+		                        $.ajax({
+								type: "post",
+								url: "http://out.ccsc58.cc/DATA_PORT_WECHAT_1.03/Clinical_notorder_WayBill.php",
+								data: _data,
+								dataType: "JSON",
+								success: function(res) {
+									$('.content ul').html("");
+									
+									if(res.code == 200) {
+							$.each(res.data, function(index, item) {
+								var yundanhao = item.TakeNote == null ? "" : item.TakeNote;
+								var dingdanstate = '';
 
-						$.ajax({
-							type: "post",
-							url: "http://out.ccsc58.cc/DATA_PORT_WECHAT_1.03/WayBill.php",
-							data: {
-								Telephone: _tel,
-								AccountNumber: _account,
-								BillNumber: currtval
-							},
-							dataType: "JSON",
-							success: function(res) {
-								$('.content ul').html("");
-								if(res.code == 200) {
-									$.each(res.data, function(index, item) {
-										var str = `<li>
+								var strDate1 = item.Indate + '.0';
+								var strDate2 = getNowFormatDate();
+
+								strDate1 = strDate1.substring(0, strDate1.lastIndexOf(".")).replace(/-/g, "/");
+								strDate2 = strDate2.substring(0, strDate2.lastIndexOf(".")).replace(/-/g, "/");
+								var date1 = Date.parse(strDate1);
+								var date2 = Date.parse(strDate2);
+								var orderstate = '下单时间';
+								//							alert("strDate2与strDate1相差"+(date2-date1)/(60*60*1000)+"小时") 
+
+								var ostate = '指令下达';
+
+								var str = `<li idi=${item.ID}>
 										<div class="order-top">
-											<span>运单号:<label>${item.TakeNote}</label></span>
-										     <span>下单时间:<label>${item.Indate}</label></span>
+											<span>运单号:<label>${yundanhao}</label></span>
+										     <span>${orderstate}:<label>${item.Indate}</label></span>
+										</div>
+										<div class="order-center">
+											<div class="order-center-left">
+												<span class="startcity city">${item.City}</span>
+												<span class="sendname">${item.SendsName}</span>
+											</div>
+											<div class="order-center-center">
+												<img src="../img/Progressbar.png" />
+												<span>${ostate}</span>
+											</div>
+											<div class="order-center-right">
+												<span class="getcity city">${item.EndCity}</span>
+												<span class="getname">${item.GetName}</span>
+											</div>
+										</div>
+										<div class="info">
+										    <div>
+										        <span>温度区间:</span>
+										        <span>${item.WDQJ}</span>
+										    </div>
+										    <div>
+										        <span>项目编号:</span>
+										        <span>${item.XMNO}</span>
+										    </div>
+										    <div>
+										        <span>中心地址:</span>
+										        <span>${item.GetCompany}</span>
+										    </div>
+										    <div>
+										        <span class="remarktext">备注:</span>
+										        <span>${item.Note}</span>
+										    </div>
+										</div>
+										<div class="order-footer">
+											<span>客户账号:<label>${item.AccountNumber}</label></span>
+											<span class='quxiao'>取消订单</span>
+										</div>
+							        </li>`;
+								$('.content ul').append(str);
+
+							});
+									} else {
+										$('.content ul').append('<li class="nomore1">没有更多信息啦~</li>');
+									}
+		
+								},
+								error: function(err) {
+									console.log(err)
+								}
+							})
+						} else {
+							$('.bar').children('div:first-child').find('span').removeClass('hover')
+							$('.bar').children('div:last-child').find('span').addClass('hover')
+							console.log(2)
+							$.ajax({
+								type: "post",
+								url: "http://out.ccsc58.cc/DATA_PORT_WECHAT_1.03/Clinical_WayBill.php",
+								data: _data,
+								dataType: "JSON",
+								success: function(res) {
+									$('.content ul').html("");
+									if(res.code == 200) {
+					             $('.navcontent').show()
+								$('.state ul li .all').text(res.data.AllCount)
+								$('.state ul li .yxdnum').text(res.data.OrderCount)
+								$('.state ul li .czznum').text(res.data.CZCount)
+								$('.state ul li .ywcnum').text(res.data.QSCount)
+								$.each(res.data.ResultAllCount, function(index, item) {
+									var yundanhao = item.TakeNote == null ? "" : item.TakeNote;
+									var dingdanstate = '';
+
+									var strDate1 = item.Indate + '.0';
+									var strDate2 = getNowFormatDate();
+
+									strDate1 = strDate1.substring(0, strDate1.lastIndexOf(".")).replace(/-/g, "/");
+									strDate2 = strDate2.substring(0, strDate2.lastIndexOf(".")).replace(/-/g, "/");
+									var date1 = Date.parse(strDate1);
+									var date2 = Date.parse(strDate2);
+									var orderstate = '下单时间';
+									//							alert("strDate2与strDate1相差"+(date2-date1)/(60*60*1000)+"小时") 
+
+									var ostate = '';
+									if(item.State == 2) {
+										ostate = '已安排'
+										dingdanstate = '联系客服'
+									} else if(item.State == 3) {
+										ostate = '已签收';
+										dingdanstate = '';
+										orderstate = "签单时间："
+									} else if(item.State == 1) {
+										if((date2 - date1) / (60 * 60 * 1000) < 0.5) {
+											dingdanstate = '取消订单';
+
+										} else {
+											dingdanstate = '取消订单';
+
+										}
+										ostate = '指令下达'
+									} else {
+										ostate = '指令下达'
+									}
+
+									var str = `<li idi=${item.id}>
+										<div class="order-top">
+											<span>运单号:<label>${yundanhao}</label></span>
+										     <span>${orderstate}:<label>${item.Indate}</label></span>
 										</div>
 										<div class="order-center">
 											<div class="order-center-left">
@@ -1283,30 +1994,55 @@
 											</div>
 											<div class="order-center-center">
 												<img src="../img/Progressbar.png" />
-												<span>指令下达</span>
+												<span>${ostate}</span>
 											</div>
 											<div class="order-center-right">
 												<span class="getcity city">${item.GetCity}</span>
 												<span class="getname">${item.GetName}</span>
 											</div>
 										</div>
+								        <div class="info">
+										    <div>
+										        <span>温度区间:</span>
+										        <span>${item.WDQJ}</span>
+										    </div>
+										    <div>
+										        <span>项目编号:</span>
+										        <span>${item.XMNO}</span>
+										    </div>
+										    <div>
+										        <span>中心地址:</span>
+										        <span>${item.GetCompany}</span>
+										    </div>
+										    <div>
+										        <span class="remarktext">备注:</span>
+										        <span>${item.Note}</span>
+										    </div>
+										</div>
 										<div class="order-footer">
 											<span>客户账号:<label>${item.AccountNumber}</label></span>
-											<span class='quxiao'></span>
+											<span class='quxiao'>${dingdanstate}</span>
 										</div>
 							        </li>`;
-										$('.content ul').append(str);
-									});
-								} else {
-									$('.content ul').append('<li class="nomore1">没有更多信息啦~</li>');
-								}
+									$('.content ul').append(str);
 
-							},
-							error: function(err) {
-								console.log(err)
-							}
-						})
-					}
+								});
+									} else {
+										$('.state ul li .all').text(0)
+										$('.state ul li .yxdnum').text(0)
+										$('.state ul li .czznum').text(0)
+										$('.state ul li .ywcnum').text(0)
+										$('.content ul').append('<li class="nomore1">没有更多信息啦~</li>');
+									}
+		
+								},
+								error: function(err) {
+									console.log(err)
+								}
+							})
+						}
+
+					
 				})
 
 			})

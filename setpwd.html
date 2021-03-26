@@ -66,7 +66,7 @@
 			display: inline-block;
 			width: 0.27rem;
 			height: 0.35rem;
-			background: url(img/shoujihaoma.png) no-repeat center 0;
+			background: url(img/editpsd.png) no-repeat center 0;
 			background-size: 100% 100%;
 		}
 		
@@ -204,17 +204,17 @@
 			<img src="img/logo.png" class="logo" />
 		</div>
 		<div class="formdata">
-			<div class="line hide" >
+			<div class="line" >
 				<s class="tel-img"></s>
 				<p>
-					<input type="number" class="inputval" placeholder="请录入手机号码" id="telphone" />
+					<input type="password" class="inputval" placeholder="请输入原密码" id="oldpsd" />
 				</p>
 
 			</div>
 			<div class="line psdline">
 				<s class="psd-img"></s>
 				<p>
-					<input type="password" class="inputval" placeholder="设置6-12位登录密码" id="frist" />
+					<input type="password" class="inputval" placeholder="设置新密码" id="frist" />
 					<s class="nosee"></s>
 				</p>
 
@@ -222,12 +222,12 @@
 			<div class="line psdline">
 				<s class="psd-img"></s>
 				<p>
-					<input type="password" class="inputval" placeholder="请再次输入登录密码" id="second" />
+					<input type="password" class="inputval" placeholder="请再次输入新密码" id="second" />
 					<s class="nosee"></s>
 				</p>
 
 			</div>
-			<div class="sign">*请牢记登录密码</div>
+			<div class="sign">*请牢记新账号密码</div>
 			<div class="lastline">
 				<button class="button"></button>
 			</div>
@@ -313,8 +313,16 @@
 				var _tel = localStorage.getItem('Telphone');
 				var _fristpsd = $("#frist").val();
 				var _secondpsd = $("#second").val();
+				let oldpsd = $("#oldpsd").val();
+				let acount = localStorage.getItem('Acount');
 				if(iserror) {
-					if(_fristpsd == '') {
+					if(oldpsd == '') {
+						iserror = false;
+						setTimeout(function() {
+							iserror = true
+						}, 3000);
+						alert("原密码不能为空");
+					}else if(_fristpsd == '') {
 						iserror = false;
 						setTimeout(function() {
 							iserror = true
@@ -335,19 +343,20 @@
 					} else {
 						$.ajax({
 							type: "post",
-							url: "http://out.ccsc58.cc/DATA_PORT_WECHAT_1.03/UpdatePass.php",
+							url: "http://out.ccsc58.cc/DATA_PORT_WECHAT_1.03/Clinical_update_password.php",
 							async: true,
 							data: {
-								OpenId: _openid,
-								PassWord: _secondpsd
+								UserName:acount,
+								PassWord:oldpsd,
+								NewPassWord: _fristpsd,
+								RNewPassWord: _secondpsd
 							},
 							dataType: "JSON",
 							success: function(res) {
 								console.log(res);
 								if(res.code == 200) {
-									alert('密码设置成功');
-									setCookie("Mystate", "online");
-									window.location.replace('html/order.html'); 
+									alert('密码修改成功');
+									window.location.replace('html/orderpc.html'); 
 								} else {
 									alert(res.msg);
 								}

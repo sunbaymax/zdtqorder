@@ -139,7 +139,14 @@
 		.goodinfo .gooddesc .goodline {
 			display: flex;
 		}
-		
+		.goodinfo .gooddesc .markcontent {
+			display: block;
+		}
+		.goodinfo .gooddesc .markcontent p{
+			width: 100%;
+			height: auto;
+			line-height: 0.6rem;
+		}
 		.gooddesc .goodline p {
 			width: 50%;
 			height: 0.6rem;

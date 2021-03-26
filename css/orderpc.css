@@ -758,6 +758,38 @@ div .lastcaozuo {
 	border-radius: 0.1rem;
 	color: #333333;
 }
+.cooperation .valueaddTypebox .ni {
+    display: inline-block;
+    border: 1px solid #CCCCCC;
+    width: 3rem;
+    height: 0.7rem;
+    line-height: 0.7rem;
+    font-size: 0.26rem;
+    text-align: center;
+    margin-right: 0.3rem;
+    margin-top: 0.3rem;
+    border-radius: 0.1rem;
+    color: #333333;
+    overflow:hidden;
+    text-overflow:ellipsis;
+    white-space: nowrap;
+}
+.cooperation .valueaddTypebox .spanActive {
+	display: inline-block;
+	 width: 3rem;
+    height: 0.7rem;
+	line-height: 0.7rem;
+	font-size: 0.26rem;
+	text-align: center;
+	margin-right: 0.27rem;
+	border-radius: 0.1rem;
+	color: #12599B;
+	background: #e0e8ef;
+	border: 1px solid #12599B;
+	 overflow:hidden;
+    text-overflow:ellipsis;
+    white-space: nowrap;
+}
 
 .cooperation .goodsType .spanActive {
 	display: inline-block;
@@ -903,6 +935,9 @@ ul li div label {
 	outline: none;
 	color: #999999;
 	font-size: 0.26rem;
+	overflow:hidden;
+	white-space: nowrap;
+	text-overflow: ellipsis;
 }
 
 ul .childbox div .Cchildbox {

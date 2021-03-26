@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title>TMS微信版</title>
+		<link href="css/1/styles.css" type="text/css" rel="stylesheet" />
+		<link rel="stylesheet" href="css/toastr.min.css">
+		<meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+		<meta name="format-detection" content="telephone=no">
+	</head>
+	<style>
+		.login_wx {
+			cursor: pointer;
+		}
+	</style>
+
+	<body>
+		<div class="content">
+			<div class="content-tilte">TMS微信版</div>
+			<div class="form-box">
+				<div class="input-form">
+					<span><img src="img/icon-zhanghaouser.png"></span>
+					<input class="accept" type="text" placeholder="账号">
+				</div>
+				<div class="input-form">
+					<span><img src="img/icon-cellphone.png"></span>
+					<input class="phone" type="password" placeholder="密码">
+				</div>
+				<div class="sub">
+					<button id="login_ok">登录</button>
+				</div>
+				<img src="img/refreah.png" class="refeah" style="position: absolute;top: 390px;right: 45px;"/>
+			</div>
+
+			<script src="js/jquery-1.11.0.js" type="text/javascript"></script>
+			<script src="js/toastr.min.js" type="text/javascript"></script>
+			<script type="text/javascript">
+				$(function() {
+//					if(localStorage.getItem('myNumobj')) {
+//						window.location.replace('html/order.html'); 
+//					}
+					function UrlSearch() {
+						var name, value;
+						var str = location.href; //取得整个地址栏
+						var num = str.indexOf("?")
+						str = str.substr(num + 1); //取得所有参数 stringvar.substr(start [, length ]
+
+						var arr = str.split("&"); //各个参数放到数组里
+						for(var i = 0; i < arr.length; i++) {
+							num = arr[i].indexOf("=");
+							if(num > 0) {
+								name = arr[i].substring(0, num);
+								value = arr[i].substr(num + 1);
+								this[name] = value;
+							}
+						}
+					}
+					var Request = new UrlSearch(); //实例化
+					var _openId = Request.openid;
+					window.localStorage.setItem("openid", _openId);
+					toastr.options = {
+						timeOut: "3000",
+						positionClass: "toast-center-center"
+					};
+
+					$('.login_wx').on('click', function() {
+						alert("请跟信息系统部申请。。。")
+
+					})
+					let isOrder = true;
+					$('#login_ok').on("click", function() {
+						if(isOrder) {
+							if($(".accept").val() == "") {
+								isOrder = false;
+								setTimeout(function() {
+									isOrder = true
+								}, 3000);
+								toastr.error("请输入账号");
+							} else if($(".phone").val() == "") {
+								isOrder = false;
+								setTimeout(function() {
+									isOrder = true
+								}, 3000);
+								toastr.error("请输入密码");
+							} else {
+								qingqiu();
+							}
+
+						}
+
+					})
+                    $('.refeah').click(function(){
+                    	localStorage.clear()
+                    	var r=confirm("是否解决问题？")
+						if (r==true){
+					       location.reload()
+					   }else{
+					   	 location.href='http://www.weixinyunduan.com/web/a/bangzhu/changjianwenti/2020/0116/442.html'
+					    }
+                    })
+					function qingqiu() {
+						$.ajax({
+							url: "http://out.ccsc58.cc/DATA_PORT_WEIXIN_1.01/Clinical_Login.php",
+							type: "post",
+							data: {
+								UserName: $(".accept").val(),
+								UserPassWord: $(".phone").val(),
+							},
+							dataType: "JSON",
+							success: function(res) {
+								console.log(res);
+								if(res.code == "400") {
+									toastr.error(res.message);
+								} else {
+									
+									let obj=res.data
+									console.log(obj)
+									obj.myNum= $(".accept").val();
+									 var checkedIdStr = JSON.stringify(obj);
+                                    localStorage.setItem("myNumobj", checkedIdStr);
+                                    localStorage.setItem('openid','20200148'+$(".accept").val());
+									localStorage.setItem('Acount',obj.AccountNumber);
+									localStorage.setItem('Telphone',$(".accept").val())
+									toastr.success(res.message);
+									setTimeout(function() {
+										window.location.replace('html/order.html'); 
+									}, 1000);
+
+								}
+							},
+							error: function(err) {
+								console.log(err);
+							}
+						})
+					}
+					$("input").blur(function() {
+						$('body,html').animate({
+							scrollTop: 0
+						}, 500);
+					})
+
+				})
+			</script>
+	</body>
+
+</html>

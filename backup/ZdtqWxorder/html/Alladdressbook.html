@@ -1,0 +1,668 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<meta content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no" name="viewport">
+		<meta content="yes" name="apple-mobile-web-app-capable">
+		<meta content="black" name="apple-mobile-web-app-status-bar-style">
+		<meta content="telephone=no" name="format-detection">
+		<meta content="email=no" name="format-detection">
+		<meta name="description" content="中集冷云冷链运输微信下单平台" />
+		<meta name="keywords" content="微信下单，冷链运输 " />
+		<meta name=" author " content="中集冷云 " />
+		<title>地址薄</title>
+		<link rel="stylesheet " href="../css/base.css ">
+		<link rel="stylesheet " href="../css/index.css">
+		<link rel="stylesheet " href="../css/toastr.min.css">
+		<link rel="stylesheet " href="../css/checkbix.min.css">
+	</head>
+	<style>
+		.content {
+			width: 100%;
+			height: auto;
+			margin-top: 1.1rem;
+			padding: 0 0.3rem;
+			box-sizing: border-box;
+		}
+		
+		.content .result {
+			border-radius: 0.1rem;
+		}
+		
+		.content .yidong {
+			margin: 0 0 0 0.2rem;
+		}
+		
+		.inner {
+			margin-top: 0.1rem;
+			background: #FFFFFF;
+			border-radius: 0.1rem;
+			position: relative;
+		}
+		
+		.inner .line1 {
+			height: 0.66rem;
+			line-height: 0.66rem;
+			padding-left: 0.3rem;
+			box-sizing: border-box;
+			display: flex;
+			justify-content: inherit;
+			align-content: center;
+		}
+		
+		.mymoren {
+			position: absolute;
+			top: 0;
+			right: 0;
+			display: inline-block;
+			width: 1.77rem;
+			height: 0.42rem;
+		}
+		
+		.inner .line1 .username {
+			color: #333;
+			font-size: 0.28rem;
+			display: inline-block;
+			width: 30%;
+		}
+		
+		.inner .line1 .telphone {
+			color: #333;
+			font-size: 0.28rem;
+		}
+		
+		.inner .line2 {
+			height: 0.66rem;
+			line-height: 0.66rem;
+			display: flex;
+			padding-left: 0.3rem;
+			box-sizing: border-box;
+			border-bottom: 1px solid #CCCCCC;
+			color: #555555;
+			font-size: 0.26rem;
+		}
+		
+		.inner .line2 span {
+			display: inline-block;
+			width: 95%;
+			overflow: hidden;
+			/*超出长度的文字隐藏*/
+			text-overflow: ellipsis;
+			/*文字隐藏以后添加省略号*/
+			white-space: nowrap;
+		}
+		
+		.inner .line3 {
+			padding-left: 0.3rem;
+			box-sizing: border-box;
+			height: 0.78rem;
+			line-height: 0.78rem;
+			display: flex;
+		}
+		
+		.line3left {
+			width: 70%;
+			font-size: 0.22rem;
+			color: #666666;
+		}
+		
+		.line3right {
+			width: 30%;
+			text-align: center;
+		}
+		
+		.line3right a {
+			font-size: 0.22rem;
+			color: #666666;
+			margin-right: 0.3rem;
+		}
+		
+		.nomore {
+			margin-top: 0.3rem;
+			width: 100%;
+			height: 0.3rem;
+			line-height: 0.3rem;
+			text-align: center;
+			color: #666666;
+			font-size: 0.22rem;
+		}
+		
+		.nomore1 {
+			margin-top: 4rem;
+			width: 100%;
+			height: 0.3rem;
+			line-height: 0.3rem;
+			text-align: center;
+			color: #666666;
+			font-size: 0.22rem;
+		}
+		
+		.btns {
+			width: 100%;
+			position: fixed;
+			bottom: 0rem;
+			display: flex;
+			justify-content: inherit;
+		}
+		
+		.btns button:first-child {
+			width: 2rem;
+			height: 0.9rem;
+			background: #FFFFFF;
+			text-align: center;
+			font-size: 0.28rem;
+			color: #000000;
+			border: none;
+		}
+		
+		.btns button:last-child {
+			width: 5.5rem;
+			height: 0.9rem;
+			background: #12599B;
+			text-align: center;
+			font-size: 0.28rem;
+			color: #FFFFFF;
+			border: none;
+		}
+		
+		.result {
+			margin-bottom: 1.2rem;
+		}
+		/*公共部分——按钮样式*/
+		
+		.checkboxdiv {
+			position: absolute;
+			top: 0.8rem;
+			left: -0.45rem;
+		}
+		
+		.tui-checkbox:checked {
+			background: #12599B;
+		}
+		
+		.tui-checkbox {
+			width: 16px;
+			height: 16px;
+			background-color: #ffffff;
+			border: solid 1px #dddddd;
+			-webkit-border-radius: 50%;
+			border-radius: 50%;
+			font-size: 0.8rem;
+			margin: 0;
+			padding: 0;
+			position: relative;
+			display: inline-block;
+			vertical-align: top;
+			cursor: default;
+			-webkit-appearance: none;
+			-webkit-user-select: none;
+			user-select: none;
+			-webkit-transition: background-color ease 0.1s;
+			transition: background-color ease 0.1s;
+		}
+		
+		.tui-checkbox:checked::after {
+			content: '';
+			top: 0px;
+			left: 0px;
+			position: absolute;
+			background: transparent;
+			/*border: #fff solid 2px;*/
+			border-top: none;
+			border-right: none;
+			height: 6px;
+			width: 10px;
+			-moz-transform: rotate(-45deg);
+			-ms-transform: rotate(-45deg);
+			-webkit-transform: rotate(-45deg);
+			transform: rotate(-45deg);
+		}
+		
+		.hide {
+			display: none;
+		}
+	</style>
+
+	<body>
+		<div class="container">
+			<div class="top">
+				<div class="topleft">
+					<input type="text" class="inputval" placeholder="请录入姓名/电话" />
+					<img src="../img/delete_search.png" class="resert" />
+					<button class="search_ok">搜索</button>
+				</div>
+				<div class="topright">
+					<button class="exit">取消</button>
+				</div>
+
+			</div>
+			<div class="content">
+				<ul class="result">
+					<!--<li class="inner">
+						<label class="checkboxdiv hide">
+							<input name="checkbox" value="Item 1" type="checkbox" class="tui-checkbox">
+						</label>
+						<div class="innertop">
+							<div class="line1">
+								<span class="username">张三</span><span class="telphone">18519773728</span>
+							</div>
+							<div class="line2">
+								<span class="address">北京市丰台区汉威国际一区</span>
+							</div>
+						</div>
+						<div class="line3">
+							<p class="line3left">
+								<span>客户账号：</span><span class="account">6266621</span>
+							</p>
+							<p class="line3right">
+								<a href="javacript::" class="edit">编辑</a>
+								<a href="javacript::" class="del">删除</a>
+							</p>
+						</div>
+					</li>-->
+
+					<!--<li class="nomore hide">您还没有地址信息哦~</li>-->
+				</ul>
+			</div>
+
+			<div class="btns">
+				<button class="moredel">批量删除</button>
+				<button class="xinzeng">+ 新增地址</button>
+			</div>
+
+		</div>
+	</body>
+	<script src="../js/flexible.js "></script>
+	<script src="../js/jquery-1.11.0.js"></script>
+	<script src="../js/toastr.min.js"></script>
+	<script>
+		$(function() {
+			toastr.options = {
+				timeOut: "3000",
+				positionClass: "toast-center-center"
+			};
+			localStorage.removeItem('mystate');
+			window.alert = function(name) {
+				var iframe = document.createElement("IFRAME");
+				iframe.style.display = "none";
+				iframe.setAttribute("src", 'data:text/plain,');
+				document.documentElement.appendChild(iframe);
+				window.frames[0].window.alert(name);
+				iframe.parentNode.removeChild(iframe);
+			}
+			var _account = localStorage.getItem('Acount');
+			var _tel = localStorage.getItem('Telphone');
+			var _url = '';
+			//			if(localStorage.getItem('ChaddreType') == 'send') {
+			//				_url = "http://out.ccsc58.cc/DATA_PORT_WECHAT_1.03/AddressSend.php";
+			//				$(".btns .xinzeng").text("+ 新增地址");
+			//			} else {
+			//				_url = "http://out.ccsc58.cc/DATA_PORT_WECHAT_1.03/AddressGet.php";
+			//				$(".btns .xinzeng").text("+ 新增地址");
+			//			}
+
+			init();
+
+			function init() {
+				$.ajax({
+					type: "post",
+					url: "http://out.ccsc58.cc/DATA_PORT_WECHAT_1.03/AddressSend.php",
+					async: true,
+					data: {
+						State: "show",
+						Telephone: _tel,
+						AccountNumber: _account
+					},
+					dataType: 'json',
+					success: function(res) {
+						$('.result').html('');
+						console.log(res);
+						if(res.code == '400') {
+							localStorage.removeItem('SendaddData');
+							localStorage.removeItem('getaddData');
+							$('.result').append('<li class="nomore1">您还没有地址信息哦~</li>');
+							return false;
+						}
+						if(res.data != '') {
+							$('.result .nomore').hide();
+							$.each(res.data, function(index, value) {
+								let moren = '';
+								let zhanghao = '';
+								if(value.IsDefault == 1) {
+									moren = `<img src="../img/moren0.png" class="mymoren">`;
+								} else {
+									moren = '';
+								}
+								if(value.AccountNumber == null || value.AccountNumber == '') {
+									zhanghao = `<span>客户账号：</span><span class="account">未录入</span>`;
+								} else {
+									zhanghao = `<span>客户账号：</span><span class="account">${value.AccountNumber}</span>`
+								}
+								let str = `<li class="inner" idi='${value.ID}' company='${value.Company}'>
+								    <label class="checkboxdiv hide">
+								      <input name="checkbox" value='${value.ID}' type="checkbox" class="tui-checkbox ">
+								    </label>
+									<div class="innertop">
+										<div class="line1">
+											<span class="username">${value.Name}</span><span class="telphone">${value.Telephone}</span>
+										</div>
+										<div class="line2">
+											<span class="address">${value.Depart} ${value.City} ${value.Area} ${value.Address}</span>
+										</div>
+									</div>
+									<div class="line3">
+										<p class="line3left">
+											${zhanghao}
+										</p>
+										<p class="line3right">
+											<a href="javascript:;" class="edit">编辑</a>
+											<a href="javascript:;" class="del">删除</a>
+										</p>
+									</div>
+									${moren}
+								</li>`;
+								$('.result').append(str);
+
+							})
+							$('.result').append('<li class="nomore">没有更多信息啦~</li>');
+						} else {
+
+						}
+
+					},
+					error: function(err) {
+
+					}
+				});
+
+			}
+			//取消
+			$(".exit").on("click", function() {
+				location.href = 'order.html'
+			})
+			//清空输入框
+			$(".resert").on("click", function() {
+				$(".inputval").val('');
+				init();
+			})
+			//地址薄新增收件地址和寄件地址
+			$("body").on("click", ".xinzeng", function() {
+				location.href = 'addressInfo.html';
+			})
+			//批量删除选中的
+			var chooseids = [];
+			$('body').on("click", ".btns .nowdel", function() {
+
+				$.each($('input:checkbox'), function() {
+					if(this.checked) {
+						chooseids.push($(this).val())
+					}
+				});
+				if(chooseids.length == 0) {
+					alert('请指定删除选项')
+				} else {
+					var r = confirm("确定要删除选中的地址吗？")
+					if(r == true) {
+						$.ajax({
+							type: "post",
+							url: "http://out.ccsc58.cc/DATA_PORT_WECHAT_1.03/AddressSend.php",
+							async: true,
+							data: {
+								State: 'del',
+								Telephone: _tel,
+								AccountNumber: _account,
+								ID: chooseids
+							},
+							dataType: "json",
+							success: function(res) {
+								if(res.code == 200) {
+									if(localStorage.getItem('SendaddData')) {
+										var sendobj = JSON.parse(localStorage.getItem('SendaddData'));
+										var sendid = sendobj.id;
+										if(chooseids.in_array(sendid)) {
+											localStorage.removeItem('SendaddData');
+										}
+									}
+									if(localStorage.getItem('getaddData')) {
+										var getobj = JSON.parse(localStorage.getItem('getaddData'));
+										var getid = getobj.id;
+										if(chooseids.in_array(getid)) {
+											localStorage.removeItem('getaddData');
+										}
+
+									}
+									alert('删除成功');
+									window.location.reload();
+								} else {
+									alert('删除失败');
+								}
+
+							},
+							error: function(err) {
+
+							}
+						})
+					} else {
+						console.log("You pressed Cancel!")
+					}
+
+				}
+			})
+			Array.prototype.in_array = function(element) {　　
+				for(var i = 0; i < this.length; i++) {　　　　
+					if(this[i] == element) {　　　　　　
+						return true;　　
+					}　
+				}　　
+				return false;
+			}
+
+			//批量删除
+			$('body').on("click", ".btns .moredel", function() {
+				var arr = $('ul').attr("class");
+				if(arr.indexOf("yidong") != -1) {
+					$('ul').removeClass('yidong');
+					$('.checkboxdiv').hide();
+					$(this).text('批量删除');
+					$(this).next().text('+ 新增地址').removeClass('nowdel').addClass('xinzeng');
+				} else {
+					$('ul').addClass('yidong');
+					$('.checkboxdiv').show();
+					$(this).text('取消删除');
+					$(this).next().text('立即删除').removeClass('xinzeng').addClass('nowdel');
+				}
+
+			})
+
+			function del(id) {
+				if(confirm("寄件人缺少账号信息是否补全录入？")) {
+					location.href = 'InfoInput.html?id=' + id;
+				}
+			}
+			//			//选则地址
+			//			$("body").on("click", 'li .innertop', function() {
+			//				var id = $(this).parents('li').attr('idi');
+			//				var _ChaddreType = localStorage.getItem('ChaddreType');
+			//				var name = $(this).find('.username').text();
+			//				var tel = $(this).find('.telphone').text();
+			//				var address = $(this).find('.address').text();
+			//				var account = $(this).parent().find('.account').text();
+			//				var company = $(this).parents('li').attr('company');
+			//				var addData = {
+			//					id: id,
+			//					addressname: name,
+			//					addresstel: tel,
+			//					address: address,
+			//					addressaccount: account,
+			//					company: company
+			//				};
+			//				if(localStorage.getItem('state') == 'sendedit') {
+			//
+			//					localStorage.setItem('editData', JSON.stringify(addData));
+			//					location.href = 'Addsendress.html';
+			//
+			//				} else if(localStorage.getItem('state') == 'getedit') {
+			//					if(_ChaddreType == 'send') {
+			//						if(account == '未录入') {
+			//							del(id)
+			//						} else {
+			//							localStorage.setItem('editData', JSON.stringify(addData));
+			//							location.href = 'Addgetaddress.html';
+			//						}
+			//					} else {
+			//						localStorage.setItem('editData', JSON.stringify(addData));
+			//						location.href = 'Addgetaddress.html';
+			//					}
+			//				} else if(localStorage.getItem('state') == 'all') {
+			//					if(account == '未录入'){
+			//						localStorage.setItem('ChaddreType','get')
+			//					}else{
+			//						localStorage.setItem('ChaddreType','send')
+			//					}
+			//					location.href = 'addressinfo.html?id='+id;
+			//				} else {
+			//					if(_ChaddreType == 'send') {
+			//						if(account == '未录入') {
+			//							del(id)
+			//						} else {
+			//							localStorage.setItem('SendaddData', JSON.stringify(addData));
+			//							location.href = 'order.html';
+			//						}
+			//					} else {
+			//						localStorage.setItem('getaddData', JSON.stringify(addData));
+			//						location.href = 'order.html';
+			//					}
+			//				}
+			//
+			//			})
+			//根据id删除当前信息
+			$("body").on("click", 'li .del', function() {
+				var id = $(this).parents('.inner').attr('idi');
+				let oneid = [];
+				oneid.push(id);
+				var r = confirm("确定要删除该地址吗?")
+				if(r == true) {
+					$.ajax({
+						type: "post",
+						url: 'http://out.ccsc58.cc/DATA_PORT_WECHAT_1.03/AddressSend.php',
+						async: true,
+						data: {
+							State: 'del',
+							Telephone: _tel,
+							AccountNumber: _account,
+							ID: oneid
+						},
+						dataType: "json",
+						success: function(res) {
+							alert('删除成功');
+							if(localStorage.getItem('SendaddData')) {
+								var sendobj = JSON.parse(localStorage.getItem('SendaddData'));
+								var sendid = sendobj.id;
+
+								if(id == sendid) {
+									console.log("1")
+									localStorage.removeItem('SendaddData');
+								}
+								console.log("12")
+							}
+							if(localStorage.getItem('getaddData')) {
+								var getobj = JSON.parse(localStorage.getItem('getaddData'));
+								var getid = getobj.id;
+								if(id == getid) {
+									console.log("123")
+									localStorage.removeItem('getaddData');
+								}
+								console.log("1244")
+							}
+							init();
+						},
+						error: function(err) {
+
+						}
+					});
+				} else {
+					console.log("You pressed Cancel!")
+				}
+
+			})
+			//修改当前信息
+			$("body").on("click", 'li .edit', function() {
+				let _id = $(this).parents('.inner').attr('idi');
+				var _ChaddreType = localStorage.getItem('ChaddreType');
+				
+				window.location.href = "InfoInput.html?id=" + _id;
+			})
+			//按照姓名搜索
+			$('.search_ok').on("click", function() {
+				var searchval = $(this).parent().find('input').val();
+				if(searchval == '') {
+					alert('请输入查询条件');
+					return false;
+				}
+				$.ajax({
+					type: "post",
+					url: "http://out.ccsc58.cc/DATA_PORT_WECHAT_1.03/AddressSend.php",
+					async: true,
+					data: {
+						State: "show",
+						Telephone: _tel,
+						AccountNumber: _account,
+						Name: searchval
+					},
+					dataType: "json",
+					success: function(res) {
+						$('.result').html('');
+						if(res.code == '400') {
+							alert(res.msg);
+							return false;
+						}
+						$.each(res.data, function(index, value) {
+							let moren = '';
+							let zhanghao = '';
+							if(value.IsDefault == 1) {
+								moren = `<img src="../img/moren0.png" class="mymoren">`;
+							} else {
+								moren = '';
+							}
+							if(value.AccountNumber == null || value.AccountNumber == '') {
+								zhanghao = `<span>客户账号：</span><span class="account">未录入</span>`;
+							} else {
+								zhanghao = `<span>客户账号：</span><span class="account">${value.AccountNumber}</span>`
+							}
+							let str = `<li class="inner" idi='${value.ID}' company='${value.Company}'>
+								    <label class="checkboxdiv hide">
+								      <input name="checkbox" value='${value.ID}' type="checkbox" class="tui-checkbox ">
+								    </label>
+									<div class="innertop">
+										<div class="line1">
+											<span class="username">${value.Name}</span><span class="telphone">${value.Telephone}</span>
+										</div>
+										<div class="line2">
+											<span class="address">${value.Depart} ${value.City} ${value.Area} ${value.Address}</span>
+										</div>
+									</div>
+									<div class="line3">
+										<p class="line3left">
+											${zhanghao}
+										</p>
+										<p class="line3right">
+											<a href="javascript:;" class="edit">编辑</a>
+											<a href="javascript:;" class="del">删除</a>
+										</p>
+									</div>
+									${moren}
+								</li>`;
+							$('.result').append(str);
+
+						})
+					},
+					error: function(err) {
+						console.log(err)
+					}
+				});
+			})
+		})
+	</script>
+
+</html>

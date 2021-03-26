@@ -96,6 +96,11 @@
 							保险：<span class="toubao"></span>
 						</p>
 					</div>
+					<div class="goodline markcontent">
+						<p>
+							备注：<span class="goodname remark"></span>
+						</p>
+					</div>
 					
 
 				</div>
@@ -196,6 +201,7 @@
 								$('.goodinfo .good_type').text(res.data.BusinessType);
 								$('.goodinfo .good_name').text(res.data.CargoName);
 								$('.goodinfo .good_iswendj').text(res.data.Name4 == '使用' ? '是' : "否");
+								$('.goodinfo .remark').text(res.data.Note);
 								
 								$('.goodinfo .toubao').text(res.data.insurance + '，' + res.data.insurancePrice);
 								$('.goodinfo .wdqj').text(res.data.WDQJ);

@@ -1,0 +1,957 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<meta content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no" name="viewport">
+		<meta content="yes" name="apple-mobile-web-app-capable">
+		<meta content="black" name="apple-mobile-web-app-status-bar-style">
+		<meta content="telephone=no" name="format-detection">
+		<meta content="email=no" name="format-detection">
+		<meta name="renderer" content="webkit|ie-comp|ie-stand">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+		<meta name="wap-font-scale" content="no">
+		<meta name="description" content="中集冷云冷链运输微信下单平台" />
+		<meta name="keywords" content="微信下单，冷链运输 " />
+		<meta name=" author " content="中集冷云 " />
+		<title>我要下单</title>
+		<link rel="stylesheet " href="../css/base.css ">
+		<link rel="stylesheet" type="text/css" href="../css/public.css">
+		<link rel="stylesheet" type="text/css" href="../css/mobileSelect.css">
+		<script>
+		      var cssStr='<link href="../css/orderpc.css?v='+Math.random()+'" rel="stylesheet" type="text/css"/>';
+		      document.write(cssStr);
+		</script>
+		
+		<link rel="stylesheet" href="../static/style.css" />
+		<script src="../js/mobileSelect.js" type="text/javascript"></script>
+	</head>
+	<style>
+         .cargoinfo li .selectContainer {
+            position: absolute;
+		    top: 0rem;
+		    left: 10%;
+		    z-index: 9999;
+            width: 90%;
+    height: 0.7rem;
+    border-bottom: 0.01rem solid #DFDFDF;
+    }
+   .cargoinfo li .selectInput {
+        width: 80%;
+        height: 0.7rem;
+        border-style: none;
+        border: none;
+        font-size: 0.26rem;
+    }
+   .cargoinfo li .picture_click {
+        background: url(../img/select-default.png) no-repeat; 
+        opacity: 1; 
+        width: 15px; 
+        height: 8px;
+        position: absolute;
+        top: 10px;
+        right: 125px;
+    }
+    .cargoinfo li .picture_click:hover {
+        background-image: url(../img/select-hover.png);
+    }
+    .cargoinfo li .selectList {
+        width: 206px;
+        height: 212px;
+        overflow-y: scroll;
+        text-align: left;
+        /*margin: 0 172px;*/
+        border: 1px solid #999;
+        display: none;
+        position: relative;
+        background: #FFFFFF;
+        color: #000000;
+    }
+    .cargoinfo li .selectList div {
+        cursor: pointer;
+    }
+    .cargoinfo li .nullcon{
+        display: none;
+        text-align: center;
+        padding: 10px;
+        word-break: break-all;
+    }    
+	</style>
+
+	<body>
+		<div class="wrapper">
+			<div class="container">
+				<header>
+					<h1><a href="javascript:;" class="slide-menu"><img src="../img/onmenu.png" alt=""></a></h1>
+					<label class="">客户账号：<span class="acount"></span>  </label>
+				</header>
+				<div class="acountlist hide">
+					<div class="send">
+						<div class="acounts">
+
+						</div>
+						<button>新增账号</button>
+						<div class="arrow"></div>
+					</div>
+				</div>
+
+				<div class="address">
+					<ul>
+						<li>
+							<div>
+								<img src="../img/jijianren.png" />
+							</div>
+							<div>
+								<span class="clickaddress Noexistsend">请点击添加寄件人地址</span>
+								<p class="hide existsend"><span class="username" id="send_username"></span><span class="tel" id="send_tel"></span></p>
+								<p class="hide existsend"><span class="address" id="send_address"></span></p>
+							</div>
+
+							<div>
+								<a href="javascript:;" class="addressbook sendaddress">地址薄</a>
+							</div>
+						</li>
+						<li>
+							<div>
+								<img src="../img/shoujianren.png" />
+							</div>
+							<div>
+								<span class="clickaddress Noexistget">请点击添加收件人地址</span>
+								<p class="hide existget"><span class="username" id="get_username"></span><span class="tel" id="get_tel"></span></p>
+								<p class="hide existget"><span class="address" id="get_address"></span></p>
+
+							</div>
+
+							<div>
+								<a href="javascript:;" class="addressbook getaddress">地址薄</a>
+							</div>
+						</li>
+					</ul>
+				</div>
+			
+				<div class="cargoinfo">
+					<div class="cargoinfo-title">
+						<h3>货物信息</h3>
+						<span class="clear">清空当前信息</span>
+					</div>
+					<ul>
+						<li class="xmnum" >
+							<div style="display: flex;justify-content: center;width: 10%;">
+								<img src="../img/iconbianhao.png" class="img_cargo" />
+							</div>
+							<div id="cityContainer" class="selectContainer">
+						        <input type="text" placeholder="请输入或选择项目编号" list="cityList" class="selectInput" name="xmbh" id="xmbh" value="" onfocus="fuzzySearch.call(this, 'cityList')"/>
+						        <div class="picture_click dropDowns" style=""></div>
+						        <div id="cityList" class="selectList">
+						        </div>
+						    </div>
+						</li>
+						<li class="li">
+							<div>
+								<img src="../img/cargo.png" class="img_cargo" />
+							</div>
+
+							<div style="align-items: center;justify-content: space-between;">
+								<label class="goods cgoodtype" id="Goodstypes">请选择货物类型</label>
+								<img src="../img/xiala.png" class="xiala cgoodtype" style="margin-right: 0.3rem;" />
+								<input type="text"  placeholder="货物名称(选)" class="goods" id="goodname" style="width: 1.6rem;" />
+							</div>
+						</li>
+
+						<li class="li">
+							<div>
+								<img src="../img/wenqujian.png" class="img_temp1" />
+							</div>
+
+							<!--<div class="choosewenqu">
+								<label id="Tempqu">请选择温区</label>
+								<img src="../img/xiala.png" class="xiala" />
+							</div>-->
+							<div class="choosewenqu">
+	                            <select class="pcwenqu">
+								
+								</select>
+							</div>
+						</li>
+						<li class="CTemporSize li">
+							<span class="goodsize">货物尺寸</span>
+							<span class="tempbox clickbox">保温箱型</span>
+						</li>
+						<li class="fatherboxsize orderbox1 li" style="display: none;">
+							<div>
+								<img src="../img/chicun.png" class="img_temp">
+							</div>
+
+							<div class="choosewenqu">
+								<label class="boxinput chooseBox" id="BoxType" style="width: 64%;"> </label>
+								<img src="../img/delbox.png" class="delbox ">
+								<p class="gw_num">
+									<img src="../img/reduce.png" class="jian">
+									<input type="text" value="1" disabled="disabled"  class="num" readonly="readonly">
+									<img src="../img/addbox.png" class="add">
+								</p>
+
+							</div>
+						</li>
+					</ul>
+				</div>
+				<div class="lastcaozuo">
+					<div class="time">
+						<div>
+							<div>
+								<img src="../img/wendu.png" style="width: 0.26rem;
+    height: 0.36rem;" />
+							</div>
+
+							<div class="time-right" style="border-bottom: 0.01rem solid #DFDFDF;">
+								<label>温度计使用</label>
+								<img src="../img/bushiyong.png" isuse='0' class="bzimg" id="usewdj" />
+							</div>
+
+						</div>
+					</div>
+					<div class="timesaft">
+						<div>
+							<div>
+								<img src="../img/toubao.png" style="width: 0.32rem;height: 0.36rem;" />
+							</div>
+
+							<div class="time-right">
+								<label style="margin-right: 2.6rem;">是否投保</label>
+								<img src="../img/butoubao.png" istoubao='0' class="bzimg" id="clicktoubao" />
+							</div>
+							<div style="" class="edit">
+								<span style="margin-right: 5px;display: none;">￥</span>
+								<input type="number" class="money" placeholder="投保金额" value="2000"  readonly="readonly"/>
+
+							</div>
+							<img src="../img/bianji.png" class="bianji" />
+						</div>
+
+					</div>
+					<div class="time" style="margin: 0;">
+						<div>
+							<div>
+								<img src="../img/ChooseOrtime.png" />
+							</div>
+
+							<div class="time-right">
+								<label id="ChooseTimes" class="chooseTime clickTime">预约取件时间</label>
+								<!--<input type="text" id="picktime" class="start-two" placeholder="预约取件时间" readonly>-->
+								<img src="../img/xiala.png" class="xiala clickTime" />
+							</div>
+
+						</div>
+
+					</div>
+					<div class="note" style="margin: 0;">
+						<div>
+							<div>
+								<img src="../img/note.png" style="display: inline-block;width: 0.38rem;height: 0.38rem;" />
+							</div>
+
+							<div class="time-right">
+								<textarea placeholder="备注(选)" class="beizhu"></textarea>
+
+							</div>
+
+						</div>
+
+					</div>
+
+				</div>
+
+				<div v-cloak id="popup" @click="popupHide" style="display: none;">
+					<div class="overlay"></div>
+					<div class="content">
+						<section class="srv-time-selector" v-show="switchShow">
+							<div class="bar bar-1">
+								<h1>选择服务时间</h1>
+								<img width="14" src="../static/images/delete_weici2_icon.png" />
+							</div>
+							<div class="bd">
+								<div class="header">
+									<div class="data-picker">
+										<div class="wrapper">
+											<button v-for="(date, index) in dates.nowMonth" :id="'scroll-' + index" :class="[{current: date.current}]" @click="selectedNow(index, $event)">
+									{{date.week}} {{date.month}}/{{date.day}}
+								<!--	<span>{{date.appointment ? '可预约' : '暂不可约'}}</span>-->
+								</button>
+											<button v-for="(date, index) in dates.nextMonth" :id="'scroll-next-' + index" :class="[{current: date.current}]" @click="selectedNext(index, $event)">
+									{{date.week}} {{date.month}}/{{date.day}}
+								<!--	<span>{{date.appointment ? '可预约' : '暂不可约'}}</span>-->
+								</button>
+										</div>
+									</div>
+									<button class="cal" @click="tableShow">
+							<img width="16" class="close_vue" src="../static/images/rili_weici2_icon@2x.png" alt="" />
+							<span>30天</span>
+						</button>
+								</div>
+
+								<div class="hours">
+									<div class="wrapper" v-for="date in dates.nowMonth" v-if="date.current">
+										<div :class="{'chose-time': !isChoseTime}" v-if="isFirstDay === 0">
+											<button :class="['hour-this', {'not-can-use': (key + 20)/2 <= currentHours+3.5}]" v-for="(hour, key) in date.hours" @click="timeChose(key, $event)">{{hour.hour}}</button>
+										</div>
+										<div :class="{'chose-time': !isChoseTime}" v-else>
+											<button class="hour-this" v-for="(hour, key) in date.hours" @click="timeChose(key, $event)">{{hour.hour}}</button>
+										</div>
+									</div>
+									<div class="wrapper" v-for="date in dates.nextMonth" v-if="date.current">
+										<div :class="{'chose-time': !isChoseTime}">
+											<button class="hour-this" v-for="(hour, key) in date.hours" @click="timeChose(key, $event)">{{hour.hour}}</button>
+										</div>
+									</div>
+								</div>
+								<div class="out">
+									<button class="submit" @click="submitFunc">确定</button>
+								</div>
+							</div>
+						</section>
+
+						<section class="srv-time-selector" v-show="!switchShow">
+							<div class="bar">
+								<img width="8" src="../static/images/fanhui_weici2_icon.png" @click="tableHide" />
+								<h1>选择服务时间</h1>
+							</div>
+							<div class="bd">
+								<section class="days-component">
+									<div class="weekdays">
+										<div class="weekday">日</div>
+										<div class="weekday">一</div>
+										<div class="weekday">二</div>
+										<div class="weekday">三</div>
+										<div class="weekday">四</div>
+										<div class="weekday">五</div>
+										<div class="weekday">六</div>
+									</div>
+									<div class="days-body">
+										<div>
+											<div class="month">{{currentYears}}年{{currentMonth}}月</div>
+											<div class="days">
+												<div class="day" v-for="day in nullDay">{{day}}</div>
+												<div class="day" v-for="(date, index) in dates.nowMonth" :id="'scroll-' + index" :class="[{current: date.current}]" @click="selectedNow(index, $event)">
+													<font v-show="index == 0">今天</font>
+													<a :href="'#scroll-' + index">{{date.day}}</a>
+												</div>
+											</div>
+											<div class="month">{{currentYears}}年{{currentMonth + 1}}月</div>
+											<div class="days">
+												<div class="day" v-for="day in nextNullDay">{{day}}</div>
+												<div class="day" v-for="(date, index) in dates.nextMonth" :id="'scroll-next-' + index" :class="[{current: date.current}]" @click="selectedNext(index, $event)">
+													<a :href="'#scroll-next-' + index">{{date.day}}</a>
+
+												</div>
+											</div>
+
+										</div>
+									</div>
+								</section>
+							</div>
+						</section>
+					</div>
+				</div>
+
+				<div class="btndiv">
+					<button class="btn-order">下单</button>
+				</div>
+			</div>
+		</div>
+		<div class="setbg hide">
+			<div class="yin"></div>
+			<!-- 货物类型 -->
+			<div class="cooperation goodsType hide">
+				<div class="cooperation-top">请选择货物类型</div>
+				<div class="Temparea-Ways">
+					<p class="type-tittle"></p>
+					<p class="Goodtype Tempareac"><span class="ni">药品</span><span class="ni">样本</span><span class="ni">试剂</span><span class="ni">器械</span><span class="ni">普货</span></p>
+				</div>
+				<div class="nextNum">
+					<button class="cooperation-btn Goodstype-btn">确定</button>
+				</div>
+			</div>
+			<!-- 所需容积 -->
+			<div class="cooperation  Temparea hide">
+				<div class="cooperation-top">请选择温区</div>
+
+				<div class="Temparea-Ways">
+					<span class="ni">-90℃~-60℃</span>
+					<span class="ni">2℃~8℃</span>
+					<span class="ni">20℃~-60℃</span>
+				</div>
+				<div class="nextNum">
+					<button class="cooperation-btn Temparea-btn">确定</button>
+				</div>
+			</div>
+			<div class="cooperation  BoxType hide">
+				<div class="cooperation-top">请选择保温箱型及数量（最多3种）<button class="clearboxs">清空</button></div>
+				<div class="BoxType-Ways">
+
+				</div>
+				<div class="nextNum">
+					<button class="cooperation-btn BoxType-btn">确定</button>
+				</div>
+			</div>
+
+			<div class="cooperation  BoxSize hide">
+				<div class="cooperation-top">请填写货物尺寸 <button class="clearboxsize">清空</button></div>
+				<p class="type-tittle"></p>
+				<div class="BoxSize-Ways">
+					<p class="BoxTypef1"><span>长:</span><span>宽:</span><span>高:</span></p>
+					<p class="BoxTypef2">
+						<span>
+				      	<input type="number" class="lang" />
+				      </span>
+						<label>&nbsp;&nbsp; cm&nbsp;&nbsp;&nbsp;&nbsp;</label> <b>*</b>
+						<span>
+				      	<input type="number" class="wide" />
+				      </span>
+						<label>&nbsp;&nbsp; cm&nbsp;&nbsp;&nbsp;&nbsp;</label> <b>*</b>
+						<span>
+				      	<input type="number" class="high" />
+				      </span>
+						<label>&nbsp;&nbsp; cm&nbsp;&nbsp;&nbsp;&nbsp;</label>
+					</p>
+				</div>
+				<div class="nextNum">
+					<button class="cooperation-btn BoxSize-btn">确定</button>
+				</div>
+			</div>
+
+			<div class="cooperation  TimeType hide">
+				<div class="cooperation-top">预约取件时间</div>
+				<div class="TimeType-Ways">
+					<div class="TimeType-day">
+						<div class="ni">
+							<span class="ri">今日</span>
+							<span class="qi">2019-05-10</span>
+							<img src="../img/chooseTime.png" class="hide" />
+						</div>
+						<div class="ni">
+							<span class="ri">明日</span>
+							<span class="qi">2019-05-11</span>
+							<img src="../img/chooseTime.png" class="hide" />
+						</div>
+						<div class="ni">
+							<span class="ri">后日</span>
+							<span class="qi">2019-05-12</span>
+							<img src="../img/chooseTime.png" class="hide" />
+						</div>
+					</div>
+					<div class="TimeType-datetime">
+						<!--<span class="ni">2小时上门</span>-->
+					</div>
+				</div>
+				<div class="nextNum">
+					<button class="cooperation-btn time-btn">确定</button>
+				</div>
+			</div>
+
+		</div>
+
+		<!-- 侧边导航 -->
+		<div class="slide-mask"></div>
+		<aside class="slide-wrapper">
+			<div>
+				<div class="menu_top">
+					<img src="../img/fanhui.png" />
+				</div>
+				<ul class="menu_content">
+					<li>
+						<img src="../img/wodedingdan.png" />
+						<a href="orderlist.html">我的订单</a>
+					</li>
+					<li class="alldizhi">
+						<img src="../img/dizhibu.png" />
+						<a href="javascript:void(0)">地址薄</a>
+					</li>
+					<li>
+						<img src="../img/lianxikefu.png" />
+						<a href="tel:400-6507168">联系客服</a>
+					</li>
+
+				</ul>
+				<div class="menu_footer">
+					<img src="../img/userimg.png" class="touxiang" />
+					<p class="haveinfo">
+						<span class="turename">***</span>
+						<span class="turetel"></span>
+					</p>
+					<a href="login.html" class="hide" id="editlogin">注销登录</a>
+				</div>
+			</div>
+		</aside>
+	</body>
+	<script src="../js/jquery-1.11.0.js"></script>
+	<script src="../js/toastr.min.js"></script>
+	<script src="../js/flexible.js "></script>
+	<script src="../js/orderpc.js"></script>
+	<!--<script src="../js/pickuptime.min.js"></script>-->
+	<script type="text/javascript" src="../js/moment.js"></script>
+	<script type="text/javascript" src="../js/bootstrap-datetimepicker.js"></script>
+	<script src="../js/jquery.min.js"></script>
+	<script src="../js/vue.min.js"></script>
+	<script type="text/javascript">
+		let _account = localStorage.getItem('Acount');
+        let myarr=[]
+	   	$.ajax({
+			type: "post",
+			url: "http://out.ccsc58.cc/DATA_PORT_WEIXIN_1.01/Clinical_ItemList.php",
+			async: true,
+			data: {
+				state: 'itemlist',
+				username:_account
+			},
+			dataType: 'JSON',
+			success: function(res) {
+				
+				if(res.code==200){
+					$.each(res.data, function(index, val) {
+					myarr.push({'eleId':index+1,eleName:val.item})
+					});
+				}else{
+					alert('数据请求错误，请截图联系客服');
+					return false;
+				}
+	           
+			},
+			error: function(err) {
+	
+			}
+		});
+		console.log(myarr)
+    function fuzzySearch(listId) {
+        var that = this;
+        //初始化下拉框
+        initSearchInput(that, listId);
+
+         var listArr = myarr 
+        var aa=$('#' + listId);
+        
+        //遍历数组，创建元素默认显示
+        $('#' + listId).html('');
+        $.each(listArr, function(index, item){
+            var divStr = '<div id='+item.eleId+'>'+item.eleName+'</div>';
+            $('#' + listId).append(divStr);
+        })
+        $('#' + listId).append('<div id="nullcon" class="nullcon">没有找到内容</div>');
+        
+        //current用来记录当前元素的索引值
+        var current = 0;
+        //匹配文本框中输入的字符串
+        var showList = searchText(that, listArr, listId);
+
+        bindFun();
+        
+        //为文本框绑定键盘引起事件
+        $(this).keyup(function(e){
+            //如果输入空格自动删除
+            this.value=this.value.replace(' ','');
+            //列表框显示
+            $('#' + listId).show();
+            if(e.keyCode == 38) {
+                //up
+                current --;
+                if(current <= 0) {
+                    current = 0;
+                }
+            }else if(e.keyCode == 40) {
+                //down
+                current ++;
+                if(current >= showList.length) {
+                    current = showList.length -1;
+                }
+
+            }else if(e.keyCode == 13) {
+                //enter
+                //如果按下回车，将此列表项的内容填充到文本框中
+                $(that).val(showList[current].eleName);
+                //下拉框隐藏
+                $('#' + listId).hide();
+            }else {
+                //other
+                showList = searchText(that, listArr, listId);
+                current = 0;
+            }
+            
+            
+            //设置当前项的背景色及位置
+            if(showList && showList.length!=0){
+                $.each(showList, function(index, item){
+                    if(index == current) {
+                        $('#' + item.eleId).css('background', '#eee');
+                        $('#' + listId).scrollTop($('#' + item.eleId).get(0).offsetTop);
+                    }else {
+                        $('#' + item.eleId).css('background', '');
+                    }
+                })
+            }
+            //设置下拉框的高度
+            //212为列表框的最大高度
+            if(showList && showList.length!=0){
+                if(212 > $('#' + listId).find('div').eq(0).height() * showList.length) {
+                    $('#' + listId).height($('#' + listId).find('div').eq(0).height() * showList.length);
+                }else {
+                    $('#' + listId).height(212);
+                }
+            }
+        })
+    }
+    
+    //绑定事件
+    function bindFun(){
+        //给下拉箭头绑定点击事件  点击下拉箭头显示/隐藏对应的列表
+        //输入框的类名为selectInput
+        //下拉箭头的类名为picture_click、dropDowns
+        //下拉列表的类名为selectList
+        for(var i = 0; i < $('.picture_click').length; i++) {
+            $('.picture_click').eq(i).click(function(){
+                $(this).parent().find('.selectList').toggle();
+            })
+        }
+
+        //为列表中的每一项绑定鼠标经过事件
+        $('.selectList div').mouseenter(function(){
+            $(this).css("background", "#eee").siblings().css("background", "");
+        });
+        //为列表中的每一项绑定单击事件
+        $('.selectList div').bind('click', function(){
+            //文本框为选中项的值
+            $(this).parent().parent().find('.selectInput').val($(this).html());
+            //下拉框隐藏
+            $(this).parent().hide();
+        }); 
+    }
+           
+
+    function initSearchInput(that, listId) {
+        
+        //点击下拉框外部的时候使下拉框隐藏
+        var dropDowns = document.getElementsByClassName('dropDowns');
+        var selectList = document.getElementsByClassName('selectList');
+        
+        document.body.onclick = function(e){
+            e = e || window.event;
+            var target = e.target || e.srcElement;
+//          console.info('target', target);
+//          console.info('that', that);
+//          console.info('===', target == that)
+            if(target == that){
+                $('#' + listId).show();
+            }else{
+                for(var i = 0; i < dropDowns.length; i++) {
+                    if(target != dropDowns[i] && target != selectList[i]){
+                        selectList[i].style.display = 'none';
+                    }
+                }
+            }
+            
+        }
+    }
+
+    
+    function searchText(that, listArr, listId){
+        //文本框中输入的字符串
+        var searchVal = $(that).val();
+        var showList = [];
+        if(showList.length== 0 && !$(that).val()){
+            //showList为列表中和所输入的字符串匹配的项
+            showList = listArr;
+        }
+        
+        if(searchVal){
+            //将和所输入的字符串匹配的项存入showList
+            //将匹配项显示，不匹配项隐藏
+            $.each(listArr, function(index, item){
+                if(item.eleName.indexOf(searchVal) != -1) {
+                    $('#' + item.eleId).css('display', 'block');
+                    showList.push(item);
+                }else {
+                    $('#' + item.eleId).css('display', 'none');
+                }
+            })
+        }else{
+            showList = listArr;
+            $.each(listArr, function(index, item){
+                $('#' + item.eleId).css('display', 'block');
+            })
+            $(that).siblings('.selectList').find('#nullcon').hide();
+        }
+
+        if(showList.length== 0 && $(that).val()){
+            $('#' + listId).height(50);
+            $(that).siblings('.selectList').find('#nullcon').html('没有找到"'+$(that).val()+'"的内容').show();
+        }
+        
+//      console.log('showList', showList);
+        
+        return showList;
+    }
+	var weekdayArr=['周日','周一','周二','周三','周四','周五','周六'];
+		var app = new Vue({
+			el: '#popup',
+
+			data: {
+				switchShow: true,
+				currentMonth: null,
+				currentHours: null,
+				isFirstDay: 0,
+				popupShow: false,
+				isChoseTime: true,
+				isChoseTimeShow: true,
+				nextProtoWeek: null,
+				nullDay: [],
+				nextNullDay: [],
+				dates: {
+					nowMonth: [],
+					nextMonth: []
+				}
+			},
+
+			methods: {
+				selectedNow: function(index, event) {
+
+					for(date in this.dates.nowMonth) {
+						this.dates.nowMonth[date].current = false;
+
+					}
+					for(date in this.dates.nextMonth) {
+						this.dates.nextMonth[date].current = false;
+
+					};
+
+					if(!this.dates.nowMonth[index].appointment) {
+						this.isChoseTimeShow = false;
+					} else {
+						this.isChoseTimeShow = true;
+						this.isChoseTime = true;
+					}
+
+					this.isFirstDay = index;
+					this.tableHide();
+					this.dates.nowMonth[index].current = true;
+
+				},
+				selectedNext: function(index, event) {
+
+					for(date in this.dates.nextMonth) {
+						this.dates.nextMonth[date].current = false;
+
+					}
+					for(date in this.dates.nowMonth) {
+						this.dates.nowMonth[date].current = false;
+
+					};
+
+					if(!this.dates.nextMonth[index].appointment) {
+						this.isChoseTimeShow = false;
+					} else {
+						this.isChoseTimeShow = true;
+						this.isChoseTime = true;
+					}
+
+					this.isChoseTime = true;
+					this.tableHide();
+					this.isFirstDay = index;
+					this.dates.nextMonth[index].current = true;
+
+				},
+
+				tableShow: function() {
+
+					this.switchShow = false;
+
+				},
+
+				tableHide: function() {
+
+					this.switchShow = true;
+
+				},
+
+				timeChose: function(key, event) {
+					this.isChoseTime = false;
+					$(event.target).siblings().removeClass('chosed');
+					$(event.target).addClass('chosed');
+
+				},
+
+				notChoseTime: function() {
+					this.isChoseTime = true;
+				},
+
+				popupHide: function() {
+					popupShow = false;
+				},
+
+				// submit
+				submitFunc: function() {
+					var time, choseH, subInfo;
+
+					for(ts in this.dates.nowMonth) {
+						if(this.dates.nowMonth[ts].current == true) {
+							time = this.dates.nowMonth[ts];
+						}
+					}
+					for(tc in this.dates.nextMonth) {
+						if(this.dates.nextMonth[tc].current == true) {
+							time = this.dates.nextMonth[tc];
+						}
+					}
+
+					var choseHours = $('.hour-this');
+					var noSel = $('.no-sel');
+
+					if(noSel.hasClass('not-chose-time')) {
+						choseH = null;
+					} else {
+						for(var h = 0; h < choseHours.length; h++) {
+							if(choseHours.eq(h).hasClass('chosed')) {
+								choseH = choseHours.eq(h).text();
+							}
+						}
+					}
+					subInfo = {
+						"day": time,
+						"hour": choseH
+					}
+					const date = new Date();
+					const year = date.getFullYear();
+					var mychosemonth = subInfo.day.month;
+					if(parseInt(mychosemonth) < 10) {
+						mychosemonth = '0' + mychosemonth
+					}
+					var mychosedate = subInfo.day.day;
+					if(parseInt(mychosedate) < 10) {
+						mychosedate = '0' + mychosedate
+					}
+					if(subInfo.hour == undefined) {
+						alert('请选择区件具体时间')
+					} else {
+						var chooseTime = year + "-" + mychosemonth + '-' + mychosedate + ' ' + subInfo.hour;
+
+						if($('#Goodstypes').text() == '请选择货物类型' && $('#Temparea').text() == '请选择温区' && $('#BoxType').text() == '请选择箱型' && $('#ChooseTimes').text() == '预约取件时间') {
+							$("#ChooseTimes").text(chooseTime);
+							$("#popup").hide();
+							$('.btndiv button').attr('disabled', true);
+						} else {
+							$("#ChooseTimes").text(chooseTime);
+							$("#popup").hide();
+							$('.btndiv button').removeAttr("disabled");
+							$(".btndiv button").css('background', '#12599B');
+						}
+					}
+				}
+			},
+
+			created: function() {
+
+				var totalDays = 30,
+					date = new Date(),
+					currentYears = date.getFullYear(),
+					week = new Array('周日', '周一', '周二', '周三', '周四', '周五', '周六'),
+					currentMonth = date.getMonth() + 1,
+					currentDay = date.getDate(),
+					protoWeek = date.getDay(),
+					currentHours = date.getHours(),
+					hours = [{
+							'hour': '08:30'
+						}, {
+							'hour': '09:00'
+						}, {
+							'hour': '09:30'
+						},
+						{
+							'hour': '10:00'
+						}, {
+							'hour': '10:30'
+						}, {
+							'hour': '11:00'
+						}, {
+							'hour': '11:30'
+						},
+						{
+							'hour': '12:00'
+						}, {
+							'hour': '12:30'
+						}, {
+							'hour': '13:00'
+						}, {
+							'hour': '13:30'
+						},
+						{
+							'hour': '14:00'
+						}, {
+							'hour': '14:30'
+						}, {
+							'hour': '15:00'
+						}, {
+							'hour': '15:30'
+						},
+						{
+							'hour': '16:00'
+						}, {
+							'hour': '16:30'
+						}, {
+							'hour': '17:00'
+						}, {
+							'hour': '17:30'
+						}
+
+					];
+
+				this.currentYears = currentYears;
+				this.currentMonth = currentMonth;
+				this.currentDay = currentDay;
+				this.currentHours = currentHours;
+
+				for(var i = 0; i < totalDays; i++) {
+					var month = date.getMonth() + 1,
+						day = date.getDate(),
+						proteWeek = date.getDay(),
+						timestamp = date.getTime(),
+						appointment = true;
+					if(proteWeek == 0 || proteWeek == 6) {
+						appointment = false;
+					}
+
+					var d = {
+						'timestamp': timestamp,
+						'appointment': appointment,
+						'month': month,
+						'day': day,
+						'proteWeek': proteWeek,
+						'week': week[proteWeek],
+						'hours': hours,
+						'current': false
+					};
+
+					if(month == currentMonth) {
+						this.dates.nowMonth.push(d);
+					} else {
+						this.dates.nextMonth.push(d);
+					}
+
+					date.setDate(date.getDate() + 1);
+				}
+
+				this.dates.nowMonth[0].current = true;
+				this.nextProtoWeek = this.dates.nextMonth[0].proteWeek;
+				this.nextProtoWeek = this.dates.nextMonth[0].proteWeek;
+				if(date.getHours() >= 15 && date.getMinutes() > 30) {
+					this.currentHours = currentHours + 4;
+				}
+
+				for(var j = 0; j < protoWeek; j++) {
+					this.nullDay.push("");
+				}
+
+				for(var k = 0; k < this.nextProtoWeek; k++) {
+					this.nextNullDay.push("");
+				}
+			}
+		})
+	</script>
+
+</html>
