@@ -76,16 +76,38 @@ $(function() {
 
 		}
 	});
-	if(sessionStorage.getItem('order')) {
-		var hisorder = JSON.parse(sessionStorage.getItem('order'));
+	$("#goodname").blur(function(){
+	  let curval=$(this).val()
+     let obj = JSON.parse(localStorage.getItem('order'))==null?{}:JSON.parse(localStorage.getItem('order'));;
+      obj.CargoName=curval
+      localStorage.setItem("order", JSON.stringify(obj));
+	});
+	
+	if(localStorage.getItem('order')) {
+		var hisorder = JSON.parse(localStorage.getItem('order'));
 		console.log(hisorder)
-		$("#Goodstypes").text(hisorder.BusinessType);
-		$("#goodname").val(hisorder.CargoName);
-		$("#xmbh").val(hisorder.XMNO);
-		let arrstr=hisorder.AddService.join(',')
-		console.log(arrstr)
-		$("#Valueadd").text(arrstr);
-		$(".pcwenqu").val(hisorder.WDQJ)
+		console.log(hisorder.BusinessType)
+		if(hisorder.BusinessType!=undefined){
+			$("#Goodstypes").text(hisorder.BusinessType);
+		}
+		if(hisorder.CargoName!=undefined){
+			$("#goodname").val(hisorder.CargoName);
+		}
+		if(hisorder.XMNO!=undefined){
+			$("#xmbh").val(hisorder.XMNO);
+		}
+		if(hisorder.AddService!=undefined){
+			let arrstr=hisorder.AddService.join(',')
+			$("#Valueadd").text(arrstr);
+		}
+		if(hisorder.WDQJ!=undefined){
+			$(".pcwenqu").val(hisorder.WDQJ)
+		}
+		if(hisorder.AddService!=undefined){
+			 valueaddArr=hisorder.AddService
+			$("#Valueadd").text(hisorder.AddService)
+		}
+		
 //		$(".pcwenqu option[text='2℃~8℃']").attr("selected", "selected"); 
 		if(hisorder.Name4 == "使用") {
 			$("#usewdj").attr("src", "../img/wenduji.png");
@@ -94,24 +116,28 @@ $(function() {
 			$("#usewdj").attr("src", "../img/bushiyong.png");
 			$("#usewdj").attr("isuse", "0");
 		}
-        valueaddArr=hisorder.AddService
-		if(hisorder.SafeItem == "投保") {
-			$("#clicktoubao").attr("src", "../img/baojiafanliguanli.png");
-			$("#clicktoubao").attr("istoubao", "1");
-			$("#clicktoubao").parent().next().find('span').css("color", "#1c84c6");
-			$("#clicktoubao").parent().next().find('input').css("color", "#1c84c6");
-			$("#clicktoubao").parent().next().find('input').attr("readonly", false);
-			$("#clicktoubao").parent().next().find('input').val(hisorder.SafePay);
-		} else {
-			$("#clicktoubao").attr("src", "../img/butoubao.png");
-			$("#clicktoubao").attr("istoubao", "0");
-			$("#clicktoubao").parent().next().find('span').css("color", "#999999");
-			$("#clicktoubao").parent().next().find('input').css("color", "#999999");
-			$("#clicktoubao").parent().next().find('input').attr("readonly", true);
-			$("#clicktoubao").parent().next().find('input').val(hisorder.SafePay);
+        if(hisorder.SafeItem!=undefined){
+			if(hisorder.SafeItem == "投保") {
+				$("#clicktoubao").attr("src", "../img/baojiafanliguanli.png");
+				$("#clicktoubao").attr("istoubao", "1");
+				$("#clicktoubao").parent().next().find('span').css("color", "#1c84c6");
+				$("#clicktoubao").parent().next().find('input').css("color", "#1c84c6");
+				$("#clicktoubao").parent().next().find('input').attr("readonly", false);
+				$("#clicktoubao").parent().next().find('input').val(hisorder.SafePay);
+			} else {
+				$("#clicktoubao").attr("src", "../img/butoubao.png");
+				$("#clicktoubao").attr("istoubao", "0");
+				$("#clicktoubao").parent().next().find('span').css("color", "#999999");
+				$("#clicktoubao").parent().next().find('input').css("color", "#999999");
+				$("#clicktoubao").parent().next().find('input').attr("readonly", true);
+				$("#clicktoubao").parent().next().find('input').val(hisorder.SafePay);
+			}
 		}
-		corderboxs=hisorder.Box
-		console.log(corderboxs)
+		if(hisorder.Box!=undefined){
+			corderboxs=hisorder.Box
+		}
+		
+//		console.log(corderboxs)
 		if(corderboxs!=undefined){
 			$(corderboxs).each(function(index, value) {
 				let str = '';
@@ -155,6 +181,7 @@ $(function() {
 		$(".note .time-right textarea").val(hisorder.Note);
 		$('.btndiv button').removeAttr("disabled");
 		$(".btndiv button").css('background', '#12599B');
+		check();
 	}
    
 	//check();
@@ -648,7 +675,11 @@ $(function() {
 		} else {
 			$("#Goodstypes").text(chooseGoodtypeTxt);
 			$("#Goodstypes").addClass('Cgoods');
-
+            let curval=chooseGoodtypeTxt
+           let obj = JSON.parse(localStorage.getItem('order'))==null?{}:JSON.parse(localStorage.getItem('order'));;
+            obj.BusinessType=curval
+				
+            localStorage.setItem("order", JSON.stringify(obj));
 			$(".setbg").hide();
 		}
 	});
@@ -661,6 +692,10 @@ $(function() {
 			let cur=$('#Valueadd').text()=='请选择增值服务'?'':$('#Valueadd').text()
 			$("#Valueadd").text(cur+$(this).text()+",")
 		});
+		let curval=valueaddArr
+       let obj = JSON.parse(localStorage.getItem('order'))==null?{}:JSON.parse(localStorage.getItem('order'));;
+        obj.AddService=curval
+        localStorage.setItem("order", JSON.stringify(obj));
 //		var choosevalueaddTxt = .text();
 		
 //		$("#Valueadd").text(choosevalueaddTxt);
@@ -733,7 +768,18 @@ $(function() {
 			seperator2 + date.getSeconds();
 		return currentdate;
 	}
-
+	$('.money').blur(function() {
+        let curval=$(this).val()
+        let obj = JSON.parse(localStorage.getItem('order'))==null?{}:JSON.parse(localStorage.getItem('order'));;
+        obj.SafePay=curval
+        localStorage.setItem("order", JSON.stringify(obj));
+	})
+	$('textarea').blur(function() {
+        let curval=$(this).val()
+       let obj = JSON.parse(localStorage.getItem('order'))==null?{}:JSON.parse(localStorage.getItem('order'));;
+        obj.Note=curval
+        localStorage.setItem("order", JSON.stringify(obj));
+	})
 //	$('.high,.money').blur(function() {
 //		$('body,html').animate({
 //			scrollTop: 0
@@ -917,10 +963,19 @@ $(function() {
 			$(this).attr("src", "../img/wenduji.png");
 			$(this).attr("isuse", "1");
 			togglewdj = false;
+			let curval='使用'
+           let obj = JSON.parse(localStorage.getItem('order'))==null?{}:JSON.parse(localStorage.getItem('order'));;
+            obj.Name4=curval
+            localStorage.setItem("order", JSON.stringify(obj));
 		} else {
 			$(this).attr("src", "../img/bushiyong.png");
 			$(this).attr("isuse", "0");
 			togglewdj = true;
+			let curval='不使用'
+           let obj = JSON.parse(localStorage.getItem('order'))==null?{}:JSON.parse(localStorage.getItem('order'));;
+            obj.Name4=curval
+				
+            localStorage.setItem("order", JSON.stringify(obj));
 		}
 	});
 	//点击投保
@@ -934,6 +989,10 @@ $(function() {
 			$(this).parent().next().find('input').attr("readonly", false);
 			$(this).parent().next().find('input').val("");
 			toggletoubao = false;
+			let curval='投保'
+           let obj = JSON.parse(localStorage.getItem('order'))==null?{}:JSON.parse(localStorage.getItem('order'));;
+            obj.SafeItem=curval
+            localStorage.setItem("order", JSON.stringify(obj));
 		} else {
 			$(this).attr("src", "../img/butoubao.png");
 			$(this).attr("istoubao", "0");
@@ -942,6 +1001,10 @@ $(function() {
 			$(this).parent().next().find('input').attr("readonly", true);
 			$(this).parent().next().find('input').val("2000");
 			toggletoubao = true;
+			let curval='不投保'
+           let obj = JSON.parse(localStorage.getItem('order'))==null?{}:JSON.parse(localStorage.getItem('order'));;
+            obj.SafeItem=curval
+            localStorage.setItem("order", JSON.stringify(obj));
 		}
 	});
 	//正在选箱型添加
@@ -1196,6 +1259,9 @@ $(function() {
 			}
 
 		});
+		let obj = JSON.parse(localStorage.getItem('order'));
+        obj.Box=corderboxs
+        localStorage.setItem("order", JSON.stringify(obj));
 		console.log(corderboxs)
 		if(corderboxs.length > 3) {
 			alert("多箱型");
@@ -1255,14 +1321,20 @@ $(function() {
 	//选择温区
 	$('.pcwenqu').change(function() {
 	    let hiswd=$(this).val()
-	    
 	    if(hiswd != "请选择温区") {
-				corderboxs.splice(0, corderboxs.length);
-				$('.orderbox').remove();
-				$('.CTemporSize .tempbox').removeClass('activeexist');
+           let obj = JSON.parse(localStorage.getItem('order'))==null?{}:JSON.parse(localStorage.getItem('order'));;
+            obj.WDQJ=hiswd
+				
+            localStorage.setItem("order", JSON.stringify(obj));
+	    	if(corderboxs!=undefined){
+	    		corderboxs.splice(0, corderboxs.length);
+	    	}
+			$('.orderbox').remove();
+			$('.CTemporSize .tempbox').removeClass('activeexist');
 
-			}
+		}
 			$('#Tempqu').addClass('chooseTemp');
+			
 	})
 	
 	
@@ -1360,6 +1432,7 @@ $(function() {
 
 			var boxsizesone = {};
 			var _data = '';
+			
 			if(b && corderboxs.length == 0) {
 				alert("请选择箱型或货物尺寸至少一种");
 				return false;
@@ -1466,39 +1539,49 @@ $(function() {
 				dataType: "json",
 				success: function(res) {
 					console.log(res)
-					return false;
-					if(res.code == '200') {
-						var nowtime = getNowFormatDate();
-						var openids = ['oTarnv5aWyxLcCENYrs5UOR3FqvQ','oTarnv-4gXJ3TRvg415ECeck61lQ','oTarnv0C23-4KCMdFeOiHu5Zu4AU','oTarnv66MV67GI9uZ637VSGu8G_A'];
-						for(i = 0; i < openids.length; i++) {
-							$.ajax({
-								type: "post",
-								url: 'http://www.ccsc58.cc/weixinnew/Push_message.php',
-								data: {
-									first: "您好，正大天晴有新的订单需要处理",
-									keyword1: res.ID,
-									keyword2: '微信下单',
-									keyword3: nowtime,
-									keyword4: _Manager,
-									keyword5: _Depart + ' ' + _City + ' ' + _Address,
-									remark: 'TMS查看处理详细订单',
-									openId: openids[i],
-									app_key: '261AFF68C0E9F076420D083D66222824'
-
-								},
-								dataType: "json",
-								success: function(res) {
-									console.log('tuisong')
-								},
-								error: function(err) {
-
-								}
-							})
-						};
-
-						location.href = 'ordersuccess.html';
-						sessionStorage.setItem("orders", JSON.stringify(_data));
-					} else {
+//					return false;
+					if(res.code == '200'&&res.msg=='成功') {
+							var nowtime = getNowFormatDate();
+							var openids = ['oTarnv5aWyxLcCENYrs5UOR3FqvQ','oTarnv-4gXJ3TRvg415ECeck61lQ','oTarnv0C23-4KCMdFeOiHu5Zu4AU','oTarnv66MV67GI9uZ637VSGu8G_A'];
+							for(i = 0; i < openids.length; i++) {
+								$.ajax({
+									type: "post",
+									url: 'http://www.ccsc58.cc/weixinnew/Push_message.php',
+									data: {
+										first: "您好，正大天晴有新的订单需要处理",
+										keyword1: res.ID,
+										keyword2: '微信下单',
+										keyword3: nowtime,
+										keyword4: _Manager,
+										keyword5: _Depart + ' ' + _City + ' ' + _Address,
+										remark: 'TMS查看处理详细订单',
+										openId: openids[i],
+										app_key: '261AFF68C0E9F076420D083D66222824'
+									},
+									dataType: "json",
+									success: function(res) {
+										console.log('tuisong')
+									},
+									error: function(err) {
+	
+									}
+								})
+							};
+							location.href = 'ordersuccess.html';
+							sessionStorage.setItem("orders", JSON.stringify(_data));
+					}else if(res.code == '400'&&res.msg.indexOf("请联系中集冷云以下人员") >= 0) {
+//						alert(res.msg)
+						$('body,html').animate({
+									scrollTop: 0
+						}, 0);
+                        let str=`<div class="setbg ">
+			                     <div class="yin"> </div> 
+				                     <div class="messageshow">
+				                       ${res.msg} <button class="closemsg">关闭</button>
+				                     </div>
+			                     </div>`;
+                        $('body').append(str)
+					}else {
 						alert(res.msg)
 					}
 				},
@@ -1509,6 +1592,9 @@ $(function() {
 		}
 
 	});
+	$('body').on('click','.closemsg',function(){
+		location.reload()
+	})
 	Array.prototype.remove = function(val) {
 		var index = this.indexOf(val);
 		if(index > -1) {

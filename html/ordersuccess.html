@@ -107,7 +107,7 @@
 					if(sessionStorage.getItem('orders')) {
 						var hisorder = JSON.parse(sessionStorage.getItem('orders'));
 						console.log(hisorder);
-						sessionStorage.setItem("order", JSON.stringify(hisorder));
+						localStorage.setItem("order", JSON.stringify(hisorder));
 						location.href='order.html';
 					}
 				})

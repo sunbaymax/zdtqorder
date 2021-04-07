@@ -564,10 +564,10 @@
 						<span>指令下达(<i class="yxdnum">0</i>)<span>
 					</li>
 					<li>
-						<span>已安排(<i class="czznum">0</i>)<span>
+						<span>运输中(<i class="czznum">0</i>)<span>
 					</li>
 					<li>
-						<span>指令完成(<i class="ywcnum">0</i>)<span>
+						<span>已签收(<i class="ywcnum">0</i>)<span>
 					</li>
 				</ul>
 		    </div>
@@ -1131,7 +1131,7 @@
 
 									var ostate = '';
 									if(item.State == 2) {
-										ostate = '已安排'
+										ostate = '运输中'
 										dingdanstate = '联系客服'
 									} else if(item.State == 3) {
 										ostate = '已签收';
@@ -1458,13 +1458,13 @@
 										arr = res.data.ResultAllOrder;
 										cstate = '指令下达'
 										cz = '取消订单'
-									} else if(Currstate.indexOf("已安排") != -1) {
+									} else if(Currstate.indexOf("运输中") != -1) {
 										arr = res.data.ResultAllCZ;
-										cstate = '已安排'
+										cstate = '运输中'
 										cz = '联系客服'
-									} else if(Currstate.indexOf("指令完成") != -1) {
+									} else if(Currstate.indexOf("已签收") != -1) {
 										arr = res.data.ResultAllQS;
-										cstate = '指令完成'
+										cstate = '已签收'
 										cz = ''
 									} else {
 										arr = res.data.ResultAllCount;
@@ -1488,7 +1488,7 @@
 											cz = '取消订单'
 										}
 										if(item.State == 2) {
-											cstate = '已安排'
+											cstate = '运输中'
 											cz = '联系客服'
 										} else if(item.State == 3) {
 											cstate = '已签收'
@@ -1558,6 +1558,17 @@
 							}
 						});
                         }else{
+                        	let curtabindex=''
+                			if(Currstate.indexOf("指令下达") != -1) {
+								curtabindex='1'
+							} else if(Currstate.indexOf("运输中") != -1) {
+								curtabindex='2'
+							} else if(Currstate.indexOf("已签收") != -1) {
+								curtabindex='3'
+							} else {
+								curtabindex='all'
+
+							}
                            $.ajax({
 							type: "post",
 							url: _urlcancel,
@@ -1565,7 +1576,7 @@
 							data: {
 								Telephone: _tel,
 								AccountNumber: _account,
-								State: "all"
+								State: curtabindex
 							},
 							dataType: "json",
 							success: function(res) {
@@ -1587,13 +1598,13 @@
 										arr = res.data.ResultAllOrder;
 										cstate = '指令下达'
 										cz = '取消订单'
-									} else if(Currstate.indexOf("已安排") != -1) {
+									} else if(Currstate.indexOf("运输中") != -1) {
 										arr = res.data.ResultAllCZ;
-										cstate = '已安排'
+										cstate = '运输中'
 										cz = '联系客服'
-									} else if(Currstate.indexOf("指令完成") != -1) {
+									} else if(Currstate.indexOf("已签收") != -1) {
 										arr = res.data.ResultAllQS;
-										cstate = '指令完成'
+										cstate = '已签收'
 										cz = ''
 									} else {
 										arr = res.data.ResultAllCount;
@@ -1617,7 +1628,7 @@
 											cz = '取消订单'
 										}
 										if(item.State == 2) {
-											cstate = '已安排'
+											cstate = '运输中'
 											cz = '联系客服'
 										} else if(item.State == 3) {
 											cstate = '已签收'
@@ -1750,7 +1761,7 @@
 										$.each(res.data.ResultAllCount, function(index, item) {
 											var ostate = '';
 											if(item.State == 2) {
-												ostate = '已安排'
+												ostate = '运输中'
 											} else if(item.State == 3) {
 												ostate = '已签收'
 											} else if(item.State == 1) {
@@ -1963,7 +1974,7 @@
 
 									var ostate = '';
 									if(item.State == 2) {
-										ostate = '已安排'
+										ostate = '运输中'
 										dingdanstate = '联系客服'
 									} else if(item.State == 3) {
 										ostate = '已签收';

@@ -268,6 +268,7 @@ div.address {
 .address li div:nth-child(2) p:first-of-type {
 	height: 0.8rem;
 	line-height: 0.8rem;
+	overflow: hidden;
 }
 
 .address li div:nth-child(2) p:last-child {
@@ -299,6 +300,9 @@ div.address {
 	font-size: 0.3rem;
 	color: #333333;
 	font-weight: bold;
+	display: -webkit-inline-box;
+	overflow: hidden;
+    text-overflow: ellipsis;
 	/*margin-right: 0.6rem;*/
 }
 
@@ -314,6 +318,11 @@ div.address {
 	text-overflow: ellipsis;
 	/*文字隐藏以后添加省略号*/
 	white-space: nowrap;
+	display: -webkit-inline-box;
+    font-size: 0.24rem;
+    color: #666666;
+    overflow: hidden;
+    width: 120px;
 }
 
 .address li .address {
@@ -1538,4 +1547,26 @@ margin-bottom: 0.1rem;
     justify-content: flex-start!important;
     align-content: center;
     align-items: center;
+}
+.messageshow{
+    background: #fff;
+    width: 96%;
+    height: 260px;
+    box-sizing: border-box;
+    position: absolute;
+    top: 200px;
+    left: 2%;
+    border-radius: 5px;
+    padding: 5px;
+    text-align: center;
+}
+.messageshow button{
+    width: 3rem;
+    height: 0.9rem;
+    border-radius: 0.5rem;
+    background: #12599B;
+    color: #FFFFFF;
+    font-size: 0.28rem;
+    border: none;
+    margin:15px auto;
 }

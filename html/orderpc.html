@@ -15,15 +15,15 @@
 		<meta name="keywords" content="微信下单，冷链运输 " />
 		<meta name=" author " content="中集冷云 " />
 		<title>我要下单</title>
-		<link rel="stylesheet " href="../css/base.css ">
-		<link rel="stylesheet" type="text/css" href="../css/public.css">
-		<link rel="stylesheet" type="text/css" href="../css/mobileSelect.css">
+		<link rel="stylesheet " href="../css/base.css?v=3.27">
+		<link rel="stylesheet" type="text/css" href="../css/public.css?v=3.27">
+		<link rel="stylesheet" type="text/css" href="../css/mobileSelect.css?v=3.27">
 		<script>
 		      var cssStr='<link href="../css/orderpc.css?v='+Math.random()+'" rel="stylesheet" type="text/css"/>';
 		      document.write(cssStr);
 		</script>
 		
-		<link rel="stylesheet" href="../static/style.css" />
+		<link rel="stylesheet" href="../static/style.css?v=3.27" />
 		<script src="../js/mobileSelect.js" type="text/javascript"></script>
 	</head>
 	<style>
@@ -654,6 +654,12 @@
         $('.selectList div').bind('click', function(){
             //文本框为选中项的值
             $(this).parent().parent().find('.selectInput').val($(this).html());
+            let curval=$(this).html()
+            console.log(curval)
+            let obj = JSON.parse(localStorage.getItem('order'))==null?{}:JSON.parse(localStorage.getItem('order'));
+            console.log(obj)
+            obj.XMNO=curval
+            localStorage.setItem("order", JSON.stringify(obj));
             //下拉框隐藏
             $(this).parent().hide();
         }); 
@@ -875,6 +881,9 @@
 							$("#popup").hide();
 							$('.btndiv button').removeAttr("disabled");
 							$(".btndiv button").css('background', '#12599B');
+					       let obj = JSON.parse(localStorage.getItem('order'))==null?{}:JSON.parse(localStorage.getItem('order'));;
+					        obj.OrderTime=chooseTime
+					        localStorage.setItem("order", JSON.stringify(obj));
 						}
 					}
 				}
