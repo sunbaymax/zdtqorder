@@ -1954,11 +1954,22 @@
 									$('.content ul').html("");
 									if(res.code == 200) {
 					             $('.navcontent').show()
-								$('.state ul li .all').text(res.data.AllCount)
-								$('.state ul li .yxdnum').text(res.data.OrderCount)
-								$('.state ul li .czznum').text(res.data.CZCount)
-								$('.state ul li .ywcnum').text(res.data.QSCount)
-								$.each(res.data.ResultAllCount, function(index, item) {
+					             let newarr=[]
+					             if(res.data.ResultAllCount==undefined||res.data.ResultAllCount==''){
+					             	newarr=res.data
+					             	$('.state ul li .all').text(res.data.length)
+									$('.state ul li .yxdnum').text(0)
+									$('.state ul li .czznum').text(0)
+									$('.state ul li .ywcnum').text(res.data.length)
+					             }else{
+					             	newarr=res.data.ResultAllCount
+					             	$('.state ul li .all').text(res.data.AllCount)
+									$('.state ul li .yxdnum').text(res.data.OrderCount)
+									$('.state ul li .czznum').text(res.data.CZCount)
+									$('.state ul li .ywcnum').text(res.data.QSCount)
+					             }
+								
+								$.each(newarr, function(index, item) {
 									var yundanhao = item.TakeNote == null ? "" : item.TakeNote;
 									var dingdanstate = '';
 
