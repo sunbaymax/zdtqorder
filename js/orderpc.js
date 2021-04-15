@@ -13,6 +13,7 @@ $(function() {
 		iframe.parentNode.removeChild(iframe);
 	}
     let obj= JSON.parse(localStorage.getItem('myNumobj'))
+    $('.menu_footer .turetel').text(obj.real_name)
     let mynum=obj.AccountNumber
     //增值服务确定
 	var valueaddArr=[]
@@ -25,7 +26,7 @@ $(function() {
 	var _openid = localStorage.getItem('zdtqopenid');
         $.ajax({
     	type:"post",
-    	url:"http://out.ccsc58.cc/DATA_PORT_WECHAT_1.03/Clinical_add_service.php",
+    	url:"http://out.ccsc58.cc/DATA_PORT_Clinical_1.01/Clinical_add_service.php",
     	async:true,
     	data:{
     		username:_account,
@@ -53,7 +54,7 @@ $(function() {
     	var wdqj = [];
 	$.ajax({
 		type: "post",
-		url: "http://out.ccsc58.cc/DATA_PORT_WECHAT_1.03/Clinical_Wdqj.php",
+		url: "http://out.ccsc58.cc/DATA_PORT_Clinical_1.01/Clinical_Wdqj.php",
 		async: false,
 		data: {
 			state: 'wdqj',
@@ -187,7 +188,7 @@ $(function() {
 	//check();
 	function check() {
 		$.ajax({
-			url: "http://out.ccsc58.cc/DATA_PORT_WECHAT_1.03/OrderShow.php",
+			url: "http://out.ccsc58.cc/DATA_PORT_Clinical_1.01/Clinical_OrderShow.php",
 			type: "post",
 			async: true,
 			data: {
@@ -253,10 +254,11 @@ $(function() {
 	if(nickname != '' || nickname != null) {
 		let _account=localStorage.getItem('Telphone');
 		$('.menu_footer .turename').text(_account)
-		$('.menu_footer .turetel').text('正大天晴')
+//		$('.menu_footer .turetel').text('正大天晴')
+        
 	}
 	var b = (JSON.stringify(objboxsize) == "{}");
-	
+
 	var cobjbox = {};
 	if($('#Goodstypes').text() == '请选择货物类型' && $('#Tempqu').text() == '请选择温区' && $('#ChooseTimes').text() == '预约取件时间') {
 		$('.btndiv button').attr('disabled', "disabled");
@@ -293,7 +295,7 @@ $(function() {
 		localStorage.removeItem('SendaddData');
 
 		$.ajax({
-			url: "http://out.ccsc58.cc/DATA_PORT_WECHAT_1.03/OrderShow.php",
+			url: "http://out.ccsc58.cc/DATA_PORT_Clinical_1.01/Clinical_OrderShow.php",
 			type: "post",
 			data: {
 				Telephone: _tel,
@@ -350,7 +352,7 @@ $(function() {
 		$('#send_address').text(_ChoseaddData.address);
 	} else {
 		$.ajax({
-			url: "http://out.ccsc58.cc/DATA_PORT_WECHAT_1.03/OrderShow.php",
+			url: "http://out.ccsc58.cc/DATA_PORT_Clinical_1.01/Clinical_OrderShow.php",
 			type: "post",
 			async: true,
 			data: {
@@ -896,7 +898,7 @@ $(function() {
 		var _wdqj = $('.pcwenqu').val();
 		$.ajax({
 			type: "post",
-			url: "http://out.ccsc58.cc/DATA_PORT_WECHAT_1.03/Clinical_Wdqj.php",
+			url: "http://out.ccsc58.cc/DATA_PORT_Clinical_1.01/Clinical_Wdqj.php",
 			data: {
 				state: "box",
 				WDQJ: _wdqj,
@@ -1534,7 +1536,7 @@ $(function() {
 			
 			$.ajax({
 				type: "post",
-				url: "http://out.ccsc58.cc/DATA_PORT_WECHAT_1.03/Clinical_Order.php",
+				url: "http://out.ccsc58.cc/DATA_PORT_Clinical_1.01/Clinical_Order.php",
 				data: _data,
 				dataType: "json",
 				success: function(res) {

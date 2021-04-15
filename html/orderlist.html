@@ -615,7 +615,7 @@
 				var wdqj = [];
 				$.ajax({
 					type: "post",
-					url: "http://out.ccsc58.cc/DATA_PORT_WECHAT_1.03/Clinical_Wdqj.php",
+					url: "http://out.ccsc58.cc/DATA_PORT_Clinical_1.01/Clinical_Wdqj.php",
 					async: false,
 					data: {
 						state: 'wdqj',
@@ -896,7 +896,7 @@
 	
                		$.ajax({
 						type: "post",
-						url: "http://out.ccsc58.cc/DATA_PORT_WECHAT_1.03/Clinical_notorder_WayBill.php",
+						url: "http://out.ccsc58.cc/DATA_PORT_Clinical_1.01/Clinical_notorder_WayBill.php",
 						async: true,
 						data: {
 							Telephone: _tel,
@@ -1004,7 +1004,7 @@
 						iszhuan = 0;
 						$.ajax({
 						type: "post",
-						url: "http://out.ccsc58.cc/DATA_PORT_WECHAT_1.03/Clinical_notorder_WayBill.php",
+						url: "http://out.ccsc58.cc/DATA_PORT_Clinical_1.01/Clinical_notorder_WayBill.php",
 						async: true,
 						data: {
 							Telephone: _tel,
@@ -1228,7 +1228,7 @@
 						console.log(stracont)
 					$.ajax({
 						type: "post",
-						url: "http://out.ccsc58.cc/DATA_PORT_WECHAT_1.03/Clinical_notorder_WayBill.php",
+						url: "http://out.ccsc58.cc/DATA_PORT_Clinical_1.01/Clinical_notorder_WayBill.php",
 						async: true,
 						data: {
 							Telephone: _tel,
@@ -1337,16 +1337,27 @@
 				$("body").on("click", "ul li .quxiao", function() {
 					var iszhuan = $('.bar .hover').text() == '未转单' ? 0 : 1;
 					var _urlcancel = ''
+					let _data={}
+					var tid = $(this).parents('li').attr('idi');
 					if(iszhuan == 0) {
 //						_urlcancel = 'http://out.ccsc58.cc/DATA_PORT_WECHAT_1.03/notorder_Cancel.php'
-						_urlcancel = 'http://out.ccsc58.cc/DATA_PORT_WECHAT_1.03/Clinical_notorder_Cancel.php'
+						_urlcancel = 'http://out.ccsc58.cc/DATA_PORT_Clinical_1.01/Clinical_notorder_Cancel.php'
+						 _data={
+							ID: tid,
+							EntryName: _tel,
+							Source:'KHWX'
+						}
 					} else {
 //						_urlcancel = 'http://out.ccsc58.cc/DATA_PORT_WECHAT_1.03/Cancel.php'
 //						_urlcancel = 'http://out.ccsc58.cc/DATA_PORT_WECHAT_1.03/Clinicalr_Cancel.php'
-						_urlcancel = 'http://out.ccsc58.cc/DATA_PORT_WECHAT_1.03/Clinical_Cancel.php'
+						_urlcancel = 'http://out.ccsc58.cc/DATA_PORT_Clinical_1.01/Clinical_Cancel.php'
+						_data={
+							ID: tid,
+							EntryName: _tel
+						}
 					}
 					var currttxt = $(this).text();
-					var tid = $(this).parents('li').attr('idi');
+					
 					
 					if(currttxt == '取消订单') {
 						var r = confirm("确定要取消订单吗？")
@@ -1359,10 +1370,7 @@
 								type: "post",
 								url: _urlcancel,
 								async: true,
-								data: {
-									ID: tid,
-									EntryName: _tel
-								},
+								data: _data,
 								dataType: "json",
 								success: function(res) {
 									if(res.code == 200) {
@@ -1411,7 +1419,7 @@
 					var iszhuan = $('.bar .hover').text() == '未转单' ? 0 : 1;
 					var _urlcancel = ''
 					if(iszhuan == 0) {
-						_urlcancel = 'http://out.ccsc58.cc/DATA_PORT_WECHAT_1.03/Clinical_notorder_WayBill.php'
+						_urlcancel = 'http://out.ccsc58.cc/DATA_PORT_Clinical_1.01/Clinical_notorder_WayBill.php'
 					} else {
 						_urlcancel = 'http://out.ccsc58.cc/DATA_PORT_WECHAT_1.03/Clinical_WayBill.php'
 					}
@@ -1864,7 +1872,7 @@
 						if(iszhuan == 0&&currtval=='') {
 		                        $.ajax({
 								type: "post",
-								url: "http://out.ccsc58.cc/DATA_PORT_WECHAT_1.03/Clinical_notorder_WayBill.php",
+								url: "http://out.ccsc58.cc/DATA_PORT_Clinical_1.01/Clinical_notorder_WayBill.php",
 								data: _data,
 								dataType: "JSON",
 								success: function(res) {

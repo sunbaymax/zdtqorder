@@ -137,7 +137,7 @@
 
 				$.ajax({
 					type: "post",
-					url: "http://out.ccsc58.cc/DATA_PORT_WECHAT_1.03/AddressSend.php",
+					url: "http://out.ccsc58.cc/DATA_PORT_Clinical_1.01/Clinical_AddressSend.php",
 					async: true,
 					data: {
 						State: "show",
@@ -375,7 +375,7 @@
 			$('.btn-ok').on("click", function() {
 
 				if(iserror) {
-					var _AccountNumber = $('#acount').val();
+					var _AccountNumber = localStorage.getItem('Acount');
 					var _Name = $('#name').val();
 					var _Telephone = $('#telphone').val();
 					var _Company = $('#company').val();
@@ -388,10 +388,10 @@
 					var _Area = '';
 					var _Areaqu = '';
 					if(_AccountNumber != '') {
-						_url = "http://out.ccsc58.cc/DATA_PORT_WECHAT_1.03/AddressSend.php";
+						_url = "http://out.ccsc58.cc/DATA_PORT_Clinical_1.01/Clinical_AddressSend.php";
 					} else {
 
-						_url = "http://out.ccsc58.cc/DATA_PORT_WECHAT_1.03/AddressGet.php";
+						_url = "http://out.ccsc58.cc/DATA_PORT_Clinical_1.01/Clinical_AddressGet.php";
 					}
 
 					if(_Name == '') {

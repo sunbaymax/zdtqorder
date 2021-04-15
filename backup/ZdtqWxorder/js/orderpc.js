@@ -349,7 +349,7 @@ $(function() {
 	var wdqj = [];
 	$.ajax({
 		type: "post",
-		url: "http://out.ccsc58.cc/DATA_PORT_WECHAT_1.03/Clinical_Wdqj.php",
+		url: "http://out.ccsc58.cc/DATA_PORT_Clinical_1.01/Clinical_Wdqj.php",
 		async: false,
 		data: {
 			state: 'wdqj',
@@ -729,7 +729,7 @@ $(function() {
 		var _wdqj = $('.pcwenqu').val();
 		$.ajax({
 			type: "post",
-			url: "http://out.ccsc58.cc/DATA_PORT_WECHAT_1.03/Clinical_Wdqj.php",
+			url: "http://out.ccsc58.cc/DATA_PORT_Clinical_1.01/Clinical_Wdqj.php",
 			data: {
 				state: "box",
 				WDQJ: _wdqj,

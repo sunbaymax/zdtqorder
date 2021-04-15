@@ -113,7 +113,7 @@
                     })
 					function qingqiu() {
 						$.ajax({
-							url: "http://out.ccsc58.cc/DATA_PORT_WEIXIN_1.01/Clinical_Login.php",
+							url: "http://out.ccsc58.cc/DATA_PORT_Clinical_1.01/Clinical_Login.php",
 							type: "post",
 							data: {
 								UserName: $(".accept").val(),
@@ -133,7 +133,7 @@
                                     localStorage.setItem("myNumobj", checkedIdStr);
                                     localStorage.setItem('openid','20200148'+$(".accept").val());
 									localStorage.setItem('Acount',obj.AccountNumber);
-									localStorage.setItem('Telphone',$(".accept").val())
+									localStorage.setItem('Telphone',obj.user_name)
 									toastr.success(res.message);
 //									return false;
 									setTimeout(function() {

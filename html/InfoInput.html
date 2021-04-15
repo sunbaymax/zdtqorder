@@ -132,23 +132,23 @@
 				$("#telphone").val(telphone);
 			}
 			if(localStorage.getItem('ChaddreType') == 'send') {
-				_url = "http://out.ccsc58.cc/DATA_PORT_WECHAT_1.03/AddressSend.php";
+				_url = "http://out.ccsc58.cc/DATA_PORT_Clinical_1.01/Clinical_AddressSend.php";
 				$('.titile img').attr("src", '../img/addsend.png');
 				$("title").html("寄件人地址");
 				$(".titile h3").html("填写寄件人地址");
 
 			}else if(localStorage.getItem('ChaddreType') == 'all'){
-			    _url = "http://out.ccsc58.cc/DATA_PORT_WECHAT_1.03/AddressSend.php";
+			    _url = "http://out.ccsc58.cc/DATA_PORT_Clinical_1.01/Clinical_AddressSend.php";
 				
 			} else {
 				$('.titile img').attr("src", '../img/addget.png');
 				$("title").html("收件人地址");
 				$(".titile h3").html("填写收件人地址");
-				_url = "http://out.ccsc58.cc/DATA_PORT_WECHAT_1.03/AddressGet.php";
+				_url = "http://out.ccsc58.cc/DATA_PORT_Clinical_1.01/Clinical_AddressGet.php";
 				$(".operation p:first-child").css('visibility', "hidden")
 				
 			}
-
+            console.log(_url)
 			function UrlSearch() {
 				var name, value;
 				var str = location.href; //取得整个地址栏
@@ -547,12 +547,11 @@
 						}
 						else {
 							
-							 if(_AccountNumber!=''){
-							 	_url="http://out.ccsc58.cc/DATA_PORT_WECHAT_1.03/AddressSend.php";
+							 if(localStorage.getItem('ChaddreType')=='get'){
+							 	_url="http://out.ccsc58.cc/DATA_PORT_Clinical_1.01/Clinical_AddressGet.php";
 							 }else{
-							 	_url="http://out.ccsc58.cc/DATA_PORT_WECHAT_1.03/AddressGet.php";
+							 	_url="http://out.ccsc58.cc/DATA_PORT_Clinical_1.01/Clinical_AddressSend.php";
 							 }
-
                             	$.ajax({
 								type: "post",
 								url: _url,

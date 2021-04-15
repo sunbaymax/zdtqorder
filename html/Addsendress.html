@@ -271,7 +271,6 @@
 
 			var telphone = localStorage.getItem('Telphone');
 			$('.btn-ok').on("click", function() {
-
 				var _AccountNumber = $('#accout').val();
 				var _Name = $('#username').val();
 				var _Telephone = $('#telphone').val();
@@ -284,7 +283,6 @@
 				var _City = arraddress[1];
 				var _Area = '';
 				var _Areaqu = '';
-
 				if(_AccountNumber == '') {
 					iserror = false;
 					alert("当前账号为:"+Acount+"客户账号不能为空")
@@ -293,11 +291,13 @@
 					iserror = false;
 					alert("联系人姓名不能为空")
 					$("#username").focus();
-				} else if(_Telephone == '') {
+				} 
+				else if(_Telephone == '') {
 					iserror = false;
 					alert("联系人手机号不能为空")
 					$("#telphone").focus();
-				} else if(_Company == '') {
+				} 
+				else if(_Company == '') {
 					iserror = false;
 					alert("公司名称不能为空")
 					$("#company").focus();
@@ -366,7 +366,7 @@
 					}
 					$.ajax({
 						type: "post",
-						url: "http://out.ccsc58.cc/DATA_PORT_WECHAT_1.03/AddressSend.php",
+						url: "http://out.ccsc58.cc/DATA_PORT_Clinical_1.01/Clinical_AddressSend.php",
 						data: {
 							State: "add",
 							Name: _Name,
