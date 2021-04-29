@@ -184,7 +184,7 @@ $(function() {
 		$(".btndiv button").css('background', '#12599B');
 		check();
 	}
-   
+   console.log(localStorage.getItem('SendaddData'))
 	//check();
 	function check() {
 		$.ajax({
@@ -197,18 +197,21 @@ $(function() {
 			},
 			dataType: "json",
 			success: function(res) {
-//				console.log(res.code);
-				localStorage.removeItem('SendaddData');
-
+				console.log("666")
 				if(res.code == '300') {
-
-					var r = confirm("请先进行寄件信息录入")
-					if(r == true) {
-						location.href = 'InfoInput.html'
-					} else {
-						console.log(res)
+					if(localStorage.getItem('SendaddData')!=null) {
+						console.log('存在寄件人下单信息')
+					}else{
+						var r = confirm("请先进行寄件信息录入")
+						if(r == true) {
+							location.href = 'InfoInput.html'
+						} else {
+							console.log(res)
+						}
 					}
+					
 				} else if(res.code == "200") {
+					localStorage.removeItem('SendaddData');
 					$('#send_username').text(res.data.Name);
 					$('#send_tel').text(res.data.Telephone);
 					$('#send_address').text(res.data.Depart + " " + res.data.City + " " + res.data.Area + " " + res.data.Address);
@@ -221,12 +224,6 @@ $(function() {
 					};
 
 					localStorage.setItem('SendaddData', JSON.stringify(addData));
-					//location.reload();
-
-					//					setTimeout(function() {
-					//                    window.location.href="order.html?r="+Math.ceil(Math.random()*10); 
-					//					}, "1000");
-
 				} else {
 					console.log("123")
 				}
@@ -365,13 +362,16 @@ $(function() {
 				localStorage.removeItem('SendaddData');
 
 				if(res.code == '300') {
-
-					//					var r = confirm("请先进行寄件信息录入")
-					//					if(r == true) {
-					//						location.href = 'InfoInput.html'
-					//					} else {
-					console.log(res)
-					//					}
+                    if(localStorage.getItem('SendaddData')!=null) {
+						console.log('存在寄件人下单信息')
+					}else{
+						var r = confirm("请先进行寄件信息录入")
+						if(r == true) {
+							location.href = 'InfoInput.html'
+						} else {
+							console.log(res)
+						}
+					}
 				} else if(res.code == "200") {
 					console.log("12");
 					$(".Noexistsend").hide();

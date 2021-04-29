@@ -16,6 +16,7 @@
 		<link rel="stylesheet " href="../css/toastr.min.css">
 		<link rel="stylesheet " href="../css/index.css">
 		<link rel="stylesheet " href="../css/shijian.css">
+		<link rel="stylesheet " href="../css/loading.css">
 		<script src="../js/iostime.js" type="text/javascript" charset="utf-8"></script>
 	</head>
 	<style>
@@ -605,8 +606,25 @@
 				</a>
 			</div>
 		</div>
-		</div>
 
+		</div>
+		<div class="loader-wrapper hidden">
+			<div class="truck-wrapper">
+				<div class="truck">
+					<div class="truck-container"></div>
+					<div class="glases"></div>
+					<div class="bonet"></div>
+					
+					<div class="base"></div>
+					
+					<div class="base-aux"></div>
+					<div class="wheel-back"></div>
+					<div class="wheel-front"></div>
+					
+					<div class="smoke"></div>
+				</div>
+			</div>
+		</div>
 		<script src="../js/flexible.js "></script>
 		<script src="../js/jquery-1.11.0.js"></script>
 		<script src="../js/toastr.min.js"></script>
@@ -888,6 +906,9 @@
 					iframe.parentNode.removeChild(iframe);
 				}
 				var _account = localStorage.getItem('Acount');
+				let accoutobj= JSON.parse(localStorage.getItem('myNumobj'))
+				var _remark =accoutobj.remark==''?'test':accoutobj.remark;
+				console.log(_remark,66)
 				var _tel = localStorage.getItem('Telphone');
 				var _openid = localStorage.getItem('zdtqopenid');
 				var Acountlists = '';
@@ -998,6 +1019,7 @@
 					$(this).children().addClass("hover");
 					$(this).siblings().children().removeClass("hover");
 					var wenzi = $(this).children('span').text();
+					$('.loader-wrapper').removeClass('hidden')
 					if(wenzi == '未转单') {
 						$(".div1").show();
 						$(".div2").hide();
@@ -1013,6 +1035,7 @@
 						dataType: "json",
 						success: function(res) {
 							$('.content ul').html('')
+							$('.loader-wrapper').addClass('hidden')
 							console.log(res);
 							if(res.code == 400) {
 								$('.content ul').html("");
@@ -1092,17 +1115,19 @@
 						$(".div2").show();
 						$(".div1").hide();
 						$.ajax({
-							type: "post",
-							url: "http://out.ccsc58.cc/DATA_PORT_WECHAT_1.03/Clinical_WayBill.php",
+							type: "POST",
+							url: "http://out.ccsc58.cc/DATA_PORT_Clinical_1.01/Clinical_WayBill_New.php",
 							async: true,
 							data: {
 								Telephone: _tel,
 								AccountNumber: _account,
+								Remark:_remark,
 								State: "all"
 							},
 							dataType: "json",
 							success: function(res) {
 								$('.content ul').html('')
+								$('.loader-wrapper').addClass('hidden')
 								console.log(res);
 								if(res.code == 400) {
 									$('.content ul').html("");
@@ -1111,11 +1136,11 @@
 									return false;
 								}
 								$('.navcontent').show()
-								$('.state ul li .all').text(res.data.AllCount)
-								$('.state ul li .yxdnum').text(res.data.OrderCount)
-								$('.state ul li .czznum').text(res.data.CZCount)
-								$('.state ul li .ywcnum').text(res.data.QSCount)
-								$.each(res.data.ResultAllCount, function(index, item) {
+								$('.state ul li .all').text(res.AllCount)
+								$('.state ul li .yxdnum').text(res.ZLXDCount)
+								$('.state ul li .czznum').text(res.YSZCount)
+								$('.state ul li .ywcnum').text(res.YQSCount)
+								$.each(res.data, function(index, item) {
 									var yundanhao = item.TakeNote == null ? "" : item.TakeNote;
 									var dingdanstate = '';
 
@@ -1150,7 +1175,7 @@
 										ostate = '指令下达'
 									}
 
-									var str = `<li idi=${item.id}>
+									var str = `<li idi=${item.ID}>
 										<div class="order-top">
 											<span>运单号:<label>${yundanhao}</label></span>
 										     <span>${orderstate}:<label>${item.Indate}</label></span>
@@ -1421,7 +1446,7 @@
 					if(iszhuan == 0) {
 						_urlcancel = 'http://out.ccsc58.cc/DATA_PORT_Clinical_1.01/Clinical_notorder_WayBill.php'
 					} else {
-						_urlcancel = 'http://out.ccsc58.cc/DATA_PORT_WECHAT_1.03/Clinical_WayBill.php'
+						_urlcancel = 'http://out.ccsc58.cc/DATA_PORT_Clinical_1.01/Clinical_WayBill_New.php'
 					}
 					$(this).addClass('active').siblings().removeClass('active');
 					var Currstate = $(this).text().replace(/\s+/g, "");
@@ -1566,6 +1591,9 @@
 							}
 						});
                         }else{
+                        	
+                        	$('.loader-wrapper').removeClass('hidden')
+                        	console.log('666')
                         	let curtabindex=''
                 			if(Currstate.indexOf("指令下达") != -1) {
 								curtabindex='1'
@@ -1584,10 +1612,12 @@
 							data: {
 								Telephone: _tel,
 								AccountNumber: _account,
+								Remark:_remark,
 								State: curtabindex
 							},
 							dataType: "json",
 							success: function(res) {
+								$('.loader-wrapper').addClass('hidden')
 								console.log(res);
 								$('.content ul').html("");
 								if(res.code == 400) {
@@ -1602,20 +1632,24 @@
 									var arr = [];
 									var cstate = '';
 									var cz = ''
+									$('.state ul li .all').text(res.AllCount)
+									$('.state ul li .yxdnum').text(res.ZLXDCount)
+									$('.state ul li .czznum').text(res.YSZCount)
+									$('.state ul li .ywcnum').text(res.YQSCount)
 									if(Currstate.indexOf("指令下达") != -1) {
-										arr = res.data.ResultAllOrder;
+										arr = res.data;
 										cstate = '指令下达'
 										cz = '取消订单'
 									} else if(Currstate.indexOf("运输中") != -1) {
-										arr = res.data.ResultAllCZ;
+										arr = res.data;
 										cstate = '运输中'
 										cz = '联系客服'
 									} else if(Currstate.indexOf("已签收") != -1) {
-										arr = res.data.ResultAllQS;
+										arr = res.data;
 										cstate = '已签收'
 										cz = ''
 									} else {
-										arr = res.data.ResultAllCount;
+										arr = res.data;
 
 									}
 									$.each(arr, function(index, item) {
@@ -1653,7 +1687,7 @@
 											return false;
 										}
 										var yundanhao = item.TakeNote == null ? "" : item.TakeNote;
-										var str = `<li idi=${item.id}>
+										var str = `<li idi=${item.ID}>
 										<div class="order-top">
 											<span>运单号:<label>${yundanhao}</label></span>
 										     <span>${isxiadan}:<label>${item.Indate}</label></span>
@@ -1717,121 +1751,6 @@
 
 				})
 
-				//点击选中的账号
-				$(".fbtn button").on("click", function() {
-					var chk_value = []; //定义一个数组    
-					$('.state ul li').removeClass('active');
-					$('.state ul li:first-child').addClass('active');
-					$('input[name="Acountchoose"]:checked').each(function() { //遍历每一个名字为interest的复选框，其中选中的执行函数    
-						var s = $(this).val();
-						chk_value.push(s); //将选中的值添加到数组chk_value中
-					});
-				
-						$('.acountlist').toggle();
-						var stracont = '';
-						chk_value.forEach((item, index, chk_value) => {
-							stracont = stracont + item + ','
-						})
-						var iszhuan = $('.bar .hover').text() == '未转单' ? 0 : 1;
-						if(iszhuan == 0) {
-                               init();
-						} else {
-							$('.content ul').html("");
-							$('.state ul li .all').text("0")
-							$('.state ul li .yxdnum').text("0")
-							$('.state ul li .czznum').text("0")
-							$('.state ul li .ywcnum').text("0")
-							$.ajax({
-								type: "post",
-								url: "http://out.ccsc58.cc/DATA_PORT_WECHAT_1.03/Clinical_WayBill.php",
-								async: true,
-								data: {
-									Telephone: _tel,
-									AccountNumber: _account,
-									State: "all"
-								},
-								dataType: "json",
-								success: function(res) {
-									console.log(res);
-									if(res.code == 400) {
-										$('.content ul').append('<li class="nomore1">没有更多信息啦~</li>');
-										$('.navcontent').hide()
-										return false;
-									}
-									$('.navcontent').show()
-									$('.state ul li .all').text(res.data.AllCount)
-									$('.state ul li .yxdnum').text(res.data.OrderCount)
-									$('.state ul li .czznum').text(res.data.CZCount)
-									$('.state ul li .ywcnum').text(res.data.QSCount)
-									$('.content ul').html('');
-									if(res.code == '200') {
-										$('.state ul li .all').text(res.data.length)
-										$.each(res.data.ResultAllCount, function(index, item) {
-											var ostate = '';
-											if(item.State == 2) {
-												ostate = '运输中'
-											} else if(item.State == 3) {
-												ostate = '已签收'
-											} else if(item.State == 1) {
-												ostate = '指令下达'
-											} else {
-												ostate = '指令下达'
-											}
-											var yundanhao = item.TakeNote == null ? "" : item.TakeNote;
-											var str = `<li idi=${item.id}>
-										<div class="order-top">
-											<span>运单号:<label>${yundanhao}</label></span>
-										     <span>下单时间:<label>${item.Indate}</label></span>
-										</div>
-										<div class="order-center">
-											<div class="order-center-left">
-												<span class="startcity city">${item.City}</span>
-												<span class="sendname">${item.Manager}</span>
-											</div>
-											<div class="order-center-center">
-												<img src="../img/Progressbar.png" />
-												<span>${ostate}</span>
-											</div>
-											<div class="order-center-right">
-												<span class="getcity city">${item.GetCity}</span>
-												<span class="getname">${item.GetName}</span>
-											</div>
-										</div>
-										<div class="info">
-										    <div>
-										        <span>温度区间:</span>
-										        <span>${item.WDQJ}</span>
-										    </div>
-										    <div>
-										        <span>项目编号:</span>
-										        <span>${item.XMNO}</span>
-										    </div>
-										    <div>
-										        <span>中心地址:</span>
-										        <span>${item.GetCompany}</span>
-										    </div>
-										    <div>
-										        <span class="remarktext">备注:</span>
-										        <span>${item.Note}</span>
-										    </div>
-										</div>
-										<div class="order-footer">
-											<span>客户账号:<label>${item.AccountNumber}</label></span>
-											<span class='quxiao'>取消订单</span>
-										</div>
-							        </li>`;
-											$('.content ul').append(str);
-
-										});
-									}
-								},
-								error: function(err) {
-									console.log(err)
-								}
-							});
-						}
-
-				}) //清除
 				$(".resert").click(function() {
 					$("#searchval").val('')
 				})
@@ -1952,23 +1871,27 @@
 						} else {
 							$('.bar').children('div:first-child').find('span').removeClass('hover')
 							$('.bar').children('div:last-child').find('span').addClass('hover')
-							console.log(2)
+							_data.Remark=_remark
+							_data.State='all'
+							console.log(_data)
+							$('.loader-wrapper').removeClass('hidden')
 							$.ajax({
 								type: "post",
-								url: "http://out.ccsc58.cc/DATA_PORT_WECHAT_1.03/Clinical_WayBill.php",
+								url: "http://out.ccsc58.cc/DATA_PORT_Clinical_1.01/Clinical_WayBill_New.php",
 								data: _data,
 								dataType: "JSON",
 								success: function(res) {
+									$('.loader-wrapper').addClass('hidden')
 									$('.content ul').html("");
 									if(res.code == 200) {
 					             $('.navcontent').show()
 					             let newarr=[]
 					             if(res.data.ResultAllCount==undefined||res.data.ResultAllCount==''){
 					             	newarr=res.data
-					             	$('.state ul li .all').text(res.data.length)
-									$('.state ul li .yxdnum').text(0)
-									$('.state ul li .czznum').text(0)
-									$('.state ul li .ywcnum').text(res.data.length)
+					             	$('.state ul li .all').text(res.AllCount)
+									$('.state ul li .yxdnum').text(res.ZLXDCount)
+									$('.state ul li .czznum').text(res.YSZCount)
+									$('.state ul li .ywcnum').text(res.YQSCount)
 					             }else{
 					             	newarr=res.data.ResultAllCount
 					             	$('.state ul li .all').text(res.data.AllCount)
@@ -2012,7 +1935,7 @@
 										ostate = '指令下达'
 									}
 
-									var str = `<li idi=${item.id}>
+									var str = `<li idi=${item.ID}>
 										<div class="order-top">
 											<span>运单号:<label>${yundanhao}</label></span>
 										     <span>${orderstate}:<label>${item.Indate}</label></span>

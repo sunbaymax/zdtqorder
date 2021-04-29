@@ -42,7 +42,16 @@
 						let Acount=localStorage.getItem('Acount')
 						 var r=confirm("当前登录账号"+Acount+"是否一键登录？")
 					    if (r==true){
-					      window.location.replace('html/orderpc.html');
+					    	var dataObjData = get('myNumobj', 1000*60*60*24*7); //过期时间为1周
+							console.log(dataObjData || null);
+							if(dataObjData != "" && dataObjData != null) {
+							   window.location.replace('html/orderpc.html');
+							} else {
+								alert("账号已过期，重新登录");
+								localStorage.removeItem('information')
+							    window.location.reload()
+							}
+					      
 					    }
 						else{
 							localStorage.removeItem('Acount')
@@ -125,17 +134,19 @@
 								if(res.code == "400") {
 									toastr.error(res.message);
 								} else {
-									
 									let obj=res.data
+									
 									console.log(obj)
 									obj.myNum= $(".accept").val();
-									 var checkedIdStr = JSON.stringify(obj);
-                                    localStorage.setItem("myNumobj", checkedIdStr);
+									
+									var checkedIdStr = JSON.stringify(obj);
+									set('myNumobj', checkedIdStr);
+//                                  localStorage.setItem("myNumobj", checkedIdStr);
                                     localStorage.setItem('openid','20200148'+$(".accept").val());
 									localStorage.setItem('Acount',obj.AccountNumber);
 									localStorage.setItem('Telphone',obj.user_name)
 									toastr.success(res.message);
-//									return false;
+									return false;
 									setTimeout(function() {
 										window.location.replace('html/order.html'); 
 									}, 1000);
@@ -152,6 +163,33 @@
 							scrollTop: 0
 						}, 500);
 					})
+					//判断登录否过期
+					function set(key, value) {
+						var curTime = new Date().getTime();
+						let obj=JSON.parse(value)
+						console.log(value)
+						console.log(obj)
+						obj.time=curTime
+						
+						localStorage.setItem(key, JSON.stringify(obj));
+					}
+	
+					function get(key, exp) {
+						var data = localStorage.getItem(key);
+						console.log(data)
+						var dataObj = JSON.parse(data);
+						console.log(dataObj.time)
+						if(new Date().getTime() - dataObj.time > exp) {
+							console.log('信息已过期');
+							
+							//alert("信息已过期")
+						} else {
+							//console.log("data="+dataObj.data);
+							//console.log(JSON.parse(dataObj.data));
+							var dataObjDatatoJson = dataObj
+							return dataObjDatatoJson;
+						}
+					}
 
 				})
 			</script>
